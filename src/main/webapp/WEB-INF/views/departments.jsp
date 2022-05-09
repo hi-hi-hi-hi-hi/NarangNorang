@@ -15,11 +15,11 @@
 			<th>부서명</th>
 			<th>부서이름</th>
 		</tr>
-		<c:forEach var="dto" items="${list}" varStatus="status">
+		<c:forEach var="deptDTO" items="${deptList}" varStatus="status">
 			<tr>
-				<td>${dto.deptno}</td>
-				<td><a href="departments/${dto.deptno}">${dto.dname}</a></td>
-				<td>${dto.loc}</td>
+				<td>${deptDTO.deptno}</td>
+				<td><a href="departments/${deptDTO.deptno}">${deptDTO.dname}</a></td>
+				<td>${deptDTO.loc}</td>
 			</tr>
 		</c:forEach>
 	</table>
