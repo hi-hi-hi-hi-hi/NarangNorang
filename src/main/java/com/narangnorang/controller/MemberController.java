@@ -52,6 +52,13 @@ public class MemberController {
 		return nextPage;
 	}
 
+	// 로그아웃
+	@GetMapping("/logout")
+	public String logout(HttpSession session) throws Exception {
+		session.invalidate();
+		return "redirect:/main";
+	}
+
 	// 세션 만료
 	@GetMapping("/sessionInvalidate")
 	public String sessionInvalidate() throws Exception {

@@ -5,3 +5,4 @@
 <a href="/narangnorang/home">알림</a>
 <a href="/narangnorang/home">내 정보</a>
 <a href="/narangnorang/home">고객문의</a>
+<a href="/narangnorang/logout">로그아웃</a>
