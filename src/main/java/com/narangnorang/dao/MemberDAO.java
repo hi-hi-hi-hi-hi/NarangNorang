@@ -15,7 +15,7 @@ public class MemberDAO {
 	SqlSession sqlSession;
 
 	// 로그인
-	public MemberDTO selectMember(Map<String, String> map) {
+	public MemberDTO selectMember(Map<String, String> map) throws Exception {
 		return sqlSession.selectOne("com.config.MemberMapper.selectMember", map);
 	}
 
