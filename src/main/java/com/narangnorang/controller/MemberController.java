@@ -76,6 +76,12 @@ public class MemberController {
 	public String findPw() throws Exception {
 		return "member/findPwForm";
 	}
+	
+	// mypage 폼
+	@GetMapping("/mypage")
+	public String mypage() throws Exception {
+		return "mypage";
+	}
 
 	// 에러 처리
 	@ExceptionHandler({ Exception.class })
