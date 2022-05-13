@@ -4,23 +4,26 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="js/daumMap.js"></script>
 <script src="js/signUp.js"></script>
+<link rel="stylesheet" href="css/signUp.css">
 
 <form action="/narangnorang/signUp" method="post">
 	아이디(이메일)<br>
-	<input type="text" name="id" id="id">
-	<input type="button" onclick="" value="아이디 중복 체크"><br>
+	<input type="text" name="id" id="id" placeholder="Email" oninput="checkId()">
+	<input type="button" onclick="checkId()" value="중복 체크"><br>
+	<span class="id_ok">사용 가능한 아이디입니다.</span>
+	<span class="id_already">이미 등록된 아이디입니다.</span><br>
 	비밀번호<br>
-	<input type="text" name="password" id="password"><br>
+	<input type="text" name="password" id="password" placeholder="PASSWORD"><br>
 	비밀번호 재확인<br>
-	<input type="text" name="password2" id="password2"><br>
+	<input type="text" name="password2" id="password2" placeholder="CONFIRM PASSWORD"><br>
 	<span id="pwCheckResult" style="color:red"></span><br>
 	<br>
 	이름<br>
-	<input type="text" name="name" id="name"><br>
+	<input type="text" name="name" id="name" placeholder="NAME"><br>
 	닉네임<br>
-	<input type="text" name="nickname" id="nickname"><br>
+	<input type="text" name="nickname" id="nickname" placeholder="NICKNAME"><br>
 	휴대전화<br>
-	<input type="text" name="phone" id="phone"><br>
+	<input type="text" name="phone" id="phone" placeholder="-제외 번호"><br>
 	<br>
 	주소<br>
 	<input type="text" name="zipcode" id="postcode" placeholder="우편번호">

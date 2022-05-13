@@ -20,4 +20,10 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.selectMember(map);
 	}
 
+	// 아이디 중복 체크
+	@Override
+	public int checkId(String id) throws Exception {
+		return memberDAO.checkId(id);
+	}
+
 }

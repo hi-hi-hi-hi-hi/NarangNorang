@@ -18,5 +18,10 @@ public class MemberDAO {
 	public MemberDTO selectMember(Map<String, String> map) {
 		return sqlSession.selectOne("com.config.MemberMapper.selectMember", map);
 	}
+	
+	// 아이디 중복 체크
+	public int checkId(String id) {
+		return sqlSession.selectOne("com.config.MemberMapper.checkId", id);
+	}
 
 }

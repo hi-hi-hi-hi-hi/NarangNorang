@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.narangnorang.dto.MemberDTO;
 import com.narangnorang.service.MemberService;
@@ -81,6 +82,13 @@ public class MemberController {
 	@GetMapping("/mypage")
 	public String mypage() throws Exception {
 		return "mypage";
+	}
+	
+	// 아이디 중복 체크
+	@PostMapping("/signUp/checkId")
+	@ResponseBody
+	public int checkId(@RequestParam("id") String id) throws Exception {
+		return memberService.checkId(id);
 	}
 
 	// 에러 처리

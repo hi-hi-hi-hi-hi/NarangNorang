@@ -8,5 +8,8 @@ public interface MemberService {
 
 	// 로그인
 	public MemberDTO selectMember(Map<String, String> map) throws Exception;
-
+	
+	// 아이디 중복 체크
+	public int checkId(String id) throws Exception;
+	
 }
