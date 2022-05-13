@@ -64,6 +64,18 @@ public class MemberController {
 	public String sessionInvalidate() throws Exception {
 		return "common/sessionInvalidate";
 	}
+	
+	// 회원가입 폼
+	@GetMapping("/signUp")
+	public String memberForm() throws Exception {
+		return "member/signUpForm";
+	}
+	
+	// 계정찾기 폼
+	@GetMapping("/findPw")
+	public String findPw() throws Exception {
+		return "member/findPwForm";
+	}
 
 	// 에러 처리
 	@ExceptionHandler({ Exception.class })
