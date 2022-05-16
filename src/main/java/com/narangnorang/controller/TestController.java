@@ -34,7 +34,7 @@ public class TestController {
 			@PathVariable("result") int result) throws Exception {
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
 		String memberId = memberDTO.getId();
-		TestResultDTO testResultDTO = new TestResultDTO(0, memberId, null, result);
+		TestResultDTO testResultDTO = new TestResultDTO(0, memberId, null, type, result);
 		testResultService.insert(testResultDTO);
 		return "redirect:/test/" + type + "/" + result;
 	}

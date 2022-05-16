@@ -13,15 +13,15 @@
 	<jsp:include page="common/navBar.jsp" flush="true" /><br>
 	<c:choose>
 		<c:when test="${not empty result}">
-			<h2>결과${result}</h2>
-			<jsp:include page="test/result${result}.jsp" flush="true" /><br>
+			${result}점<br>
+			<jsp:include page="test/result${type}.jsp" flush="true" /><br>
 		</c:when>
 		<c:when test="${not empty type}">
-			<h2>유형${type}</h2>
-			<jsp:include page="test/type${type}.jsp" flush="true" /><br>
+			<script type="text/javascript" src="/narangnorang/js/test/qnaList${type}.js"></script>
+			<script type="text/javascript" src="/narangnorang/js/test/test.js"></script>
+			<jsp:include page="test/test.jsp" flush="true" /><br>
 		</c:when>
 		<c:otherwise>
-			<h2>목록</h2>
 			<jsp:include page="test/list.jsp" flush="true" /><br>
 		</c:otherwise>
 	</c:choose>
