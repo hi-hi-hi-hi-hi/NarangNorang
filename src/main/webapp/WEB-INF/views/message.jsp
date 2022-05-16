@@ -7,7 +7,7 @@
 <title>나랑노랑</title>
 </head>
 <body>
-	<h1>쪽지</h1>
+	<h1>쪽지함</h1>
 	<jsp:include page="common/top.jsp" flush="true" /><br>
 	<jsp:include page="common/navBar.jsp" flush="true" /><br>
 	<hr>

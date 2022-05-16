@@ -12,12 +12,9 @@ var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니
 var geocoder = new kakao.maps.services.Geocoder();*/
 
 //주소-좌표 변환 객체를 생성합니다
-var centerList = document.getElementById("centerList");
+var centerList = document.getElementsByClassName("centerList");
+console.log(centerList);
 
-for (var item in centerList){
-	console.log(item);
-}
-console.log(positions);
 
 
 // 마커를 표시할 위치와 title 객체 배열입니다 
