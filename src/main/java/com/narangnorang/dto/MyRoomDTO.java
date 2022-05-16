@@ -14,12 +14,7 @@ public class MyRoomDTO {
 
 	private int id;
 	private String memberId;
-	private int floor;
-	private int wallpaper;
-	private int bed;
-	private int closet;
-	private int desk;
-	private int walldeco;
+	private int furniture1;
 	// Member
 	private String memberNickname;
 
