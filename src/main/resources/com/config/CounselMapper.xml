@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.config.CounselMapper">
+
+	<!-- 상담사 List -->
+	<select id="selectCounselorList" resultType="MemberDTO">
+	<![CDATA[
+		SELECT *
+		FROM member
+		WHERE privileage=1
+	]]>
+	</select>
+
+</mapper>
