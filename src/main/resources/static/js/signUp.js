@@ -1,7 +1,7 @@
 ////////////////////////////////////////
 $(document).ready(function(){
-		
-	// form 입력 유효성 체크
+	
+	//form 입력 유효성 체크
 	$("form").on("submit", function(){
 		var id = $("#id").val();
 		var password = $("#password").val();
@@ -54,9 +54,8 @@ $(document).ready(function(){
 				}
 			}
 		}
-		
 	});
-	
+
 	//이메일 정규식 체크
 	function email_check(email) {
 
@@ -65,7 +64,7 @@ $(document).ready(function(){
 		return reg.test(email);
 
 	}
-	
+		
 	// 비번 재확인 체크
 	$("#password2").on("keyup", function(){
 		var pw = $("#password").val();
@@ -76,11 +75,12 @@ $(document).ready(function(){
 		}
 		$("#pwCheckResult").text(mesg);
 	});
-		
 	
 	
 });
 
+
+		
 //아이디 중복체크
 function checkId(){
 	$.ajax({
@@ -103,3 +103,36 @@ function checkId(){
 		}
 	});
 }
+
+// 메일 전송
+function sendMail(){
+	$.ajax({
+		type : 'post',
+		url : '/narangnorang/signUp/checkMail',
+		data : {
+			id: $(".id").val()
+			},
+		dataType :'json',
+	});
+	alert("인증번호가 전송되었습니다.") 
+	isCertification=true;
+}
+
+//$(".sendMail").click(function() {
+//	if (id == "") {
+//		alert("메일 주소가 입력되지 않았습니다.");
+//	} else {
+//		$.ajax({
+//			type : 'post',
+//			url : '/narangnorang/signUp/checkMail',
+//			data : {
+//				id: $(".id").val()
+//				},
+//			dataType :'json',
+//		});
+//		alert("인증번호가 전송되었습니다.") 
+//		isCertification=true;
+//	}
+//});
+
+

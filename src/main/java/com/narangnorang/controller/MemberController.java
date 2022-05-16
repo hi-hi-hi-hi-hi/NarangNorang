@@ -1,16 +1,21 @@
 package com.narangnorang.controller;
 
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.narangnorang.dto.MemberDTO;
 import com.narangnorang.service.MemberService;
@@ -20,6 +25,7 @@ public class MemberController {
 
 	@Autowired
 	MemberService memberService;
+	JavaMailSender javaMailSender;
 
 	// 메인 (로그인 X)
 	@GetMapping("/main")
@@ -80,8 +86,16 @@ public class MemberController {
 	
 	// mypage 폼
 	@GetMapping("/mypage")
-	public String mypage() throws Exception {
+	public String mypage(HttpSession session) throws Exception {
+		String password = 
 		return "mypage";
+	}
+	
+	// mypage 개인정보 수정 화면
+	@PostMapping("/mypage/edit")
+	public String edit(@RequestParam("password") String password) throws Exception {
+		session.getAttribute("login");
+		return "mypageEdit";
 	}
 	
 	// 아이디 중복 체크
@@ -89,6 +103,28 @@ public class MemberController {
 	@ResponseBody
 	public int checkId(@RequestParam("id") String id) throws Exception {
 		return memberService.checkId(id);
+	}
+	
+	// 인증 이메일
+	@PostMapping("signUp/checkMail")
+	@ResponseBody
+	public String sendMail(String id) throws Exception{
+		Random random = new Random();  //난수 생성을 위한 랜덤 클래스
+		String key="";  //인증번호 
+
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo(id); //스크립트에서 보낸 메일을 받을 사용자 이메일 주소 
+		//입력 키를 위한 코드
+		for(int i =0; i<3;i++) {
+			int index=random.nextInt(25)+65; //A~Z까지 랜덤 알파벳 생성
+			key+=(char)index;
+		}
+		int numIndex=random.nextInt(9999)+1000; //4자리 랜덤 정수를 생성
+		key+=numIndex;
+		message.setSubject("인증번호 입력을 위한 메일 전송");
+		message.setText("인증 번호 : "+key);
+		javaMailSender.send(message);
+        return key;
 	}
 
 	// 에러 처리

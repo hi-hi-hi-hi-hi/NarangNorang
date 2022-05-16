@@ -12,9 +12,10 @@
 	<input type="button" onclick="checkId()" value="중복 체크"><br>
 	<span class="id_ok">사용 가능한 아이디입니다.</span>
 	<span class="id_already">이미 등록된 아이디입니다.</span><br>
+	<input type="button" onclick="sendMail()" value="인증하기"><br>
 	비밀번호<br>
 	<input type="text" name="password" id="password" placeholder="PASSWORD"><br>
-	비밀번호 재확인<br>
+	비밀번호 확인<br>
 	<input type="text" name="password2" id="password2" placeholder="CONFIRM PASSWORD"><br>
 	<span id="pwCheckResult" style="color:red"></span><br>
 	<br>
