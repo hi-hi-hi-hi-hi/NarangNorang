@@ -13,4 +13,15 @@
 	]]>
 	</select>
 
+	<!-- 센터 List -->
+	<select id="selectCenterList" resultType="HashMap">
+	<![CDATA[
+		SELECT job, address2
+		FROM member
+		WHERE privileage=1
+	]]>
+	</select>
+
+
+
 </mapper>

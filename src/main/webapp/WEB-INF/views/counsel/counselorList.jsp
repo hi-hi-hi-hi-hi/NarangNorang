@@ -6,7 +6,7 @@
 	<table style="width: 600px; border: 1px solid gray; margin: 20px">
 		<tr align="center">
 			<td rowspan="6"><img
-				src="static/images/counselor/${counselor.id}.jpg" width="150"
+				src="./images/counsel/${counselor.id}.jpg" width="150"
 				height="200"></td>
 			<td><b style="font-size: 20px">${counselor.name}</b></td>
 		</tr>
