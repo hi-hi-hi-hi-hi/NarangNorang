@@ -34,21 +34,41 @@ public class MemberController {
 		return "main";
 	}
 
-	// 미니룸 구매 게시판
-//	@GetMapping("/homew2s")
-//	public ModelAndView buy(@RequestParam(value="category",required=false,defaultValue="bed") String category) throws Exception {
-//		List<PostDTO> list =  postService.selectAll(category);
+//	// 홈 (로그인 O)
+//	@GetMapping("/home")
+//	public ModelAndView home(HttpSession session,
+//							 @RequestParam(value="category",required=false,defaultValue="bed") String category,
+//							 @PathVariable int itemId
+//	) throws Exception {
+//		List<ItemDTO> list =  miniroomService.selectAllItems(category);
+//		MyItemDTO myItemDTO = miniroomService.selectByMyItemId(itemId);
+//		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
 //		ModelAndView mav = new ModelAndView("home");
-//		mav.addObject("postList",list);
+//		mav.addObject("itemList",list);
+//
+//		String userId = mDto.getId();
+//		mav.addObject("memberId",userId);
+//		mav.addObject("myItem",myItemDTO);
 //		return mav;
 //	}
-	
+
+
 	// 홈 (로그인 O)
 	@GetMapping("/home")
-	public ModelAndView home(HttpSession session,@ModelAttribute("itemDTO") ItemDTO itemDTO, @RequestParam(value="category",required=false,defaultValue="bed") String category) throws Exception {
+	public ModelAndView home(HttpSession session,
+							 @RequestParam(value="category",required=false,defaultValue="bed") String category
+
+	) throws Exception {
 		List<ItemDTO> list =  miniroomService.selectAllItems(category);
+		List<MyItemDTO> myItemList =  miniroomService.selectAllMyItems(category);
+		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
 		ModelAndView mav = new ModelAndView("home");
+
+
+		String userId = mDto.getId();
 		mav.addObject("itemList",list);
+		mav.addObject("myItemList",myItemList);
+		mav.addObject("memberId",userId);
 		return mav;
 	}
 

@@ -1,22 +1,15 @@
 
-document.addEventListener("DOMContentLoaded", function(buy1) {
-    const input = document.getElementById("buy");
-
-    input.style.display = "";});
-
-
-
 //꾸미기 목록 보이기
 function style()  {
 
-  const styleDiv = document.getElementById('style');
-  const buyDiv = document.getElementById('buy');
-      buyDiv.style.display = 'none';
+  const style = document.getElementById('style');
+  const buy = document.getElementById('buy');
 
-  if (styleDiv.style.display === ''){
-      styleDiv.style.display = 'none';
+
+  if (style.style.display === ''){
+      style.style.display = 'none';
   }else{
-      styleDiv.style.display = '';
+      style.style.display = '';
   }
 
 }
@@ -24,20 +17,24 @@ function style()  {
 // 구매 목록 보이기.
 function buy() {
 
-    const styleDiv = document.getElementById('style');
-	const buyDiv = document.getElementById('buy');
-    styleDiv.style.display = 'none';
+    const style = document.getElementById('style');
+	const buy = document.getElementById('buy');
 
-    if (buyDiv.style.display === ''){
-        buyDiv.style.display = 'none';;
+
+    if (buy.style.display === ''){
+        buy.style.display = 'none';;
     }else{
-        buyDiv.style.display = '';
+        buy.style.display = '';
     }
 
 }
 
 
-    $(document).ready(function(){
+$(document).ready(function(){
+
+    const input = document.getElementById("buy");
+
+    input.style.display = "none";
 
     	/*
     	    <button class="req" data-xxx="order">구매</button>
@@ -48,8 +45,8 @@ $(".req").on("click", function(){
     var target = $(this).attr("data-xxx");
     if(target == 'wish'){
         $("form").attr({
-            "action": "wishAdd",
-            "method":"get"
+            "action": "home/{itemId}",
+            "method":"put"
         });
         $("form").submit();
     }else{

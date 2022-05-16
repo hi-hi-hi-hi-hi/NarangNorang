@@ -31,5 +31,23 @@ public class MiniroomServiceImpl implements MiniroomService {
 		return miniroomDAO.insert(myItemDTO);
 	}
 
+	@Override
+	public int update(MyItemDTO myItemDTO) {
+		return miniroomDAO.update(myItemDTO);
+	}
+
+	@Override
+	public MyItemDTO selectByMyItemId(int itemId) {
+		MyItemDTO myItemDTO = miniroomDAO.selectByMyItemId(itemId);
+		return myItemDTO;
+	}
+
+	@Override
+	public List<MyItemDTO> selectAllMyItems(String category) {
+		List<MyItemDTO> list = miniroomDAO.selectAllMyItems(category);
+
+		return list;
+	}
+
 
 }
