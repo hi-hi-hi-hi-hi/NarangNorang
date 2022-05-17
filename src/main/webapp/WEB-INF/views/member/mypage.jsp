@@ -3,9 +3,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
 	function pwCheck(){
-		var password = document.querySelector("#passwd").value;
-		if(password != "password2"){
+		var password = document.querySelector("#password").value;
+		var password2 = document.querySelector("#password2").value;
+		if(password != password2){
 			alert("비밀번호를 확인해주세요.");
+			location.href = "/narangnorang/mypage";
 		}else{
 			location.href = "/narangnorang/mypage/edit";
 		}

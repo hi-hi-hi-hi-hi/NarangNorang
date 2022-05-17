@@ -23,5 +23,15 @@ public class MemberDAO {
 	public int checkId(String id) {
 		return sqlSession.selectOne("com.config.MemberMapper.checkId", id);
 	}
+	
+	// 닉네임 중복 체크
+	public int checkNickname(String nickname) {
+		return sqlSession.selectOne("com.config.MemberMapper.checkNickname", nickname);
+	}
+	
+	// 일반회원가입
+	public int generalSignUp(MemberDTO dto) {
+		return sqlSession.insert("com.config.MemberMapper.generalSignUp", dto);
+	}
 
 }

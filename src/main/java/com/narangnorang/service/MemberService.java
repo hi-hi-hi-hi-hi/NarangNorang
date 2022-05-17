@@ -12,4 +12,10 @@ public interface MemberService {
 	// 아이디 중복 체크
 	public int checkId(String id) throws Exception;
 	
+	// 닉네임 중복 체크
+	public int checkNickname(String nickname) throws Exception;
+	
+	// 일반회원가입
+	public int generalSignUp(MemberDTO dto) throws Exception;
+	
 }

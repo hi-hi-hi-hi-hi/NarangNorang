@@ -12,10 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.narangnorang.dto.MemberDTO;
 import com.narangnorang.service.MemberService;
@@ -25,6 +24,7 @@ public class MemberController {
 
 	@Autowired
 	MemberService memberService;
+	@Autowired
 	JavaMailSender javaMailSender;
 
 	// 메인 (로그인 X)
@@ -78,6 +78,13 @@ public class MemberController {
 		return "member/signUpForm";
 	}
 	
+	// 일반회원가입 처리
+	@PostMapping("/generalSignUp")
+	public String insert(MemberDTO memberDTO) throws Exception {
+		memberService.generalSignUp(memberDTO);
+		return "loginForm";
+	}
+	
 	// 계정찾기 폼
 	@GetMapping("/findPw")
 	public String findPw() throws Exception {
@@ -87,13 +94,13 @@ public class MemberController {
 	// mypage 폼
 	@GetMapping("/mypage")
 	public String mypage(HttpSession session) throws Exception {
-		String password = 
+		session.getAttribute("login");
 		return "mypage";
 	}
 	
 	// mypage 개인정보 수정 화면
 	@PostMapping("/mypage/edit")
-	public String edit(@RequestParam("password") String password) throws Exception {
+	public String edit(HttpSession session) throws Exception {
 		session.getAttribute("login");
 		return "mypageEdit";
 	}
@@ -103,6 +110,13 @@ public class MemberController {
 	@ResponseBody
 	public int checkId(@RequestParam("id") String id) throws Exception {
 		return memberService.checkId(id);
+	}
+	
+	// 닉네임 중복 체크
+	@PostMapping("/signUp/checkNickname")
+	@ResponseBody
+	public int checkNickname(@RequestParam("nickname") String nickname) throws Exception {
+		return memberService.checkNickname(nickname);
 	}
 	
 	// 인증 이메일
