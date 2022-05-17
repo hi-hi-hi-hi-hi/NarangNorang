@@ -17,7 +17,7 @@
 			</div>
 			</div>
 	<div style="position: absolute;">
-		<div style="position: relative; top: -50px; left: 150px; z-index: 0"><img src="/narangnorang/images/items/closet01.png" width="130" height="340"></img>
+		<div style="position: relative; top: 0px; left: 150px; z-index: 1"><img src="/narangnorang/images/items/closet01.png" width="130" height="290"></img>
 		</div>
 	</div>
 		<div style="position: absolute;">
