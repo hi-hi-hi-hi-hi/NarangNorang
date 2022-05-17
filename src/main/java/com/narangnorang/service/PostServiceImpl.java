@@ -44,7 +44,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<PostDTO> search(HashMap<String, String> map) throws Exception {
+	public List<PostDTO> search(HashMap<String, Object> map) throws Exception {
 		return dao.search(map);
 	}
 

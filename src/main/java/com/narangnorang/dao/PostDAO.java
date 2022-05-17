@@ -26,7 +26,7 @@ public class PostDAO {
 		return session.update("com.config.PostMapper.updateViews", id);
 	}
 	
-	public List<PostDTO> search(HashMap<String, String> map) {
+	public List<PostDTO> search(HashMap<String, Object> map) {
 		return session.selectList("com.config.PostMapper.search", map);
 	}
 	

@@ -27,22 +27,29 @@
 		]]>
 	</select>
 	
-	<!-- select id="search" resultType="PostDTO" parameterType="hashmap">
+	<select id="search" resultType="PostDTO" parameterType="hashmap">
 		<![CDATA[
-			select id, category, content, title, member_id as memberId, views, likes, datetime, replies
+			select id,
+					member_id as memberId,
+					title,
+					datetime,
+					replies,
+					likes,
+					views
 			from post
-			where #{searchCol} = #{keyword}
+			where (${searchCol} like '%'||#{keyword}||'%') AND (category = #{category})
+			order by id desc
 		]]>
 	</select>
-	-->
+
 	
-	<select id="updateViews" parameterType="int">
+	<update id="updateViews" parameterType="int">
 		<![CDATA[
 			update post
 			set views =  views + 1
 			where id = #{id}
 		]]>
-	</select>
+	</update>
 	
 	<insert id="insert" parameterType="PostDTO">
 		<![CDATA[

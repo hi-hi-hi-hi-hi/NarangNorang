@@ -38,6 +38,18 @@ public class PostController {
 		return mav;
 	}
 	
+	//글 검색
+	@ResponseBody
+	@GetMapping("/post/search")
+	public List<PostDTO> search(String searchCol, String keyword, String category) throws Exception{
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("searchCol", searchCol);
+		map.put("keyword", keyword);
+		map.put("category", category);
+		return postService.search(map);
+
+	}
+	
 	@GetMapping("/post/{id}")
 	public ModelAndView postRetrieve(@PathVariable int id) throws Exception{
 		PostDTO pDto = postService.selectById(id);
@@ -48,17 +60,7 @@ public class PostController {
 		return mav;
 	}
 	
-	// 글 검색
-//	@GetMapping("/post/search")
-//	public ModelAndView search(String searchCol, String keyword) throws Exception{
-//		ModelAndView mav = new ModelAndView("postList");
-//		HashMap<String, String> map = new HashMap<>();
-//		map.put("searchCol", searchCol);
-//		map.put("keyword", keyword);
-//		System.out.println(postService.search(map));
-//		return mav;
-//	}
-	
+
 	// 글쓰기 페이지
 	@GetMapping("/post/write")
 	public ModelAndView postWrite(String category) throws Exception{
