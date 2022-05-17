@@ -12,9 +12,11 @@
 <button>검색</button>
 <div id="map" style="width: 500px; height: 400px;"></div>
 
-<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7c812e8a4271a0b1aa964940c3e5e02c"></script>
 
+<!-- services 라이브러리 불러오기 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7c812e8a4271a0b1aa964940c3e5e02c&libraries=services"></script>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7c812e8a4271a0b1aa964940c3e5e02c"></script>
 <script type="text/javascript" src="../js/counsel/centerMap.js"></script>
 
 

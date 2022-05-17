@@ -12,7 +12,6 @@
 			WHERE (sender = #{id} OR reciever = #{id}) AND send.id=sender AND recieve.id=reciever
 			ORDER BY datetime desc
 		]]>
-		
 	</select>
 	
 
