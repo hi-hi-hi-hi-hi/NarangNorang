@@ -15,6 +15,7 @@ public class TestResultDTO {
 	private int id;
 	private String memberId;
 	private String datetime;
+	private int type;
 	private int result;
 
 }
