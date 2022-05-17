@@ -7,7 +7,7 @@
 	<!-- 테스트결과 저장 -->
 	<insert id="insert" parameterType="TestResultDTO">
 		INSERT INTO test_result (id, member_id, datetime, type, result)
-		VALUES (seq_test_result.NEXTVAL, #{memberId}, SYSDATE, #{type}, #{result})
+		VALUES (seq_test_result.NEXTVAL, #{memberId}, CURRENT_DATE, #{type}, #{result})
 	</insert>
 
 </mapper>
