@@ -102,6 +102,13 @@
 			<artifactId>osdt_core</artifactId>
 		</dependency>
 		<!-- oracle cloud wallet -->
+		
+		<!-- Email -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+		<!-- Email -->
 	</dependencies>
 
 	<build>
