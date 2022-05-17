@@ -93,7 +93,7 @@ public class PostController {
 	@GetMapping("/post/edit/{id}")
 	public ModelAndView postEdit(@PathVariable int id) throws Exception{
 		PostDTO pDto = postService.selectById(id);
-		ModelAndView mav = new ModelAndView("post/postEdit");
+		ModelAndView mav = new ModelAndView("postEdit");
 		mav.addObject("pDto", pDto);
 		return mav;
 	}
