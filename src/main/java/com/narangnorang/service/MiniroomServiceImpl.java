@@ -3,12 +3,11 @@ package com.narangnorang.service;
 import java.util.List;
 
 import com.narangnorang.dto.MyItemDTO;
+import com.narangnorang.dto.MyRoomDTO;
 import org.springframework.stereotype.Service;
 
 import com.narangnorang.dao.MiniroomDAO;
-import com.narangnorang.dao.PostDAO;
 import com.narangnorang.dto.ItemDTO;
-import com.narangnorang.dto.PostDTO;
 
 
 @Service("miniroomService")
@@ -26,9 +25,14 @@ public class MiniroomServiceImpl implements MiniroomService {
 	}
 
 	@Override
-	public int insert(MyItemDTO myItemDTO) {
+	public int insertBuy(MyItemDTO myItemDTO) {
 
-		return miniroomDAO.insert(myItemDTO);
+		return miniroomDAO.insertBuy(myItemDTO);
+	}
+
+	@Override
+	public int insertStyle(MyRoomDTO myRoomDTO) {
+		return miniroomDAO.insertStyle(myRoomDTO);
 	}
 
 	@Override

@@ -1,32 +1,24 @@
 package com.narangnorang.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import com.narangnorang.dto.MyItemDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.narangnorang.dto.ItemDTO;
 import com.narangnorang.dto.MemberDTO;
-import com.narangnorang.dto.PostDTO;
 import com.narangnorang.service.MemberService;
-import com.narangnorang.service.MiniroomService;
-import com.narangnorang.service.PostService;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MemberController {
 
 	@Autowired
 	MemberService memberService;
-	
-	@Autowired
-	MiniroomService miniroomService;
 
 	// 메인 (로그인 X)
 	@GetMapping("/main")
@@ -34,42 +26,10 @@ public class MemberController {
 		return "main";
 	}
 
-//	// 홈 (로그인 O)
-//	@GetMapping("/home")
-//	public ModelAndView home(HttpSession session,
-//							 @RequestParam(value="category",required=false,defaultValue="bed") String category,
-//							 @PathVariable int itemId
-//	) throws Exception {
-//		List<ItemDTO> list =  miniroomService.selectAllItems(category);
-//		MyItemDTO myItemDTO = miniroomService.selectByMyItemId(itemId);
-//		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
-//		ModelAndView mav = new ModelAndView("home");
-//		mav.addObject("itemList",list);
-//
-//		String userId = mDto.getId();
-//		mav.addObject("memberId",userId);
-//		mav.addObject("myItem",myItemDTO);
-//		return mav;
-//	}
-
-
 	// 홈 (로그인 O)
 	@GetMapping("/home")
-	public ModelAndView home(HttpSession session,
-							 @RequestParam(value="category",required=false,defaultValue="bed") String category
-
-	) throws Exception {
-		List<ItemDTO> list =  miniroomService.selectAllItems(category);
-		List<MyItemDTO> myItemList =  miniroomService.selectAllMyItems(category);
-		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
-		ModelAndView mav = new ModelAndView("home");
-
-
-		String userId = mDto.getId();
-		mav.addObject("itemList",list);
-		mav.addObject("myItemList",myItemList);
-		mav.addObject("memberId",userId);
-		return mav;
+	public String home() throws Exception {
+		return "home";
 	}
 
 	// 로그인 폼

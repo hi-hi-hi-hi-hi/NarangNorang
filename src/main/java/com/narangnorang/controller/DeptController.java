@@ -46,7 +46,6 @@ public class DeptController {
 	}
 
 	// 수정 ==> update ==> PUT 처리
-
 	@PutMapping("/departments/{deptno}")
 	public String update(@PathVariable("deptno") int deptno, DeptDTO deptDTO) {
 		deptService.update(deptDTO);

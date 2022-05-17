@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<a href="/narangnorang/post">자유게시판</a>
+<a href="/narangnorang/home">자유게시판</a>
 <a href="/narangnorang/home">정보게시판</a>
 <a href="/narangnorang/home">에쁜말게시판</a>
 <a href="/narangnorang/home">대나무숲</a>

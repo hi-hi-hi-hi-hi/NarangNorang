@@ -3,7 +3,6 @@ package com.narangnorang.controller;
 import com.narangnorang.dto.*;
 import com.narangnorang.service.MemberService;
 import com.narangnorang.service.MiniroomService;
-import com.narangnorang.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,47 +19,32 @@ public class MiniroomController {
 	MiniroomService miniroomService;
 
 
-	// 미니룸 구매 게시판
-//	@GetMapping("/homew2s")
-//	public ModelAndView buy(@RequestParam(value="category",required=false,defaultValue="bed") String category) throws Exception {
-//		List<PostDTO> list =  postService.selectAll(category);
-//		ModelAndView mav = new ModelAndView("home");
-//		mav.addObject("postList",list);
-//		return mav;
-//	}
-	@PostMapping("/home")
+	@PostMapping("/home/buy")
 	public String buy(HttpSession session,MyItemDTO myItemDTO) throws Exception{
 		System.out.println(myItemDTO);
-		int num = miniroomService.insert(myItemDTO);
+		int num = miniroomService.insertBuy(myItemDTO);
 
-		return "redirect:/home";
+
+		return "redirect:/home/buy";
+	}
+	@PostMapping("/home/style")
+	public String style(HttpSession session,MyRoomDTO myRoomDTO) throws Exception{
+
+		int num = miniroomService.insertStyle(myRoomDTO);
+
+		return "redirect:/home/style";
 	}
 
-	@PutMapping("/home/{itemId}")
+	@PutMapping("/home/buy/{itemId}")
 	public String wishAdd(@PathVariable("itemId") int itemId, MyItemDTO myItemDTO) throws Exception{
 //		System.out.println(myItemDTO);
 //		myItemDTO = miniroomService.selectByMyItemId(itemId);
 //		model.addAttribute("myItem", myItemDTO);
 		miniroomService.update(myItemDTO);
 
-		return "redirect:/home";
+		return "redirect:/home/buy";
 	}
 
-	@GetMapping("/home/style")
-	public ModelAndView style(HttpSession session,
-							  @RequestParam(value="category",required=false,defaultValue="bed") String category
-
-	) throws Exception {
-		List<MyItemDTO> list =  miniroomService.selectAllMyItems(category);
-		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
-		ModelAndView mav = new ModelAndView("home");
-
-
-		String userId = mDto.getId();
-		mav.addObject("myItemList",list);
-		mav.addObject("memberId",userId);
-		return mav;
-	}
 	@GetMapping("/home/buy")
 	public ModelAndView buy(HttpSession session,
 							  @RequestParam(value="category",required=false,defaultValue="bed") String category
@@ -69,11 +53,30 @@ public class MiniroomController {
 
 		List<ItemDTO> list =  miniroomService.selectAllItems(category);
 		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
-		ModelAndView mav = new ModelAndView("home");
+		ModelAndView mav = new ModelAndView("home_buy");
 
 
 		String userId = mDto.getId();
 		mav.addObject("itemList",list);
+		mav.addObject("memberId",userId);
+		return mav;
+	}
+
+	@GetMapping("/home/style")
+	public ModelAndView style(HttpSession session,
+							  @RequestParam(value="category",required=false,defaultValue="bed") String category
+
+	) throws Exception {
+		List<MyItemDTO> myItemList =  miniroomService.selectAllMyItems(category);
+		List<ItemDTO> itemList =  miniroomService.selectAllItems(category);
+		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
+		ModelAndView mav = new ModelAndView("home_style");
+
+
+		String userId = mDto.getId();
+		mav.addObject("myItemList",myItemList);
+		mav.addObject("itemList",itemList);
+
 		mav.addObject("memberId",userId);
 		return mav;
 	}
