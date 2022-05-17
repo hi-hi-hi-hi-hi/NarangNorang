@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.config.PostMapper">
+
+	<select id="selectAllByCategory" resultType="PostDTO">
+		<![CDATA[
+			select id,
+					member_id as memberId,
+					title,
+					datetime,
+					replies,
+					likes,
+					views
+			from post
+			where category = #{category}
+			order by id desc
+		]]>
+	</select>
+	
+	<select id="selectById" resultType="PostDTO" parameterType="int">
+		<![CDATA[
+			select id, category, content, title, member_id as memberId, views, likes, datetime, replies
+			from post
+			where id = #{id}
+		]]>
+	</select>
+	
+	<select id="search" resultType="PostDTO" parameterType="hashmap">
+		<![CDATA[
+			select id,
+					member_id as memberId,
+					title,
+					datetime,
+					replies,
+					likes,
+					views
+			from post
+			where (${searchCol} like '%'||#{keyword}||'%') AND (category = #{category})
+			order by id desc
+		]]>
+	</select>
+
+	
+	<update id="updateViews" parameterType="int">
+		<![CDATA[
+			update post
+			set views =  views + 1
+			where id = #{id}
+		]]>
+	</update>
+	
+	<insert id="insert" parameterType="PostDTO">
+		<![CDATA[
+			insert into post ( id, member_id, category, title, content )
+			values ( seq_post.nextval, #{memberId}, #{category}, #{title}, #{content} )
+		]]>
+	</insert>
+	
+	<update id="update" parameterType="PostDTO">
+		<![CDATA[
+			update post 
+			set title=#{title}, content=#{content}
+			where id = #{id}
+		]]>
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		<![CDATA[
+			delete from post
+			where id = #{id}
+		]]>
+	</delete>
+	
+
+</mapper>

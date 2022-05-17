@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.config.TestResultMapper">
+
+	<!-- 테스트결과 저장 -->
+	<insert id="insert" parameterType="TestResultDTO">
+		INSERT INTO test_result (id, member_id, datetime, type, result)
+		VALUES (seq_test_result.NEXTVAL, #{memberId}, CURRENT_DATE, #{type}, #{result})
+	</insert>
+
+</mapper>

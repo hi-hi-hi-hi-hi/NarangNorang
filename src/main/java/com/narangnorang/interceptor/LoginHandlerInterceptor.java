@@ -22,7 +22,7 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
 		if (memberDTO != null) {
 			return true;
 		}
-		response.sendRedirect("sessionInvalidate");
+		response.sendRedirect("/narangnorang/sessionInvalidate");
 		return false;
 	}
 
