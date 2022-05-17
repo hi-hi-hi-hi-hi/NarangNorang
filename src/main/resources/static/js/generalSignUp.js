@@ -6,17 +6,6 @@ $(document).ready(function(){
 	var nicknameDuplication = false;
 	var key = "";
 	
-	// tab
-	$('ul.tabs li').click(function(){
-        var tab_id = $(this).attr('data-tab');
-
-        $('ul.tabs li').removeClass('current');
-        $('.tab-content').removeClass('current');
-
-        $(this).addClass('current');
-        $("#"+tab_id).addClass('current');
-    });
-	
 	// 일반회원 form 입력 유효성 체크
 	$("#general").on("submit", function(){
 		var id = $("#id").val();
@@ -84,80 +73,6 @@ $(document).ready(function(){
 		}
 	});
 
-	// 상담사 form 입력 유효성 체크
-	$("#counselor").on("submit", function(){
-		var id = $("#id").val();
-		var password = $("#password").val();
-		var password2 = $("#password2").val();
-		var name = $("#name").val();
-		var phone = $("#phone").val();
-		var zipcode = $("#postcode").val();
-		var address1 = $("#roadAddress").val();
-		var address2 = $("#jibunAddress").val();
-		var address3 = $("#detailAddress").val();
-		var job = $("#job").val();
-		var introduction = $("#introduction").text();
-		
-		if(id.length == 0){
-			alert("아이디를 입력해주세요");
-			event.preventDefault();
-		}else{
-			if(!email_check(id)){
-				alert("이메일 형식에 맞게 입력해주세요");
-				event.preventDefault();
-			}else{
-				if(idDuplication == false){
-					alert("아이디 중복검사를 해주세요");
-					event.preventDefault();
-				}else{
-					if(isCertification == false){
-						alert("이메일 인증을 완료해 주세요");
-						event.preventDefault();
-					}else{
-						if(password.length == 0){
-							alert("비밀번호를 입력해주세요");
-							event.preventDefault();
-						}else{
-							if(password2.length == 0){
-								alert("비밀번호 재확인을 입력해주세요");
-								event.preventDefault();
-							}else{
-								if(pwCompare == false){
-									alert("비밀번호가 일치하지 않습니다");
-									event.preventDefault();
-								}else{
-									if(name.length == 0){
-										alert("닉네임을 입력해주세요");
-										event.preventDefault();
-									}else{
-										if(zipcode.length == 0 || address1.length == 0 ||
-										   address2.length == 0 || address3.length == 0){
-											alert("주소를 입력해주세요");
-											event.preventDefault();
-										}else{
-											if(job.length == 0){
-												alert("직업 입력해주세요");
-												event.preventDefault();
-											}else{
-												if(introduction.length == 0){
-													alert("소개글을 입력해주세요");
-													event.preventDefault();
-												}else{
-													alert("회원가입 완료");
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		
-	});	
-	
 	//이메일 정규식 체크
 	function email_check(email) {
 
@@ -184,7 +99,7 @@ $(document).ready(function(){
 	});
 	
 	// 인증메일 전송
-	$(".sendMail").click(function() {
+	$("#sendMail").click(function() {
 		var id = $("#id").val();
 		if(!email_check(id)){
 			alert("이메일 형식에 맞게 입력해주세요");
@@ -210,12 +125,12 @@ $(document).ready(function(){
 	});
 	
 	// 인증번호 확인
-	$(".compare").click(function() {
+	$("#compare").click(function() {
 		if ($("#com").val() == key) {
-			$(".compare-text").text("인증 성공!").css("color", "blue");
+			$("#compare-text").text("인증 성공!").css("color", "blue");
 			isCertification = true;
 		} else {
-			$(".compare-text").text("불일치!").css("color", "red");
+			$("#compare-text").text("불일치!").css("color", "red");
 			isCertification = false;
 		}
 	});
@@ -230,12 +145,12 @@ $(document).ready(function(){
 			},
 			success: function(cnt){
 				if(cnt != 1){
-	                $('.id_ok').css("display","inline-block"); 
-	                $('.id_already').css("display", "none");
+	                $('#id_ok').css("display","inline-block"); 
+	                $('#id_already').css("display", "none");
 	                idDuplication = true;
 	            } else {
-	                $('.id_already').css("display","inline-block");
-	                $('.id_ok').css("display", "none");
+	                $('#id_already').css("display","inline-block");
+	                $('#id_ok').css("display", "none");
 	                idDuplication = false;
 	            }
 			},

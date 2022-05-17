@@ -78,6 +78,18 @@ public class MemberController {
 		return "member/signUpForm";
 	}
 	
+	// 일반회원가입 폼
+	@GetMapping("/generalSignUp")
+	public String generalSignUpForm() throws Exception {
+		return "member/generalSignUpForm";
+	}
+	
+	// 상담사 회원가입 폼
+	@GetMapping("/counselorSignUp")
+	public String counselorSignUpForm() throws Exception {
+		return "member/counselorSignUpForm";
+	}
+	
 	// 일반회원가입 처리
 	@PostMapping("/generalSignUp")
 	public String insertGeneral(MemberDTO memberDTO) throws Exception {

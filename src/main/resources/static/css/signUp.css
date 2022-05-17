@@ -1,9 +1,9 @@
-.id_ok{
+#id_ok{
 	color: blue; 
 	display: none;
 }
 
-.id_already{
+#id_already{
 	color: red; 
 	display: none;
 }
@@ -24,7 +24,7 @@
 }
 
 ul.tabs{
-	margin: 0px;
+	margin: 50px;
 	padding: 0px;
 	list-style: none;
 }
@@ -36,17 +36,9 @@ ul.tabs li{
 	cursor: pointer;
 }
 
-ul.tabs li.current{
-	background: #ededed;
-	color: #222;
+.container a{ 
+	display:inline-block; 
+	text-decoration:none; 
 }
 
-.tab-content{
-	display: none;
-	background: #ededed;
-	padding: 15px;
-}
 
-.tab-content.current{
-	display: inherit;
-}
