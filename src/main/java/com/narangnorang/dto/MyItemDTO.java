@@ -14,7 +14,7 @@ public class MyItemDTO {
 
 	private int id;
 	private String memberId;
-	private String itemId;
+	private int itemId;
 	private int wish;
 
 }
