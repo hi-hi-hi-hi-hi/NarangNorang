@@ -22,7 +22,6 @@ $(document).ready(function(){
 		var id = $("#id").val();
 		var password = $("#password").val();
 		var password2 = $("#password2").val();
-		var pwCheckResult = $("#pwCheckResult").text();
 		var nickname = $("#nickname").val();
 		var phone = $("#phone").val();
 		var region = $("#region").val();
@@ -90,10 +89,14 @@ $(document).ready(function(){
 		var id = $("#id").val();
 		var password = $("#password").val();
 		var password2 = $("#password2").val();
-		var pwCheckResult = $("#pwCheckResult").text();
-		var nickname = $("#nickname").val();
+		var name = $("#name").val();
 		var phone = $("#phone").val();
-		var region = $("#region").val();
+		var zipcode = $("#postcode").val();
+		var address1 = $("#roadAddress").val();
+		var address2 = $("#jibunAddress").val();
+		var address3 = $("#detailAddress").val();
+		var job = $("#job").val();
+		var introduction = $("#introduction").text();
 		
 		if(id.length == 0){
 			alert("아이디를 입력해주세요");
@@ -103,35 +106,46 @@ $(document).ready(function(){
 				alert("이메일 형식에 맞게 입력해주세요");
 				event.preventDefault();
 			}else{
-				if(isCertification == false){
-					alert("이메일 인증을 완료해 주세요");
+				if(idDuplication == false){
+					alert("아이디 중복검사를 해주세요");
 					event.preventDefault();
 				}else{
-					if(password.length == 0){
-						alert("비밀번호를 입력해주세요");
+					if(isCertification == false){
+						alert("이메일 인증을 완료해 주세요");
 						event.preventDefault();
 					}else{
-						if(password2.length == 0){
-							alert("비밀번호 재확인을 입력해주세요");
+						if(password.length == 0){
+							alert("비밀번호를 입력해주세요");
 							event.preventDefault();
 						}else{
-							if(pwCheckResult == '비번 불일치'){
-								alert("비밀번호가 일치하지 않습니다");
+							if(password2.length == 0){
+								alert("비밀번호 재확인을 입력해주세요");
 								event.preventDefault();
 							}else{
-								if(nickname.length == 0){
-									alert("닉네임을 입력해주세요");
+								if(pwCompare == false){
+									alert("비밀번호가 일치하지 않습니다");
 									event.preventDefault();
 								}else{
-									if(phone.length == 0){
-										alert("휴대전화 번호를 입력해주세요");
+									if(name.length == 0){
+										alert("닉네임을 입력해주세요");
 										event.preventDefault();
 									}else{
-										if(region.length == 0){
-											alert("지역을 입력해주세요");
+										if(zipcode.length == 0 || address1.length == 0 ||
+										   address2.length == 0 || address3.length == 0){
+											alert("주소를 입력해주세요");
 											event.preventDefault();
 										}else{
-											alert("회원가입 완료");
+											if(job.length == 0){
+												alert("직업 입력해주세요");
+												event.preventDefault();
+											}else{
+												if(introduction.length == 0){
+													alert("소개글을 입력해주세요");
+													event.preventDefault();
+												}else{
+													alert("회원가입 완료");
+												}
+											}
 										}
 									}
 								}
@@ -141,6 +155,7 @@ $(document).ready(function(){
 				}
 			}
 		}
+		
 	});	
 	
 	//이메일 정규식 체크

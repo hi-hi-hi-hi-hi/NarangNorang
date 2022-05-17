@@ -80,8 +80,15 @@ public class MemberController {
 	
 	// 일반회원가입 처리
 	@PostMapping("/generalSignUp")
-	public String insert(MemberDTO memberDTO) throws Exception {
+	public String insertGeneral(MemberDTO memberDTO) throws Exception {
 		memberService.generalSignUp(memberDTO);
+		return "loginForm";
+	}
+	
+	// 상담사 회원가입 처리
+	@PostMapping("/counselorSignUp")
+	public String insertCounselor(MemberDTO memberDTO) throws Exception {
+		memberService.counselorSignUp(memberDTO);
 		return "loginForm";
 	}
 	

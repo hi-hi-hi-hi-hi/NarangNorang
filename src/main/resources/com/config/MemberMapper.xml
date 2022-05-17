@@ -32,8 +32,18 @@
     
     <!-- 일반회원가입 -->
     <insert id="generalSignUp" parameterType="MemberDTO">
+   	<![CDATA[
 		INSERT	INTO member (id, password, phone, privileage, nickname, region)
 		VALUES (#{id},#{password},#{phone},3,#{nickname},#{region})
+	]]>
+	</insert>
+	
+	<!-- 상담사회원가입 -->
+    <insert id="counselorSignUp" parameterType="MemberDTO">
+   	<![CDATA[
+		INSERT	INTO member (id, password, phone, privileage, name, zipcode, address1, address2, address3, job, introduction)
+		VALUES (#{id},#{password},#{phone},2,#{name},#{zipcode},#{address1},#{address2},#{address3},#{job},#{introduction})
+	]]>
 	</insert>
 
 </mapper>

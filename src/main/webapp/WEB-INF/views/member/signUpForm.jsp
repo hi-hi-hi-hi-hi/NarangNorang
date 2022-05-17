@@ -76,7 +76,7 @@
 			직업<br>
 			<input type="text" name="job" id="job" placeholder="job"><br>
 			소개<br>
-			<textarea rows="30" cols="50" name="introduction"></textarea>
+			<textarea rows="30" cols="50" name="introduction" id="introduction"></textarea>
 			<br>
 			<input type="submit" value="회원가입">
 		</form>

@@ -18,4 +18,7 @@ public interface MemberService {
 	// 일반회원가입
 	public int generalSignUp(MemberDTO dto) throws Exception;
 	
+	// 일반회원가입
+	public int counselorSignUp(MemberDTO dto) throws Exception;
+	
 }

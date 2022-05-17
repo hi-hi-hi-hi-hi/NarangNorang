@@ -33,5 +33,10 @@ public class MemberDAO {
 	public int generalSignUp(MemberDTO dto) {
 		return sqlSession.insert("com.config.MemberMapper.generalSignUp", dto);
 	}
+	
+	// 상담사 회원가입
+	public int counselorSignUp(MemberDTO dto) {
+		return sqlSession.insert("com.config.MemberMapper.counselorSignUp", dto);
+	}
 
 }

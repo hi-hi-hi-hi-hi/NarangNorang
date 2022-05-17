@@ -37,5 +37,11 @@ public class MemberServiceImpl implements MemberService {
 	public int generalSignUp(MemberDTO dto) throws Exception {
 		return memberDAO.generalSignUp(dto);
 	}
+	
+	// 상담사 회원가입
+	@Override
+	public int counselorSignUp(MemberDTO dto) throws Exception {
+		return memberDAO.counselorSignUp(dto);
+	}
 
 }
