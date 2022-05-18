@@ -19,13 +19,18 @@
 
 	</insert>
 
-	<insert id="insertStyle" parameterType="MyItemDTO">
+	<insert id="updateStyle" parameterType="MyRoomDTO">
 		Insert into MY_ROOM (id, member_ID, item_ID, wish)
 		values (seq_My_Item.nextval, #{memberId}, #{itemId},#{wish} )
 
 	</insert>
 
-	<update id="wish" parameterType="int">
+	<insert id="insertDefaultItems" parameterType="String">
+		Insert into MY_ROOM (id, member_ID, floor, wallpaper,bed,closet,desk,walldeco)
+		values (seq_My_Room.nextval, #{id}, 1,11,21,31,41,51 )
+	</insert>
+
+	<update id="wishupdate" parameterType="int">
 	<![CDATA[
 		update MY_ITEM
 		set wish = 1
@@ -50,9 +55,9 @@
 		]]>
 	</select>
 
-	<select id="selectAllMyItems" resultType="MyItemDTO" parameterType="String">
+	<select id="selectAllMyItems" resultType="ItemDTO" parameterType="String">
 	<![CDATA[
-		select m.id, m.member_ID, m.item_ID, m.wish,i.category
+		select m.id, m.member_ID, m.item_ID, m.wish,i.category, i.name, i.price
 		from MY_ITEM m
 				 Inner Join ITEM i
 							ON m.item_id = i.id

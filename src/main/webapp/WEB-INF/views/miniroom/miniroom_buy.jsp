@@ -6,8 +6,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<form action=# name="buyForm" method="post">
-
+<form name="buyForm">
+<input type="hidden" name="_method" value="put" />
 <table id="buy" width="100%" cellspacing="0" cellpadding="0">
 	<tr>
 		<td>
@@ -35,7 +35,7 @@
 				<tr>
 					<td height="10"></td>
 					<!-- myItemDTO에 세션 스코프 로그인 아이디값 저장시켰음.-->
-					<input type="text" name="memberId" value="${memberId}">
+					<input type="text" id="memberId" name="memberId" value="${memberId}">
 				</tr>
 
 				<tr>
@@ -44,9 +44,6 @@
 					<td>
 						<table style='padding:15px'>
 							<tr>
-
-								<input type="hidden" name="itemId" value="${dto.id}">
-								<input type="hidden" name="wish" value="0">
 
 
 
@@ -76,7 +73,7 @@
 							<tr>
 								<td class= "inline-flex" align ="center">
 									<button class="req" data-xxx="order">구매</button>&nbsp;&nbsp;
-									<button class="req" data-xxx="wish">위시리스트</button>
+									<button class="req" data-xxx="wish" data-item="${dto.id}">위시리스트</button>
 								</td>
 							</tr>
 						</table>

@@ -2,17 +2,21 @@ package com.narangnorang.service;
 
 import java.util.Map;
 
+import com.narangnorang.dao.MiniroomDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.narangnorang.dao.MemberDAO;
 import com.narangnorang.dto.MemberDTO;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	MemberDAO memberDAO;
+	@Autowired
+	MiniroomDAO miniroomDAO;
 
 	// 로그인
 	@Override
@@ -33,9 +37,11 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	// 일반회원가입
+	@Transactional
 	@Override
 	public int generalSignUp(MemberDTO dto) throws Exception {
-		return memberDAO.generalSignUp(dto);
+		String id = dto.getId();
+		return memberDAO.generalSignUp(dto) & miniroomDAO.insertDefaultItems(id);
 	}
 	
 	// 상담사 회원가입

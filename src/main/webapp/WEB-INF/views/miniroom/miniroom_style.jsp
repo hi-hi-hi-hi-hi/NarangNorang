@@ -31,7 +31,7 @@
 
 
 						<tr>
-							<c:forEach var="dto" items="${itemList}" varStatus="status">
+							<c:forEach var="dto" items="${myItemList}" varStatus="status">
 
 							<td>
 								<table style='padding:15px'>

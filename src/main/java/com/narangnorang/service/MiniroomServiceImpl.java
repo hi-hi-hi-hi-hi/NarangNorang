@@ -36,8 +36,8 @@ public class MiniroomServiceImpl implements MiniroomService {
 	}
 
 	@Override
-	public int update(MyItemDTO myItemDTO) {
-		return miniroomDAO.update(myItemDTO);
+	public int wishupdate(int itemId) {
+		return miniroomDAO.wishupdate(itemId);
 	}
 
 	@Override

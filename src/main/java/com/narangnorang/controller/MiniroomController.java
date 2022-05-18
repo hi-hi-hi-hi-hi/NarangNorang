@@ -18,7 +18,7 @@ public class MiniroomController {
 	@Autowired
 	MiniroomService miniroomService;
 
-
+	//구매 버튼 클릭시 실행
 	@PostMapping("/home/buy")
 	public String buy(HttpSession session,MyItemDTO myItemDTO) throws Exception{
 		System.out.println(myItemDTO);
@@ -27,20 +27,21 @@ public class MiniroomController {
 
 		return "redirect:/home/buy";
 	}
+	//적용하기 버튼 클릭시 마이룸에 해당 아이템 번호
 	@PostMapping("/home/style")
 	public String style(HttpSession session,MyRoomDTO myRoomDTO) throws Exception{
 
-		int num = miniroomService.insertStyle(myRoomDTO);
+//		int num = miniroomService.updateStyle(myRoomDTO);
 
 		return "redirect:/home/style";
 	}
 
 	@PutMapping("/home/buy/{itemId}")
-	public String wishAdd(@PathVariable("itemId") int itemId, MyItemDTO myItemDTO) throws Exception{
+	public String wishupdate(@PathVariable("itemId") int itemId) throws Exception{
 //		System.out.println(myItemDTO);
 //		myItemDTO = miniroomService.selectByMyItemId(itemId);
 //		model.addAttribute("myItem", myItemDTO);
-		miniroomService.update(myItemDTO);
+		miniroomService.wishupdate(itemId);
 
 		return "redirect:/home/buy";
 	}
@@ -72,7 +73,7 @@ public class MiniroomController {
 		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
 		ModelAndView mav = new ModelAndView("home_style");
 
-
+		System.out.println(myItemList);
 		String userId = mDto.getId();
 		mav.addObject("myItemList",myItemList);
 		mav.addObject("itemList",itemList);

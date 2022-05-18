@@ -13,15 +13,15 @@
 			</div>
 
 			<div style="position: absolute;">
-			<div style="position: relative; top: 150px; left: 100px; z-index: 1;"><img src="/narangnorang/images/items/bed01.png" width="200"></img>
+			<div style="position: relative; top: 190px; left: 65px; z-index: 2;"><img src="/narangnorang/images/items/bed01.png" width="200"></img>
 			</div>
 			</div>
 	<div style="position: absolute;">
-		<div style="position: relative; top: 0px; left: 150px; z-index: 1"><img src="/narangnorang/images/items/closet01.png" width="130" height="290"></img>
+		<div style="position: relative; top: 20px; left: 150px; z-index: 1; "><img src="/narangnorang/images/items/closet01.png" width="120" height="230"></img>
 		</div>
 	</div>
 		<div style="position: absolute;">
-			<div style="position: relative; top: 150px; left: 300px; z-index: 1;"><img src="/narangnorang/images/items/desk01.png" width="130"></img>
+			<div style="position: relative; top: 220px; left: 320px; z-index: 1;"><img src="/narangnorang/images/items/desk01.png" width="130"></img>
 			</div>
 		</div>
 			<div style="position: absolute;">
@@ -32,7 +32,7 @@
 					<div style="position: relative; top: 0px; left: 0px; z-index: 0;"><img src="/narangnorang/images/items/wallpaper01.png" width="500"></img>
 					</div>
 				</div>
-			<img src="/narangnorang/images/defaultMiniroom.jpeg" width="500"></img>
+			<img src="/narangnorang/images/default.jpg" width="500"></img>
 		</div>
 </table>
 <ul>

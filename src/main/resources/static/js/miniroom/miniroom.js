@@ -8,11 +8,16 @@ $(".req").on("click", function(){
 
     var target = $(this).attr("data-xxx");
     if(target == 'wish'){
+        var memberId=$('#memberId').val();
+        var itemId=$(this).attr("data-item");
+        var wish = $('#wish').val();
+        console.log(itemId);
+
         $("form").attr({
-            "action": "home/buy/{itemId}",
-            "method":"put"
+            "action": "/narangnorang/home/buy/"+itemId,
+            "method":"post"
         });
-        $("form").submit();
+        // $("form").submit();
 
     }else if (target=='order'){
         //주문

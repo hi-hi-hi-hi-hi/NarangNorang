@@ -23,8 +23,11 @@ public class MiniroomDAO {
 	public int insertStyle(MyRoomDTO myRoomDTO) {
 		return sqlSession.insert("com.config.MiniroomMapper.insertStyle",myRoomDTO);
 	}
-	public int update(MyItemDTO myItemDTO) {
-		return sqlSession.update("com.config.MiniroomMapper.wish", myItemDTO);
+	public int insertDefaultItems(String id) {
+		return sqlSession.insert("com.config.MiniroomMapper.insertDefaultItems",id);
+	}
+	public int wishupdate(int itemId) {
+		return sqlSession.update("com.config.MiniroomMapper.wishupdate", itemId);
 	}
 	public MyItemDTO selectByMyItemId(int itemId){
 		return sqlSession.selectOne("com.config.MiniroomMapper.selectByMyItemId",itemId);
