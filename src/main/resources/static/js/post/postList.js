@@ -7,9 +7,10 @@ $(document).ready(function(){
 		});
 		
 		$("#btn_search").on("click", function(){
+			
 			var searchCol = $("#searchCol").val();
-            var keyword = $("#keyword").val();
-            var category = '${category}';
+			var keyword = $("#keyword").val();
+			
 			$.ajax({
                 type: 'GET',
                 url: '/narangnorang/post/search',
@@ -32,8 +33,7 @@ $(document).ready(function(){
         					str += "<td>"+item.likes+"</td>";
         					str += "</tr>";
         					$('#postTable').append(str);
-                	});
-                	
+                		});
                 	}
                 },
 				error: function(xhr, status, e){
