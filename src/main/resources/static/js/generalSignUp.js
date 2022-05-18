@@ -107,7 +107,7 @@ $(document).ready(function(){
 		}else{
 			$.ajax({
 				type : 'post',
-				url : '/narangnorang/signUp/checkMail',
+				url : '/narangnorang/checkMail',
 				dataType : 'text',
 				async : "false",
 				data : {
@@ -138,7 +138,7 @@ $(document).ready(function(){
 	//아이디 중복체크
 	$("#checkId").on("click", function(){
 		$.ajax({
-			url: '/narangnorang/signUp/checkId',
+			url: '/narangnorang/checkId',
 			type: 'post',
 			data: {
 				id: $('#id').val()
@@ -163,7 +163,7 @@ $(document).ready(function(){
 	// 닉네임 중복 체크
 	$("#checkNickname").on("click", function(){
 		$.ajax({
-			url: '/narangnorang/signUp/checkNickname',
+			url: '/narangnorang/checkNickname',
 			type: 'post',
 			data: {
 				nickname: $('#nickname').val()
