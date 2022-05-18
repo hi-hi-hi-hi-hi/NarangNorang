@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -110,9 +111,19 @@ public class MemberController {
 	}
 	
 	// 새 비번 폼
-	@PostMapping("findPw")
-	public String newPw() throws Exception {
+	@PostMapping("/findPw")
+	public String newPwForm(HttpSession session, @RequestParam("id") String id) throws Exception {
+		MemberDTO memberDTO = memberService.selectById(id);
+		session.setAttribute("findPw", memberDTO);
 		return "member/newPwForm";
+	}
+	
+	// 새 비번 변경
+	@PostMapping("/newPw")
+	@ResponseBody
+	public int newPw(MemberDTO memberDTO) throws Exception {
+		System.out.println(memberDTO);
+		return memberService.newPw(memberDTO);
 	}
 	
 	// mypage 폼
