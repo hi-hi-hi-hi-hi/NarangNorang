@@ -21,8 +21,8 @@ public class CounselDAO {
 	}
 	
 	// 센터 List
-	public List<HashMap<String, String>> selectCenterList() {
-		return sqlSession.selectList("com.config.CounselMapper.selectCenterList");
+	public String selectUserAddress(String id) {
+		return sqlSession.selectOne("com.config.CounselMapper.selectUserAddress", id);
 	}
 
 }

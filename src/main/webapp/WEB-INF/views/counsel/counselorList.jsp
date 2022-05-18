@@ -2,12 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <b>상담사 목록</b>
+
 <c:forEach var="counselor" items="${counselorList}" varStatus="status">
 	<table style="width: 600px; border: 1px solid gray; margin: 20px">
 		<tr align="center">
-			<td rowspan="6"><img
-				src="./images/counsel/${counselor.id}.jpg" width="150"
-				height="200"></td>
+			<td rowspan="6"><img src="./images/counsel/${counselor.id}.jpg"
+				width="150" height="200"></td>
 			<td><b style="font-size: 20px">${counselor.name}</b></td>
 		</tr>
 		<tr align="center">
@@ -24,9 +24,13 @@
 			<td>${counselor.introduction}</td>
 		</tr>
 		<tr align="right">
-			<td><a href="">쪽지보내기</a></td>
+			<td>
+				<button id="sendMessage" value="${counselor.name}"
+					onclick="popMessageForm();">쪽지 보내기</button>
+			</td>
 		</tr>
 
 	</table>
 </c:forEach>
+
 

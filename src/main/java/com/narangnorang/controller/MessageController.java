@@ -1,6 +1,7 @@
 package com.narangnorang.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -31,22 +32,33 @@ public class MessageController {
 			mav.setViewName("message");
 			
 			List<MessageDTO> messageList = messageService.selectMessageList(id);
+			Iterator<MessageDTO> iter = messageList.iterator();
 			List<String> otherUsers = new ArrayList<String>();
 			
-			for(MessageDTO messageDTO: messageList) {
+			while(iter.hasNext()) {
+				MessageDTO messageDTO = iter.next();
+				
 				if(otherUsers.contains(messageDTO.getSender()) || otherUsers.contains(messageDTO.getReciever())) {
-					messageList.remove(messageDTO);
+					iter.remove();
 				} else {
-				otherUsers.add(messageDTO.getSender());
-				otherUsers.add(messageDTO.getReciever());
+					if(!messageDTO.getSender().equals(id)) {
+						otherUsers.add(messageDTO.getSender());
+					}
+					if(!messageDTO.getReciever().equals(id)) {
+						otherUsers.add(messageDTO.getReciever());
+					}		
 				}
 			}
-			
 			mav.addObject("messageList", messageList);
 			mav.addObject("id", id);
 		} else {
 			mav.setViewName("common/sessionInvalidate");
 		}
 		return mav;
+	}
+	
+	@GetMapping("/message/popup")
+	public String popupMessageForm() throws Exception {
+		return "message/messagePopup";
 	}
 }

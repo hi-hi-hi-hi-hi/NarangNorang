@@ -20,10 +20,6 @@ public class CounselServiceImpl implements CounselService {
 		return counselDAO.selectCounselorList();
 	}
 
-	@Override
-	public List<HashMap<String, String>> selectCenterList() throws Exception {
-		return counselDAO.selectCenterList();
-	}
 
 
 }
