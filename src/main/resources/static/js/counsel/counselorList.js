@@ -14,3 +14,5 @@ function popMessageForm() {
 	childWin.document.getElementById("reciever").value = document.getElementById("sendMessage").value;
 
 }
+
+

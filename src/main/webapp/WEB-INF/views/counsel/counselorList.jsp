@@ -33,4 +33,4 @@
 	</table>
 </c:forEach>
 
-<script type="text/javascript" src="./js/counsel/counselorList.js"></script>
+
