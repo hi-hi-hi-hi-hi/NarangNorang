@@ -78,6 +78,18 @@ public class MemberController {
 		return "member/signUpForm";
 	}
 	
+	// 일반 회원가입 폼
+	@GetMapping("/generalSignUp")
+	public String generalSignUpForm() throws Exception {
+		return "member/generalSignUpForm";
+	}
+	
+	// 상담사 회원가입 폼
+	@GetMapping("/counselorSignUp")
+	public String counselorSignUpForm() throws Exception {
+		return "member/counselorSignUpForm";
+	}
+	
 	// 일반회원가입 처리
 	@PostMapping("/generalSignUp")
 	public String insertGeneral(MemberDTO memberDTO) throws Exception {
@@ -92,10 +104,16 @@ public class MemberController {
 		return "loginForm";
 	}
 	
-	// 계정찾기 폼
+	// 비번찾기 폼
 	@GetMapping("/findPw")
 	public String findPw() throws Exception {
 		return "member/findPwForm";
+	}
+	
+	// 새 비번 폼
+	@PostMapping("findPw")
+	public String newPw() throws Exception {
+		return "member/newPwForm";
 	}
 	
 	// mypage 폼
@@ -113,21 +131,21 @@ public class MemberController {
 	}
 	
 	// 아이디 중복 체크
-	@PostMapping("/signUp/checkId")
+	@PostMapping("/checkId")
 	@ResponseBody
 	public int checkId(@RequestParam("id") String id) throws Exception {
 		return memberService.checkId(id);
 	}
 	
 	// 닉네임 중복 체크
-	@PostMapping("/signUp/checkNickname")
+	@PostMapping("/checkNickname")
 	@ResponseBody
 	public int checkNickname(@RequestParam("nickname") String nickname) throws Exception {
 		return memberService.checkNickname(nickname);
 	}
 	
 	// 인증 이메일
-	@PostMapping("signUp/checkMail")
+	@PostMapping("/checkMail")
 	@ResponseBody
 	public String sendMail(String id) throws Exception{
 		Random random = new Random();  //난수 생성을 위한 랜덤 클래스

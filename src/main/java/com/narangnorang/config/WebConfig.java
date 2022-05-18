@@ -18,8 +18,8 @@ public class WebConfig implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(loginHandlerInterceptor).excludePathPatterns("/main", "/login", "/logout",
-				"/sessionInvalidate", "/signUp", "/findPw" , "/**/*.css", "/**/*.js", "/signUp/checkId",
-				"/signUp/checkMail", "/signUp/checkNickname", "/generalSignUp", "/CounselorsignUp");
+				"/sessionInvalidate", "/signUp", "/findPw" , "/**/*.css", "/**/*.js", "/checkId",
+				"/checkMail", "/checkNickname", "/generalSignUp", "/counselorSignUp");
 	}
 
 	// PUT, DELETE 처리
