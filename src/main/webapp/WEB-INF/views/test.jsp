@@ -12,8 +12,10 @@
 	<jsp:include page="common/top.jsp" flush="true" /><br>
 	<jsp:include page="common/navBar.jsp" flush="true" /><br>
 	<c:choose>
+		<c:when test="${not empty testResultList}">
+			<jsp:include page="test/results.jsp" flush="true" /><br>
+		</c:when>
 		<c:when test="${not empty result}">
-			${result}점<br>
 			<jsp:include page="test/result${type}.jsp" flush="true" /><br>
 		</c:when>
 		<c:when test="${not empty type}">
