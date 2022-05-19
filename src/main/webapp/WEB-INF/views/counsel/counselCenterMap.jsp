@@ -5,7 +5,7 @@
 
 <br>
 <input type="hidden" id="userRegion" value="${userRegion}">
-<input type="search" id="searchRegion" placeholder="지역 검색">
+<input type="search" id="searchRegion" placeholder="지역 검색(ex.제주)">
 <button onclick="searchCenter();">검색</button>
 <div id="map" style="width: 500px; height: 400px;"></div>
 
