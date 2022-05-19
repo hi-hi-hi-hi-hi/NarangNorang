@@ -13,14 +13,10 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 // 장소 검색 객체를 생성합니다
 var ps = new kakao.maps.services.Places(); 
 
-// 키워드로 장소를 검색합니다
+// 기본적으로 사용자 주소 기반
 var keyword = document.getElementById('userRegion').value + ' 정신';
 ps.keywordSearch(keyword, placesSearchCB);
 
-function searchCenter(){
-	var keyword = document.getElementById('searchRegion').value + ' 정신';
-	ps.keywordSearch(keyword, placesSearchCB);
-}
 
 // 키워드 검색 완료 시 호출되는 콜백함수 입니다
 function placesSearchCB (data, status, pagination) {
@@ -65,6 +61,18 @@ function displayMarker(place) {
     });
 }
 
+
+// 검색기능
+
+function searchCenter(){
+	var keyword = document.getElementById('searchRegion').value + ' 정신';
+	ps.keywordSearch(keyword, placesSearchCB);
+}
+
+function searchMyRegion(){
+	var keyword = document.getElementById('userRegion').value + ' 정신';
+	ps.keywordSearch(keyword, placesSearchCB);
+}
 $("#searchRegion").keydown(function(keyNum){
 	if(keyNum.keyCode == 13){
 		searchCenter();
