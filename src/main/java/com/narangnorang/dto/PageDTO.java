@@ -19,4 +19,5 @@ public class PageDTO<E> {
 	private int totalRows; // 전체 행 개수
 	private List<E> rowList; // 현재 페이지에 보여줄 행 리스트
 
+
 }

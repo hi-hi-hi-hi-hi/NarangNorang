@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.narangnorang.dao.PostDAO;
+import com.narangnorang.dto.PageDTO;
 import com.narangnorang.dto.PostDTO;
 
 @Service("postService")
@@ -17,10 +18,15 @@ public class PostServiceImpl implements PostService {
 	PostDAO dao;
 	
 	@Override
-	public List<PostDTO> selectAllByCategory(String category) {
-		return dao.selectAllByCategory(category);
+	public List<PostDTO> selectAllByCategory(HashMap<String, Object> map) {
+		return dao.selectAllByCategory(map);
 	}
-
+	
+//	@Override
+//	public PageDTO<PostDTO> totalRecord(String category) throws Exception {
+//		return dao.totalRecord(category);
+//	}
+	
 	@Transactional
 	@Override
 	public PostDTO selectById(int id)  throws Exception{
@@ -47,5 +53,7 @@ public class PostServiceImpl implements PostService {
 	public List<PostDTO> search(HashMap<String, Object> map) throws Exception {
 		return dao.search(map);
 	}
+
+	
 
 }
