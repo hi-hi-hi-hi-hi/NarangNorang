@@ -4,9 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.config.PostMapper">
 
-	<select id="selectAllByCategory" resultType="PostDTO">
+	<select id="selectAllByCategory" parameterType="hashmap" resultType="PostDTO">
 		<![CDATA[
-			select id,
+			select *
+			from (select rownum, id,
 					member_id as memberId,
 					title,
 					datetime,
@@ -15,9 +16,19 @@
 					views
 			from post
 			where category = #{category}
-			order by id desc
+			order by id desc)
+			OFFSET (#{pageDto.currentPage}-1)*#{pageDto.limit} + 1 ROWS FETCH FIRST 3 ROWS ONLY
 		]]>
 	</select>
+	
+	<!-- 	<select id="totalRecord" parameterType="String" resultType="PageDTO">
+		<![CDATA[
+			select count(*) as totalRows
+			from post
+			where category = #{category}
+		]]>
+	<</select>
+	-->
 	
 	<select id="selectById" resultType="PostDTO" parameterType="int">
 		<![CDATA[

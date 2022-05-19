@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.narangnorang.dto.PageDTO;
 import com.narangnorang.dto.PostDTO;
 
 @Repository("postDAO")
@@ -14,9 +15,13 @@ public class PostDAO {
 	@Autowired
 	SqlSession session;
 	
-	public List<PostDTO> selectAllByCategory(String category){
-		return session.selectList("com.config.PostMapper.selectAllByCategory", category);
+	public List<PostDTO> selectAllByCategory(HashMap<String, Object> map){
+		return session.selectList("com.config.PostMapper.selectAllByCategory", map);
 	}
+	
+//	public PageDTO<PostDTO> totalRecord(String category) {
+//		return session.selectOne("com.config.PostMapper.totalRecord", category);
+//	}
 	
 	public PostDTO selectById(int id) {
 		return session.selectOne("com.config.PostMapper.selectById", id);

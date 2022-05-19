@@ -1,5 +1,5 @@
 $(document).ready(function(){
-		
+		console.log(totalRecord);
 		$("#keyword").on("keydown", function(e){
 			if(e.keyCode == 13){
 				$("#btn_search").trigger('click');

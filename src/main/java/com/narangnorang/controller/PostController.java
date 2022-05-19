@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.narangnorang.dto.MemberDTO;
+import com.narangnorang.dto.PageDTO;
 import com.narangnorang.dto.PostDTO;
 import com.narangnorang.service.PostService;
 
@@ -29,10 +30,19 @@ public class PostController {
 	
 	// 게시판 목록 보기
 	@GetMapping("/post")
-	public ModelAndView postList(String category) throws Exception{
+	public ModelAndView postList(String category,
+								@RequestParam(defaultValue="1") int currentPage) throws Exception{
 		ModelAndView mav = new ModelAndView("postList");
-		List<PostDTO> list = postService.selectAllByCategory(category);
+		PageDTO<PostDTO> pageDto = new PageDTO<PostDTO>();
+		pageDto.setCurrentPage(currentPage);
+		pageDto.setLimit(3);
+//		pageDto.setTotalRows(postService.totalRecord(category).getTotalRows());
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("category", category);
+		map.put("pageDto", pageDto);
+		List<PostDTO> list = postService.selectAllByCategory(map);
 
+		mav.addObject("pageDto", pageDto);
 		mav.addObject("postList", list);
 		mav.addObject("category", category);
 		return mav;
