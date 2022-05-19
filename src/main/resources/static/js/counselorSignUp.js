@@ -7,11 +7,11 @@ $(document).ready(function(){
 	
 	// 상담사 form 입력 유효성 체크
 	$("#counselor").on("submit", function(){
-		var id = $("#id2").val();
-		var password = $("#password3").val();
-		var password2 = $("#password4").val();
+		var id = $("#id").val();
+		var password = $("#password").val();
+		var password2 = $("#password").val();
 		var name = $("#name").val();
-		var phone = $("#phone2").val();
+		var phone = $("#phone").val();
 		var zipcode = $("#postcode").val();
 		var address1 = $("#roadAddress").val();
 		var address2 = $("#jibunAddress").val();
@@ -112,7 +112,7 @@ $(document).ready(function(){
 		}else{
 			$.ajax({
 				type : 'post',
-				url : '/narangnorang/signUp/checkMail',
+				url : '/narangnorang/checkMail',
 				dataType : 'text',
 				async : "false",
 				data : {
@@ -143,7 +143,7 @@ $(document).ready(function(){
 	//아이디 중복체크
 	$("#checkId").on("click", function(){
 		$.ajax({
-			url: '/narangnorang/signUp/checkId',
+			url: '/narangnorang/checkId',
 			type: 'post',
 			data: {
 				id: $('#id').val()

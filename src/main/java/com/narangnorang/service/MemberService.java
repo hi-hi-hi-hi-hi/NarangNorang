@@ -21,4 +21,10 @@ public interface MemberService {
 	// 일반회원가입
 	public int counselorSignUp(MemberDTO dto) throws Exception;
 	
+	// id로 회원 찾기
+	public MemberDTO selectById(String id) throws Exception;
+	
+	// 새 비밀번호 설정
+	public int newPw(MemberDTO dto) throws Exception;
+	
 }

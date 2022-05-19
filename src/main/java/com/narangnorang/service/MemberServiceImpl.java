@@ -50,4 +50,16 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.counselorSignUp(dto);
 	}
 
+	// id로 회원 찾기
+	@Override
+	public MemberDTO selectById(String id) throws Exception {
+		return memberDAO.selectById(id);
+	}
+	
+	// 새 비밀번호 설정
+	@Override
+	public int newPw(MemberDTO dto) throws Exception {
+		return memberDAO.newPw(dto);
+	}
+	
 }
