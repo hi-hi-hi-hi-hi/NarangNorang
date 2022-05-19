@@ -1,6 +1,7 @@
 package com.narangnorang.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.narangnorang.dto.ItemDTO;
 import com.narangnorang.dto.MyItemDTO;
@@ -12,7 +13,8 @@ public interface MiniroomService {
 	public int wishupdate(int itemId);
 	public int applyMiniroom(MyItemDTO myItemDTO);
 	public MyItemDTO selectByMyItemId(int itemId);
-	public List<MyItemDTO> selectAllMyItems(String category);
+//	public List<MyItemDTO> selectAllMyItems(Map<String,String> map);
+public List<MyItemDTO> selectAllMyItems(String category);
 	public MyRoomDTO selectMyRoom(String memberId);
 
 }

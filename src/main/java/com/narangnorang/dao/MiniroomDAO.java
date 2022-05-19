@@ -1,6 +1,7 @@
 package com.narangnorang.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.narangnorang.dto.*;
 import org.apache.ibatis.session.SqlSession;
@@ -50,6 +51,9 @@ public class MiniroomDAO {
 	public MyItemDTO selectByMyItemId(int itemId){
 		return sqlSession.selectOne("com.config.MiniroomMapper.selectByMyItemId",itemId);
 	}
+//	public List<MyItemDTO> selectAllMyItems(Map<String,String> map) {
+//		return sqlSession.selectList("com.config.MiniroomMapper.selectAllMyItems",map);
+//	}
 	public List<MyItemDTO> selectAllMyItems(String category) {
 		return sqlSession.selectList("com.config.MiniroomMapper.selectAllMyItems",category);
 	}

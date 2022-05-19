@@ -117,7 +117,7 @@
 		from MY_ITEM m
 				 Inner Join ITEM i
 							ON m.item_id = i.id
-		where category=#{category}
+		where i.category=#{category}
 
 		]]>
 	</select>

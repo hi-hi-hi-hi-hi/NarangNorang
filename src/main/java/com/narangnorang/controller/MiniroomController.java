@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class MiniroomController {
@@ -74,28 +76,56 @@ public class MiniroomController {
 		return mav;
 	}
 
-	@GetMapping("/home/style")
-	public ModelAndView style(HttpSession session,
-							  @RequestParam(value="category",required=false,defaultValue="bed") String category
+//	@GetMapping("/home/style")
+//	public ModelAndView style(HttpSession session,
+//							  @RequestParam(value="category",required=false,defaultValue="bed") String category,
+//							  @RequestParam Map<String, String> map
+//	) throws Exception {
+//
+//
+//		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
+//		String memberId = mDto.getId();
+//		map.put(category,memberId);
+//
+//		List<MyItemDTO> myItemList =  miniroomService.selectAllMyItems(map);
+//		List<ItemDTO> itemList =  miniroomService.selectAllItems(category);
+//		ModelAndView mav = new ModelAndView("home_style");
+//
+//
+//		MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(memberId);
+//		myRoomDTO.setMemberId(memberId);
+//
+//		mav.addObject("myItemList",myItemList);
+//		mav.addObject("itemList",itemList);
+//		mav.addObject("myRoomDTO", myRoomDTO);
+//
+//		mav.addObject("memberId",memberId);
+//		return mav;
+//	}
+@GetMapping("/home/style")
+public ModelAndView style(HttpSession session,
+						  @RequestParam(value="category",required=false,defaultValue="bed") String category
+) throws Exception {
 
-	) throws Exception {
-		List<MyItemDTO> myItemList =  miniroomService.selectAllMyItems(category);
-		List<ItemDTO> itemList =  miniroomService.selectAllItems(category);
-		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
-		ModelAndView mav = new ModelAndView("home_style");
 
-		String memberId = mDto.getId();
-		MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(memberId);
-		myRoomDTO.setMemberId(memberId);
+	MemberDTO mDto = (MemberDTO)session.getAttribute("login");
+	String memberId = mDto.getId();
 
-		mav.addObject("myItemList",myItemList);
-		mav.addObject("itemList",itemList);
-		mav.addObject("myRoomDTO", myRoomDTO);
+	List<MyItemDTO> myItemList =  miniroomService.selectAllMyItems(category);
+	List<ItemDTO> itemList =  miniroomService.selectAllItems(category);
+	ModelAndView mav = new ModelAndView("home_style");
 
-		mav.addObject("memberId",memberId);
-		return mav;
-	}
 
+	MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(memberId);
+	myRoomDTO.setMemberId(memberId);
+
+	mav.addObject("myItemList",myItemList);
+	mav.addObject("itemList",itemList);
+	mav.addObject("myRoomDTO", myRoomDTO);
+
+	mav.addObject("memberId",memberId);
+	return mav;
+}
 
 
 }
