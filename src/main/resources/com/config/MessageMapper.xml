@@ -14,5 +14,13 @@
 		]]>
 	</select>
 	
+	<!-- 상담요청 쪽지 -->
+	<insert id="insertMessage" parameterType="hashmap">
+	<![CDATA[
+		Insert into message ( id, sender, reciever, content)
+		values (seq_message.nextval, #{sender}, #{reciever}, #{content}) 
+	
+	]]>
+	</insert>
 
 </mapper>

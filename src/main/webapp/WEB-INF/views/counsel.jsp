@@ -12,7 +12,6 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7c812e8a4271a0b1aa964940c3e5e02c&libraries=services"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7c812e8a4271a0b1aa964940c3e5e02c"></script>
 
-<script type="text/javascript" src="/narangnorang/js/counsel/counselorList.js"></script>
 </head>
 <body>
 	<h1>심리상담</h1>
@@ -24,14 +23,13 @@
 	<c:choose>
 		<c:when test="${empty counselorList}">
 			<jsp:include page="counsel/counselCenterMap.jsp" flush="true" />
-			
+			<script type="text/javascript" src="/narangnorang/js/counsel/centerMap.js"></script>
 		</c:when>
 		<c:otherwise>
 			<jsp:include page="counsel/counselorList.jsp" flush="true" />
+			<script type="text/javascript" src="/narangnorang/js/counsel/counselorList.js"></script>
 		</c:otherwise>
 	</c:choose>
-	
-<script type="text/javascript" src="/narangnorang/js/counsel/centerMap.js"></script>
 </body>
 </html>
 

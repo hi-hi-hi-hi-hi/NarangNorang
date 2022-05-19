@@ -25,8 +25,8 @@
 		</tr>
 		<tr align="right">
 			<td>
-				<button id="sendMessage" value="${counselor.name}"
-					onclick="popMessageForm();">쪽지 보내기</button>
+				<button id="${counselor.id}" value="${counselor.name}"
+					onclick="javascript:popMessageForm(this.id, this.value);">쪽지 보내기</button>
 			</td>
 		</tr>
 
