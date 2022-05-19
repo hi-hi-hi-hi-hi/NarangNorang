@@ -9,5 +9,7 @@
 <body>
 	<h1>로그인</h1>
 	<jsp:include page="member/loginForm.jsp" flush="true" /><br>
+	<a href="/narangnorang/findPw">Forgot Password?</a><br>
+	<a href="/narangnorang/signUp">회원 가입</a>
 </body>
 </html>

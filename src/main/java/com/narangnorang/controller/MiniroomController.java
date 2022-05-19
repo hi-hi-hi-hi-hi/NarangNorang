@@ -18,31 +18,40 @@ public class MiniroomController {
 	@Autowired
 	MiniroomService miniroomService;
 
-
+	//구매 버튼 클릭시 실행
 	@PostMapping("/home/buy")
 	public String buy(HttpSession session,MyItemDTO myItemDTO) throws Exception{
 		System.out.println(myItemDTO);
+
+		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
+
+		String userId = mDto.getId();
+		myItemDTO.setMemberId(userId);
+
 		int num = miniroomService.insertBuy(myItemDTO);
 
 
 		return "redirect:/home/buy";
 	}
-	@PostMapping("/home/style")
-	public String style(HttpSession session,MyRoomDTO myRoomDTO) throws Exception{
-
-		int num = miniroomService.insertStyle(myRoomDTO);
-
-		return "redirect:/home/style";
-	}
 
 	@PutMapping("/home/buy/{itemId}")
-	public String wishAdd(@PathVariable("itemId") int itemId, MyItemDTO myItemDTO) throws Exception{
+	public String wishupdate(@PathVariable("itemId") int itemId) throws Exception{
 //		System.out.println(myItemDTO);
 //		myItemDTO = miniroomService.selectByMyItemId(itemId);
 //		model.addAttribute("myItem", myItemDTO);
-		miniroomService.update(myItemDTO);
+		miniroomService.wishupdate(itemId);
 
 		return "redirect:/home/buy";
+	}
+
+	@PutMapping("/home/style")
+	public String applyMiniroom(MyItemDTO myItemDTO) throws Exception{
+		System.out.println(myItemDTO);
+//		myItemDTO = miniroomService.selectByMyItemId(itemId);
+//		model.addAttribute("myItem", myItemDTO);
+		miniroomService.applyMiniroom(myItemDTO);
+
+		return "redirect:/home/style";
 	}
 
 	@GetMapping("/home/buy")
@@ -55,10 +64,13 @@ public class MiniroomController {
 		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
 		ModelAndView mav = new ModelAndView("home_buy");
 
-
-		String userId = mDto.getId();
+		String memberId = mDto.getId();
+		MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(memberId);
+		myRoomDTO.setMemberId(memberId);
 		mav.addObject("itemList",list);
-		mav.addObject("memberId",userId);
+		mav.addObject("memberId",memberId);
+		mav.addObject("myRoomDTO", myRoomDTO);
+
 		return mav;
 	}
 
@@ -72,12 +84,15 @@ public class MiniroomController {
 		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
 		ModelAndView mav = new ModelAndView("home_style");
 
+		String memberId = mDto.getId();
+		MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(memberId);
+		myRoomDTO.setMemberId(memberId);
 
-		String userId = mDto.getId();
 		mav.addObject("myItemList",myItemList);
 		mav.addObject("itemList",itemList);
+		mav.addObject("myRoomDTO", myRoomDTO);
 
-		mav.addObject("memberId",userId);
+		mav.addObject("memberId",memberId);
 		return mav;
 	}
 

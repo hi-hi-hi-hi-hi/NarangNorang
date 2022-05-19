@@ -17,11 +17,13 @@ public class MemberDTO {
 	private String password;
 	private String phone;
 	private int privileage;
+	
 	// 일반
 	private String nickname;
 	private String region;
 	private String datetime;
 	private Integer point;
+	
 	// 상담사
 	private String name;
 	private String zipcode;

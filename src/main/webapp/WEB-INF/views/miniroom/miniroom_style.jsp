@@ -7,7 +7,6 @@
 
 
 	<!-- !!!!!!!! 꾸미기 !!!!!!!!!-->
-	<form action=# name="styleForm" method="post">
 
 		<table id="style" width="100%" cellspacing="0" cellpadding="0">
 			<tr>
@@ -31,20 +30,24 @@
 
 
 						<tr>
-							<c:forEach var="dto" items="${itemList}" varStatus="status">
+							<c:forEach var="dto" items="${myItemList}" varStatus="status">
 
 							<td>
+
+
 								<table style='padding:15px'>
+									<form action=# name="styleForm" method="post">
+										<input type="hidden" name="_method" value="put">
 									<tr>
 										<!-- myItemDTO에 세션 스코프 로그인 아이디값 저장시켰음.-->
 										<input type="hidden" name="memberId" value="${memberId}">
-										<input type="hidden" name="itemId" value="${dto.id}">
+										<input type="text" name="itemId" value="${dto.id}">
 										<!-- controller에서 mav.addObject("wish",wish) 저장하자.?-->
 										<input type="hidden" name="wish" value="0">
 
 
 										<td>
-											<img src="/narangnorang/images/items/${dto.name}.png" border="0" align="center" width="100px" height="100">
+											<img src="/narangnorang/images/items/${dto.id}.png" border="0" align="center" width="100px" height="100">
 										</td>
 									</tr>
 									<tr>
@@ -68,9 +71,10 @@
 									</tr>
 									<tr>
 										<td class= "inline-flex" align ="center">
-											<button class="req" data-xxx="represent">적용하기</button>
+											<button class="req" data-xxx="apply" data-item="${memberId}">적용하기</button>
 										</td>
 									</tr>
+									</form>
 								</table>
 							</td>
 							</c:forEach>
@@ -84,4 +88,4 @@
 				<td height="10">
 			</tr>
 		</table>
-	</form>
+

@@ -31,13 +31,13 @@ public class MiniroomServiceImpl implements MiniroomService {
 	}
 
 	@Override
-	public int insertStyle(MyRoomDTO myRoomDTO) {
-		return miniroomDAO.insertStyle(myRoomDTO);
+	public int wishupdate(int itemId) {
+		return miniroomDAO.wishupdate(itemId);
 	}
 
 	@Override
-	public int update(MyItemDTO myItemDTO) {
-		return miniroomDAO.update(myItemDTO);
+	public int applyMiniroom(MyItemDTO myItemDTO) {
+		return miniroomDAO.applyMiniroom(myItemDTO);
 	}
 
 	@Override
@@ -51,6 +51,12 @@ public class MiniroomServiceImpl implements MiniroomService {
 		List<MyItemDTO> list = miniroomDAO.selectAllMyItems(category);
 
 		return list;
+	}
+
+	@Override
+	public MyRoomDTO selectMyRoom(String memberId) {
+		MyRoomDTO myRoomDTO = miniroomDAO.selectMyRoom(memberId) ;
+		return myRoomDTO;
 	}
 
 

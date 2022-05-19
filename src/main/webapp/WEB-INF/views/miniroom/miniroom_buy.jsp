@@ -6,7 +6,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<form action=# name="buyForm" method="post">
 
 <table id="buy" width="100%" cellspacing="0" cellpadding="0">
 	<tr>
@@ -35,23 +34,20 @@
 				<tr>
 					<td height="10"></td>
 					<!-- myItemDTO에 세션 스코프 로그인 아이디값 저장시켰음.-->
-					<input type="text" name="memberId" value="${memberId}">
 				</tr>
 
 				<tr>
 <c:forEach var="dto" items="${itemList}" varStatus="status">
 
+
 					<td>
 						<table style='padding:15px'>
 							<tr>
 
-								<input type="hidden" name="itemId" value="${dto.id}">
-								<input type="hidden" name="wish" value="0">
-
 
 
 								<td>
-									<img src="/narangnorang/images/items/${dto.name}.png" border="0" align="center" width="100px" height="100">
+									<img src="/narangnorang/images/items/${dto.id}.png" border="0" align="center" width="100px" height="100">
 								</td>
 							</tr>
 							<tr>
@@ -70,15 +66,22 @@
 									가격${dto.price}	</strong></font>
 								</td>
 							</tr>
+							<form name="buyForm">
 							<tr>
 								<td height="10">
+
+
+
+									<input type="text" name="itemId" value="${dto.id}">
 							</tr>
 							<tr>
 								<td class= "inline-flex" align ="center">
-									<button class="req" data-xxx="order">구매</button>&nbsp;&nbsp;
-									<button class="req" data-xxx="wish">위시리스트</button>
+									<button class="req" data-xxx="order" data-item="${dto.id}">구매</button>&nbsp;&nbsp;
+									<button class="req" data-xxx="wish" data-item="${dto.id}">위시리스트</button>
 								</td>
 							</tr>
+
+							</form>
 						</table>
 					</td>
 	<c:if test="${status.count%4==0}">
@@ -98,4 +101,3 @@
 		<td height="10">
 	</tr>
 </table>
-</form>

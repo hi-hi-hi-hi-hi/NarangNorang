@@ -5,7 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>나랑노랑</title>
-<script type="text/javascript" src="/narangnorang/js/miniroom.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script type="text/javascript" src="/narangnorang/js/miniroom/miniroom.js"></script>
 
 </head>
 <body>

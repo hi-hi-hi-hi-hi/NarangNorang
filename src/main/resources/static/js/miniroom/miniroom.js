@@ -8,26 +8,32 @@ $(".req").on("click", function(){
 
     var target = $(this).attr("data-xxx");
     if(target == 'wish'){
+        var itemId=$(this).attr("data-item");
+        console.log(itemId);
+
         $("form").attr({
-            "action": "home/buy/{itemId}",
-            "method":"put"
+            "action": "/narangnorang/home/buy/"+itemId,
+            "method":"post"
         });
-        $("form").submit();
+        // $("form").submit();
 
     }else if (target=='order'){
+        var itemId=$(this).attr("data-item");
+        console.log(itemId)
         //주문
         $("form").attr({
-            "action": "home/buy",
+            "action": "/narangnorang/home/buy",
             "method":"post"
         });
         $("form").submit();
 
-    }else if(target == 'represent'){
+    }else if(target == 'apply'){
+        var memberId = $(this).attr("data-item");
         $("form").attr({
-            "action": "home/style",
+            "action": "/narangnorang/home/style",
             "method":"post"
         });
-        $("form").submit();
+        //$("form").submit();
 
     }//end if
 
