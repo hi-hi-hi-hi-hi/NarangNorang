@@ -119,10 +119,9 @@ public class MemberController {
 	}
 	
 	// 새 비번 변경
-	@PostMapping("/newPw")
+	@PutMapping("/newPw")
 	@ResponseBody
 	public int newPw(MemberDTO memberDTO) throws Exception {
-		System.out.println(memberDTO);
 		return memberService.newPw(memberDTO);
 	}
 	
@@ -138,6 +137,15 @@ public class MemberController {
 	public String edit(HttpSession session) throws Exception {
 		session.getAttribute("login");
 		return "mypageEdit";
+	}
+	
+	// 일반회원 정보 수정
+	@PutMapping("/generalEdit")
+	public String generalEdit(HttpSession session, MemberDTO memberDTO) throws Exception {
+		System.out.println("dgd");
+		memberService.generalEdit(memberDTO);
+		session.invalidate();
+		return "redirect:/login";
 	}
 	
 	// 아이디 중복 체크
