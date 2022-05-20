@@ -63,5 +63,14 @@
 		WHERE id = #{id}
 	]]>
 	</update>
+	
+	<!-- 일반회원 정보수정 -->
+	<update id="generalEdit" parameterType="MemberDTO">
+	<![CDATA[
+		UPDATE member
+		SET nickname = #{nickname}, phone = #{phone}, region = #{region}
+		WHERE id = #{id}
+	]]>
+	</update>
 
 </mapper>

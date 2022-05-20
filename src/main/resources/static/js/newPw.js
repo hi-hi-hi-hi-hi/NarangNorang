@@ -7,7 +7,7 @@ $(document).ready(function(){
 			event.preventDefault();
 		}else if(confirm("비밀번호를 수정하시겠습니까?")){
 			$.ajax({
-                type: 'POST',
+                type: 'PUT',
                 url: '/narangnorang/newPw',
                 datatype: "json",
                 data: {

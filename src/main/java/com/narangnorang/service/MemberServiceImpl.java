@@ -61,5 +61,11 @@ public class MemberServiceImpl implements MemberService {
 	public int newPw(MemberDTO dto) throws Exception {
 		return memberDAO.newPw(dto);
 	}
+
+	// 일반회원 정보수정
+	@Override
+	public int generalEdit(MemberDTO dto) throws Exception {
+		return memberDAO.generalEdit(dto);
+	}
 	
 }
