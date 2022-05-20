@@ -38,8 +38,6 @@
 		</c:forEach>
 		</tbody>
 	</table>
-	<div id="page"></div>
-	<br>
 	<a href="/narangnorang/post/write?category=${category}">글쓰기</a>
 </body>
 </html>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.config.DeptMapper">
+
+	<select id="selectAll" resultType="DeptDTO">
+	<![CDATA[
+		select deptno, dname, loc
+		from dept
+		order by deptno desc
+		]]>
+	</select>
+
+	<insert id="insert" parameterType="DeptDTO">
+	<![CDATA[
+	    insert into dept ( deptno, dname, loc )
+	    values ( #{deptno}, #{dname}, #{loc} )
+	    ]]>
+	</insert>
+
+	<select id="selectByDeptno" resultType="DeptDTO" parameterType="int">
+	<![CDATA[
+		select deptno, dname, loc
+		from dept
+		where deptno = #{deptno}
+		]]>
+	</select>
+
+	<update id="update" parameterType="DeptDTO">
+	<![CDATA[
+	   update dept 
+	   set dname = #{dname}, loc = #{loc}
+	   where deptno = #{deptno}
+	   ]]>
+	</update>
+
+	<delete id="delete" parameterType="int">
+	<![CDATA[
+	   delete from dept
+	   where deptno = #{deptno}
+	   ]]>
+	</delete>
+
+</mapper>

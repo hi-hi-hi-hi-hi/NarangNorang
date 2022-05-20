@@ -19,11 +19,6 @@
 
 	</insert>
 
-	<insert id="updateStyle" parameterType="MyRoomDTO">
-		Insert into MY_ROOM (id, member_ID, item_ID, wish)
-		values (seq_My_Item.nextval, #{memberId}, #{itemId},#{wish} )
-
-	</insert>
 
 	<insert id="insertDefaultItems" parameterType="String">
 		Insert into MY_ROOM (id, member_ID, floor, wallpaper,bed,closet,desk,walldeco)
@@ -37,6 +32,67 @@
 		where item_Id = #{itemId}
 		]]>
 	</update>
+
+<!--	<update id="applyMiniroom" parameterType="MyItemDTO">-->
+<!--	<![CDATA[-->
+<!--		update MY_ROOM r-->
+<!--		inner join MY_ITEM i on r.member_id, i.member_id = #{memberId}-->
+<!--		set-->
+<!--		case-->
+<!--		    When i.item_Id between 0 and 10 then (r.floor = #{itemId})-->
+<!--			when i.item_Id between 10 and 20 then (r.wallpaper = #{itemId})-->
+<!--			when i.item_Id between 20 and 30 then (r.bed = #{itemId})-->
+<!--			when i.item_Id between 30 and 40 then (r.closet = #{itemId})-->
+<!--			when i.item_Id between 40 and 50 then (r.desk = #{itemId})-->
+<!--			when i.item_Id between 50 and 60 then (r.walldeco = #{itemId})-->
+<!--		END-->
+<!--		where i.item_Id = #{itemId}-->
+<!--		]]>-->
+<!--	</update>-->
+
+		<update id="applyMiniroomFloor" parameterType="MyItemDTO">
+		<![CDATA[
+			update MY_ROOM
+			set floor=#{itemId}
+			where member_Id=#{memberId}
+			]]>
+		</update>
+	<update id="applyMiniroomWallpaper" parameterType="MyItemDTO">
+		<![CDATA[
+		update MY_ROOM
+		set wallpaper=#{itemId}
+		where member_Id=#{memberId}
+		]]>
+		</update>
+	<update id="applyMiniroomBed" parameterType="MyItemDTO">
+		<![CDATA[
+		update MY_ROOM
+		set bed=#{itemId}
+		where member_Id=#{memberId}
+		]]>
+		</update>
+	<update id="applyMiniroomCloset" parameterType="MyItemDTO">
+		<![CDATA[
+		update MY_ROOM
+		set closet=#{itemId}
+		where member_Id=#{memberId}
+		]]>
+		</update>
+	<update id="applyMiniroomDesk" parameterType="MyItemDTO">
+		<![CDATA[
+		update MY_ROOM
+		set desk=#{itemId}
+		where member_Id=#{memberId}
+		]]>
+		</update>
+	<update id="applyMiniroomWalldeco" parameterType="MyItemDTO">
+		<![CDATA[
+		update MY_ROOM
+		set walldeco=#{itemId}
+		where member_Id=#{memberId}
+		]]>
+		</update>
+
 
 	<update id="notWish" parameterType="MyItemDTO">
 	<![CDATA[
@@ -57,11 +113,19 @@
 
 	<select id="selectAllMyItems" resultType="ItemDTO" parameterType="String">
 	<![CDATA[
-		select m.id, m.member_ID, m.item_ID, m.wish,i.category, i.name, i.price
+		select m.member_ID, m.item_ID as id, m.wish,i.category, i.name, i.price
 		from MY_ITEM m
 				 Inner Join ITEM i
 							ON m.item_id = i.id
-		where category=#{category}
+		where i.category=#{category}
+
+		]]>
+	</select>
+	<select id="selectMyRoom" resultType="MyRoomDTO" parameterType="String">
+	<![CDATA[
+		select member_id, floor, wallpaper, bed, closet,desk, walldeco
+		from MY_ROOM
+		where member_id=#{memberId}
 
 		]]>
 	</select>

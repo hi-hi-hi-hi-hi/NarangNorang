@@ -48,10 +48,5 @@ public class MemberDAO {
 	public int newPw(MemberDTO dto) throws Exception {
 		return sqlSession.update("com.config.MemberMapper.newPw", dto);
 	}
-	
-	// 일반회원 정보수정
-	public int generalEdit(MemberDTO dto) throws Exception {
-		return sqlSession.update("com.config.MemberMapper.generalEdit", dto);
-	}
 
 }

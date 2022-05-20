@@ -27,7 +27,4 @@ public interface MemberService {
 	// 새 비밀번호 설정
 	public int newPw(MemberDTO dto) throws Exception;
 	
-	// 일반회원 정보수정
-	public int generalEdit(MemberDTO dto) throws Exception;
-	
 }

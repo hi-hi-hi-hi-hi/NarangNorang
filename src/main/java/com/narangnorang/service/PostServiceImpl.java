@@ -22,10 +22,10 @@ public class PostServiceImpl implements PostService {
 		return dao.selectAllByCategory(map);
 	}
 	
-	@Override
-	public PageDTO<PostDTO> totalRecord(String category) throws Exception {
-		return dao.totalRecord(category);
-	}
+//	@Override
+//	public PageDTO<PostDTO> totalRecord(String category) throws Exception {
+//		return dao.totalRecord(category);
+//	}
 	
 	@Transactional
 	@Override

@@ -9,9 +9,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
 	var category = '${category}';
-	var totalRows = '${pageDto.totalRows}';
-	var limit = '${pageDto.limit}';
-	var currentPage = '${pageDto.currentPage}'
+	var totalRows = '${pageDto.totalRows}'
 </script>
 <script type="text/javascript" src="/narangnorang/js/post/postList.js"></script>
 </head>

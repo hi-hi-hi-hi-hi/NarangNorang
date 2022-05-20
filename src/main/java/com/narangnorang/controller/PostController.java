@@ -33,13 +33,10 @@ public class PostController {
 	public ModelAndView postList(String category,
 								@RequestParam(defaultValue="1") int currentPage) throws Exception{
 		ModelAndView mav = new ModelAndView("postList");
-		
-		//페이징
 		PageDTO<PostDTO> pageDto = new PageDTO<PostDTO>();
 		pageDto.setCurrentPage(currentPage);
 		pageDto.setLimit(3);
-		pageDto.setTotalRows(postService.totalRecord(category).getTotalRows());
-		
+//		pageDto.setTotalRows(postService.totalRecord(category).getTotalRows());
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("category", category);
 		map.put("pageDto", pageDto);

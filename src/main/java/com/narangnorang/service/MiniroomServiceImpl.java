@@ -1,6 +1,7 @@
 package com.narangnorang.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.narangnorang.dto.MyItemDTO;
 import com.narangnorang.dto.MyRoomDTO;
@@ -31,13 +32,13 @@ public class MiniroomServiceImpl implements MiniroomService {
 	}
 
 	@Override
-	public int insertStyle(MyRoomDTO myRoomDTO) {
-		return miniroomDAO.insertStyle(myRoomDTO);
+	public int wishupdate(int itemId) {
+		return miniroomDAO.wishupdate(itemId);
 	}
 
 	@Override
-	public int wishupdate(int itemId) {
-		return miniroomDAO.wishupdate(itemId);
+	public int applyMiniroom(MyItemDTO myItemDTO) {
+		return miniroomDAO.applyMiniroom(myItemDTO);
 	}
 
 	@Override
@@ -46,11 +47,23 @@ public class MiniroomServiceImpl implements MiniroomService {
 		return myItemDTO;
 	}
 
-	@Override
-	public List<MyItemDTO> selectAllMyItems(String category) {
-		List<MyItemDTO> list = miniroomDAO.selectAllMyItems(category);
+//	@Override
+//	public List<MyItemDTO> selectAllMyItems(Map<String,String> map) {
+//		List<MyItemDTO> list = miniroomDAO.selectAllMyItems(map);
+//
+//		return list;
+//	}
+@Override
+public List<MyItemDTO> selectAllMyItems(String category) {
+	List<MyItemDTO> list = miniroomDAO.selectAllMyItems(category);
 
-		return list;
+	return list;
+}
+
+	@Override
+	public MyRoomDTO selectMyRoom(String memberId) {
+		MyRoomDTO myRoomDTO = miniroomDAO.selectMyRoom(memberId) ;
+		return myRoomDTO;
 	}
 
 

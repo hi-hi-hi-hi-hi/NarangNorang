@@ -21,14 +21,14 @@
 		]]>
 	</select>
 	
-	<select id="totalRecord" parameterType="String" resultType="PageDTO">
+	<!-- 	<select id="totalRecord" parameterType="String" resultType="PageDTO">
 		<![CDATA[
 			select count(*) as totalRows
 			from post
 			where category = #{category}
 		]]>
-	</select>
-
+	<</select>
+	-->
 	
 	<select id="selectById" resultType="PostDTO" parameterType="int">
 		<![CDATA[
