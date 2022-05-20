@@ -19,9 +19,9 @@ public class PostDAO {
 		return session.selectList("com.config.PostMapper.selectAllByCategory", map);
 	}
 	
-//	public PageDTO<PostDTO> totalRecord(String category) {
-//		return session.selectOne("com.config.PostMapper.totalRecord", category);
-//	}
+	public PageDTO<PostDTO> totalRecord(String category) {
+		return session.selectOne("com.config.PostMapper.totalRecord", category);
+	}
 	
 	public PostDTO selectById(int id) {
 		return session.selectOne("com.config.PostMapper.selectById", id);
