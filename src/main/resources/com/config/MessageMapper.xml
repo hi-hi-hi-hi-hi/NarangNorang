@@ -10,6 +10,7 @@
 			SELECT sender, reciever, content, message.datetime, send.nickname as senderNickname, send.name as senderName, recieve.nickname as recieverNickname, recieve.name as recieverName
 			FROM message, member send, member recieve
 			WHERE (sender = #{id} OR reciever = #{id}) AND send.id=sender AND recieve.id=reciever
+			AND message.datetime in (select max(message.datetime) from message group by sender, reciever)
 			ORDER BY datetime desc
 		]]>
 	</select>
@@ -28,8 +29,8 @@
 	<![CDATA[
 			SELECT sender, reciever, content, message.datetime, send.nickname as senderNickname, send.name as senderName, recieve.nickname as recieverNickname, recieve.name as recieverName
 			FROM message, member send, member recieve
-			WHERE (sender = #{userId} OR reciever = #{userId}) AND send.id=sender AND recieve.id=reciever
-			ORDER BY datetime desc
+			WHERE (sender = #{userId} OR reciever = #{userId}) AND (sender = #{otherId} OR reciever = #{otherId}) AND send.id=sender AND recieve.id=reciever
+			ORDER BY datetime
 	]]>
 	</select>
 

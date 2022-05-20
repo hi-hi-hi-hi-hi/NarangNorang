@@ -86,11 +86,14 @@ public class MessageController {
 		Map<String, String> map = new HashMap<String, String>();
 		
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
-		map.put("userId", memberDTO.getId());
+		String userId = memberDTO.getId();
+		
+		map.put("userId", userId);
 		map.put("otherId", otherId);
 		
 		mav.setViewName("/message/chats");
 		mav.addObject("chats", messageService.getChats(map));
+		mav.addObject("userId", userId);
 		return mav;
 	}
 }
