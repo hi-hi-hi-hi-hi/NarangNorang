@@ -17,10 +17,20 @@
 	<!-- 상담요청 쪽지 -->
 	<insert id="insertMessage" parameterType="hashmap">
 	<![CDATA[
-		Insert into message ( id, sender, reciever, content)
+		INSERT INTO message ( id, sender, reciever, content)
 		values (seq_message.nextval, #{sender}, #{reciever}, #{content}) 
 	
 	]]>
 	</insert>
+	
+	<!-- 쪽지 대화내역 -->
+	<select id="getChats" resultType="MessageDTO" parameterType="hashmap">
+	<![CDATA[
+			SELECT sender, reciever, content, message.datetime, send.nickname as senderNickname, send.name as senderName, recieve.nickname as recieverNickname, recieve.name as recieverName
+			FROM message, member send, member recieve
+			WHERE (sender = #{userId} OR reciever = #{userId}) AND send.id=sender AND recieve.id=reciever
+			ORDER BY datetime desc
+	]]>
+	</select>
 
 </mapper>

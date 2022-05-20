@@ -23,5 +23,9 @@ public class MessageDAO {
 		return sqlSession.insert("com.config.MessageMapper.insertMessage", messageInfo);
 	}
 	
+	public List<MessageDTO> getChats(Map<String, String> map) {
+		return sqlSession.selectList("com.config.MessageMapper.getChats", map);
+	}
+	
 
 }

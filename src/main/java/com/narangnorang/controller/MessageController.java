@@ -1,6 +1,7 @@
 package com.narangnorang.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -77,5 +78,19 @@ public class MessageController {
 		messageService.insertMessage(messageInfo);
 
 		return "home";
+	}
+	
+	@GetMapping("/message/chats/{otherId}")
+	public ModelAndView popupChats(HttpSession session, @PathVariable @ModelAttribute String otherId) throws Exception{
+		ModelAndView mav = new ModelAndView();
+		Map<String, String> map = new HashMap<String, String>();
+		
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
+		map.put("userId", memberDTO.getId());
+		map.put("otherId", otherId);
+		
+		mav.setViewName("/message/chats");
+		mav.addObject("chats", messageService.getChats(map));
+		return mav;
 	}
 }

@@ -12,5 +12,8 @@ public interface MessageService {
 	
 	// 메시지 전송 (insert)
 	public int insertMessage(Map<String, String> messageInfo) throws Exception;
+	
+	// 특정 사용자와 대화내역 가져오기
+	public List<MessageDTO> getChats(Map<String, String> map) throws Exception;
 
 }
