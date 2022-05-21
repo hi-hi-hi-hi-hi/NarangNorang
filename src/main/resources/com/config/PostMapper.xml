@@ -7,14 +7,16 @@
 	<select id="selectAllByCategory" parameterType="hashmap" resultType="PostDTO">
 		<![CDATA[
 			select *
-			from (select rownum, id,
-					member_id as memberId,
-					title,
-					datetime,
-					replies,
-					likes,
-					views
-			from post
+			from (select rownum, p.id,
+					p.member_id as memberId,
+					p.title,
+					p.datetime,
+					p.replies,
+					p.likes,
+					p.views,
+					m.nickname as memberNickname
+			from post p JOIN member m
+			ON p.member_id = m.id
 			where category = #{category} AND likes >= #{likes}
 			order by id desc)
 			OFFSET (#{pageDto.currentPage}-1)*#{pageDto.limit} ROWS FETCH FIRST #{pageDto.limit} ROWS ONLY

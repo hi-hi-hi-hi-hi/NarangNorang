@@ -90,9 +90,9 @@ public class PostController {
 	public ModelAndView postWritePro(PostDTO pDto, HttpSession session) throws Exception{
 		ModelAndView mav = new ModelAndView("post/postWriteSuccess");
 		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
-		String userId = mDto.getId();
-		pDto.setMemberId(userId);
+		pDto.setMemberId(mDto.getId());
 		mav.addObject("category", pDto.getCategory());
+		System.out.println(pDto);
 		int result = postService.insert(pDto);
 		return mav;
 	}
