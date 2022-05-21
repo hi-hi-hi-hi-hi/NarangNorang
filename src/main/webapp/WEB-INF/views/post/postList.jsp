@@ -8,6 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<button id="allList">전체글</button>
+	<button id="overTen">추천 10개 이상</button>
+	<button id="overThirty">추천 30개 이상</button><br>
 	<select id="searchCol">
 		<option value="title">제목</option>
 		<option value="member_id">작성자</option>
@@ -29,7 +32,7 @@
 		<c:forEach var="dto" items="${postList}" varStatus="status">
 			<tr>
 				<td>${dto.id}</td>
-				<td><a href="/narangnorang/post/${dto.id}">${dto.title}</a></td>
+				<td><a href="/narangnorang/post/${dto.id}">${dto.title}</a><a id="comment">[${dto.replies}]</a></td>
 				<td>${dto.memberId}</td>
 				<td>${dto.datetime}</td>
 				<td>${dto.views}</td>
