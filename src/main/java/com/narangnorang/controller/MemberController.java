@@ -152,8 +152,15 @@ public class MemberController {
 	// 일반회원 정보 수정
 	@PutMapping("/generalEdit")
 	public String generalEdit(HttpSession session, MemberDTO memberDTO) throws Exception {
-		System.out.println("dgd");
 		memberService.generalEdit(memberDTO);
+		session.invalidate();
+		return "redirect:/login";
+	}
+	
+	// 상담사회원 정보 수정
+	@PutMapping("/counselorEdit")
+	public String counselorEdit(HttpSession session, MemberDTO memberDTO) throws Exception {
+		memberService.counselorEdit(memberDTO);
 		session.invalidate();
 		return "redirect:/login";
 	}

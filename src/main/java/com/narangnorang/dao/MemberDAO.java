@@ -53,5 +53,10 @@ public class MemberDAO {
 	public int generalEdit(MemberDTO dto) throws Exception {
 		return sqlSession.update("com.config.MemberMapper.generalEdit", dto);
 	}
+	
+	// 상담사회원 정보수정
+	public int counselorEdit(MemberDTO dto) throws Exception {
+		return sqlSession.update("com.config.MemberMapper.counselorEdit", dto);
+	}
 
 }
