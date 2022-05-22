@@ -117,11 +117,21 @@ public class MemberController {
 		session.setAttribute("findPw", memberDTO);
 		return "member/newPwForm";
 	}
+	@GetMapping("/myPage/newPwForm")
+	public String myPageNewPwForm(HttpSession session) throws Exception {
+		session.getAttribute("login");
+		return "member/myPageNewPwForm";
+	}
 	
 	// 새 비번 변경
 	@PutMapping("/newPw")
 	@ResponseBody
 	public int newPw(MemberDTO memberDTO) throws Exception {
+		return memberService.newPw(memberDTO);
+	}
+	@PutMapping("/myPage/newPw")
+	@ResponseBody
+	public int myPageNewPw(MemberDTO memberDTO) throws Exception {
 		return memberService.newPw(memberDTO);
 	}
 	
