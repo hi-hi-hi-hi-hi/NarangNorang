@@ -31,17 +31,20 @@ public class PostController {
 	// 게시판 목록 보기
 	@GetMapping("/post")
 	public ModelAndView postList(String category,
-								@RequestParam(defaultValue="1") int currentPage) throws Exception{
+								@RequestParam(defaultValue="1") int p,
+								@RequestParam(defaultValue="0") int likes) throws Exception{
 		ModelAndView mav = new ModelAndView("postList");
-		
-		//페이징
-		PageDTO<PostDTO> pageDto = new PageDTO<PostDTO>();
-		pageDto.setCurrentPage(currentPage);
-		pageDto.setLimit(3);
-		pageDto.setTotalRows(postService.totalRecord(category).getTotalRows());
 		
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("category", category);
+		map.put("likes", likes);
+		
+		//페이징
+		PageDTO<PostDTO> pageDto = new PageDTO<PostDTO>();
+		pageDto.setCurrentPage(p);
+		pageDto.setLimit(5);
+		pageDto.setTotalRows(postService.totalRecord(map).getTotalRows());
+
 		map.put("pageDto", pageDto);
 		List<PostDTO> list = postService.selectAllByCategory(map);
 

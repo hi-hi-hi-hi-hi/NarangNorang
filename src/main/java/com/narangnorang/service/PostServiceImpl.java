@@ -23,8 +23,8 @@ public class PostServiceImpl implements PostService {
 	}
 	
 	@Override
-	public PageDTO<PostDTO> totalRecord(String category) throws Exception {
-		return dao.totalRecord(category);
+	public PageDTO<PostDTO> totalRecord(HashMap<String,Object> map) throws Exception {
+		return dao.totalRecord(map);
 	}
 	
 	@Transactional
@@ -32,6 +32,11 @@ public class PostServiceImpl implements PostService {
 	public PostDTO selectById(int id)  throws Exception{
 		dao.updateViews(id);
 		return dao.selectById(id);
+	}
+	
+	@Override
+	public PostDTO selectByLikes(HashMap<String, Object> map) throws Exception {
+		return dao.selectByLikes(map);
 	}
 
 	@Override

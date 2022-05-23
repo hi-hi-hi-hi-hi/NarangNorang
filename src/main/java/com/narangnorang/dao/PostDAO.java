@@ -19,12 +19,16 @@ public class PostDAO {
 		return session.selectList("com.config.PostMapper.selectAllByCategory", map);
 	}
 	
-	public PageDTO<PostDTO> totalRecord(String category) {
-		return session.selectOne("com.config.PostMapper.totalRecord", category);
+	public PageDTO<PostDTO> totalRecord(HashMap<String, Object> map) {
+		return session.selectOne("com.config.PostMapper.totalRecord", map);
 	}
 	
 	public PostDTO selectById(int id) {
 		return session.selectOne("com.config.PostMapper.selectById", id);
+	}
+	
+	public PostDTO selectByLikes(HashMap<String, Object> map) {
+		return session.selectOne("com.config.PostMapper.selectByLikes", map);
 	}
 	
 	public int updateViews(int id) {
