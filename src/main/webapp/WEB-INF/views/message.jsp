@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>나랑노랑</title>
+<script type="text/javascript" src="/narangnorang/js/message/messageList.js"></script>
 </head>
 <body>
 	<h1>쪽지함</h1>
