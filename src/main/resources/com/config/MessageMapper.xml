@@ -15,8 +15,8 @@
 		]]>
 	</select>
 	
-	<!-- 상담요청 쪽지 -->
-	<insert id="insertMessage" parameterType="hashmap">
+	<!-- 쪽지 보내기 -->
+	<insert id="sendMessage" parameterType="hashmap">
 	<![CDATA[
 		INSERT INTO message ( id, sender, reciever, content)
 		values (seq_message.nextval, #{sender}, #{reciever}, #{content}) 
@@ -24,14 +24,15 @@
 	]]>
 	</insert>
 	
-	<!-- 쪽지 대화내역 -->
+	<!-- 쪽지 대화내역 가져오기-->
 	<select id="getChats" resultType="MessageDTO" parameterType="hashmap">
 	<![CDATA[
-			SELECT sender, reciever, content, message.datetime, send.nickname as senderNickname, send.name as senderName, recieve.nickname as recieverNickname, recieve.name as recieverName
-			FROM message, member send, member recieve
-			WHERE (sender = #{userId} OR reciever = #{userId}) AND (sender = #{otherId} OR reciever = #{otherId}) AND send.id=sender AND recieve.id=reciever
-			ORDER BY datetime
+		SELECT sender, reciever, content, message.datetime, send.nickname as senderNickname, send.name as senderName, recieve.nickname as recieverNickname, recieve.name as recieverName
+		FROM message, member send, member recieve
+		WHERE (sender = #{userId} OR reciever = #{userId}) AND (sender = #{otherId} OR reciever = #{otherId}) AND send.id=sender AND recieve.id=reciever
+		ORDER BY datetime
 	]]>
 	</select>
+	
 
 </mapper>
