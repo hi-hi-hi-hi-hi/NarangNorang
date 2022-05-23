@@ -46,10 +46,10 @@ public class MessageController {
 				if (otherUsers.contains(messageDTO.getSender()) || otherUsers.contains(messageDTO.getReciever())) {
 					iter.remove();
 				} else {
-					if (!messageDTO.getSender().equals(id)) {
+					if (!id.equals(messageDTO.getSender())) {
 						otherUsers.add(messageDTO.getSender());
 					}
-					if (!messageDTO.getReciever().equals(id)) {
+					if (!id.equals(messageDTO.getReciever())) {
 						otherUsers.add(messageDTO.getReciever());
 					}
 				}
