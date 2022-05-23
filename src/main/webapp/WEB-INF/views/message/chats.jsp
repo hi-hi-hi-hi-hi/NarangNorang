@@ -7,13 +7,43 @@
 <head>
 <meta charset="UTF-8">
 <title>쪽지보내기</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
 	function closeChats() {
 		window.close();
+	};
+	
+	function sendMessage(userId, otherId){
+		var data = {
+				"content": $("#content").val(),
+				"sender": userId,
+				"reciever" : otherId
+		}
+		console.log(data);
+		$.ajax({
+			type : "POST",
+			url : "/narangnorang/message/send",
+			data : JSON.stringify(data),
+			dataType : "json",
+			contentType:"application/json;charset=UTF-8",
+			success : function(data){
+		 		if (data.result == "ok"){
+					location.reload();
+					opener.location.reload();
+					//getMessages();
+				};
+			},
+			error : function(xhr, status, e){
+				alert("전송 실패");
+			}
+		});
 	}
+	
+	
+	
 </script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 </head>
 
 <body>
@@ -31,7 +61,8 @@
 		</c:choose>
 		님과의 채팅
 	</h2>
-	<table style="width: 80%" border="1">
+	
+	<table style="width:80%" border="1" >
 		<c:forEach items="${chats}" var="message">
 			<tr>
 				<td style="width: 50%" align="left">
@@ -55,7 +86,7 @@
 						<button disabled>전송</button>
 					</c:when>
 					<c:otherwise>
-						<button>전송</button>
+						<button id="sendMessage" onclick="sendMessage('${userId}', '${otherId}')">전송</button>
 					</c:otherwise>
 				</c:choose>
 			</td>

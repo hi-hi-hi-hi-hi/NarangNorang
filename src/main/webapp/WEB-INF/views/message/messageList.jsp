@@ -32,7 +32,7 @@
 							<td>${message.senderNickname}</td>
 						</c:when>
 						<c:otherwise>
-							<td>${message.senderName}<b style="font-size: 11px; color: green"> 상담사</b></td>
+							<td>${message.senderName}<b style="font-size:11px; color:green"> 상담사</b></td>
 						</c:otherwise>
 					</c:choose>
 				</c:otherwise>

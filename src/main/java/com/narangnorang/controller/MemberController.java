@@ -1,29 +1,40 @@
 package com.narangnorang.controller;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.narangnorang.dto.MyRoomDTO;
+import com.narangnorang.service.MiniroomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.narangnorang.dto.MemberDTO;
 import com.narangnorang.service.MemberService;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MemberController {
 
 	@Autowired
 	MemberService memberService;
+	@Autowired
+	MiniroomService miniroomService;
 	@Autowired
 	JavaMailSender javaMailSender;
 
@@ -35,8 +46,15 @@ public class MemberController {
 
 	// 홈 (로그인 O)
 	@GetMapping("/home")
-	public String home() throws Exception {
-		return "home";
+	public ModelAndView home(HttpSession session) throws Exception {
+
+		MemberDTO mDTO = (MemberDTO) session.getAttribute("login");
+		String memberId = mDTO.getId();
+		MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(memberId);
+		myRoomDTO.setMemberId(memberId);
+		ModelAndView mav = new ModelAndView("home");
+		mav.addObject("myRoomDTO", myRoomDTO);
+		return mav;
 	}
 
 	// 로그인 폼
@@ -117,11 +135,21 @@ public class MemberController {
 		session.setAttribute("findPw", memberDTO);
 		return "member/newPwForm";
 	}
+	@GetMapping("/myPage/newPwForm")
+	public String myPageNewPwForm(HttpSession session) throws Exception {
+		session.getAttribute("login");
+		return "member/myPageNewPwForm";
+	}
 	
 	// 새 비번 변경
 	@PutMapping("/newPw")
 	@ResponseBody
 	public int newPw(MemberDTO memberDTO) throws Exception {
+		return memberService.newPw(memberDTO);
+	}
+	@PutMapping("/myPage/newPw")
+	@ResponseBody
+	public int myPageNewPw(MemberDTO memberDTO) throws Exception {
 		return memberService.newPw(memberDTO);
 	}
 	
@@ -133,7 +161,7 @@ public class MemberController {
 	}
 	
 	// mypage 개인정보 수정 화면
-	@PostMapping("/mypage/edit")
+	@GetMapping("/mypage/edit")
 	public String edit(HttpSession session) throws Exception {
 		session.getAttribute("login");
 		return "mypageEdit";
@@ -142,10 +170,52 @@ public class MemberController {
 	// 일반회원 정보 수정
 	@PutMapping("/generalEdit")
 	public String generalEdit(HttpSession session, MemberDTO memberDTO) throws Exception {
-		System.out.println("dgd");
 		memberService.generalEdit(memberDTO);
 		session.invalidate();
 		return "redirect:/login";
+	}
+	
+	// 상담사회원 정보 수정
+	@PutMapping("/counselorEdit")
+	public String counselorEdit(HttpSession session, MemberDTO memberDTO) throws Exception {
+		memberService.counselorEdit(memberDTO);
+		session.invalidate();
+		return "redirect:/login";
+	}
+	
+	// 관리자 페이지 - 회원 관리
+	@GetMapping(value="/mypage/admin", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ModelAndView getAllLists() throws Exception{
+		List<MemberDTO> lists = memberService.selectAll();
+		ModelAndView mav = new ModelAndView("member/adminEdit");
+		mav.addObject("lists", lists);
+		return mav;
+	}
+	
+	// 관리자 페이지 - 선택 계정 삭제
+	@GetMapping("/mypage/admin/delMember")
+	public String delMember(HttpServletRequest request) throws Exception{
+		String nextPage = "";
+		String [] check = request.getParameterValues("check");
+		if(check == null) {
+			nextPage = "member/delFail";
+		}else {
+			List<String> list = Arrays.asList(check);
+			memberService.delSelected(list);
+			nextPage = "redirect:/mypage/admin";
+		}
+		return nextPage;
+	}
+	
+	// 관리자 페이지 - 상담사 권한 관리
+	@GetMapping("/mypage/admin/counselPrivileage2")
+	@ResponseBody
+	public ModelAndView getPrivileage2() throws Exception{
+		List<MemberDTO> lists = memberService.selectByPrivileage2();
+		ModelAndView mav = new ModelAndView("member/counselPrivileage2");
+		mav.addObject("lists", lists);
+		return mav;
 	}
 	
 	// 아이디 중복 체크
