@@ -18,24 +18,68 @@ public class MiniroomController {
 	@Autowired
 	MiniroomService miniroomService;
 
-	//구매 버튼 클릭시 실행
+	@GetMapping("/home/buy")
+	public ModelAndView buy(HttpSession session,
+							@RequestParam(value="category",required=false,defaultValue="bed") String category
+
+	) throws Exception {
+
+		List<ItemDTO> list =  miniroomService.selectAllItems(category);
+		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
+		ModelAndView mav = new ModelAndView("home_buy");
+
+		String memberId = mDto.getId();
+		MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(memberId);
+		myRoomDTO.setMemberId(memberId);
+		mav.addObject("itemList",list);
+		mav.addObject("memberId",memberId);
+		mav.addObject("myRoomDTO", myRoomDTO);
+
+		return mav;
+	}
+
+	@GetMapping("/home/style")
+	public ModelAndView style(HttpSession session,
+							  @RequestParam(value="category",required=false,defaultValue="bed") String category
+	) throws Exception {
+
+
+		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
+		String memberId = mDto.getId();
+
+		List<MyItemDTO> myItemList =  miniroomService.selectAllMyItems(category);
+		List<ItemDTO> itemList =  miniroomService.selectAllItems(category);
+		ModelAndView mav = new ModelAndView("home_style");
+
+
+		MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(memberId);
+		myRoomDTO.setMemberId(memberId);
+
+		mav.addObject("myItemList",myItemList);
+		mav.addObject("itemList",itemList);
+		mav.addObject("myRoomDTO", myRoomDTO);
+
+		mav.addObject("memberId",memberId);
+		return mav;
+	}
+
+	//물건 구매
 	@PostMapping("/home/buy")
 	public String buy(HttpSession session,MyItemDTO myItemDTO) throws Exception{
-		System.out.println("please Automatic pull request");
+		System.out.println(myItemDTO);
+
+		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
+
+		String userId = mDto.getId();
+		myItemDTO.setMemberId(userId);
+
 		int num = miniroomService.insertBuy(myItemDTO);
 
 
 		return "redirect:/home/buy";
 	}
-	//적용하기 버튼 클릭시 마이룸에 해당 아이템 번호
-	@PostMapping("/home/style")
-	public String style(HttpSession session,MyRoomDTO myRoomDTO) throws Exception{
 
-//		int num = miniroomService.updateStyle(myRoomDTO);
-
-		return "redirect:/home/style";
-	}
-
+	// 위시리스트
 	@PutMapping("/home/buy/{itemId}")
 	public String wishupdate(@PathVariable("itemId") int itemId) throws Exception{
 //		System.out.println(myItemDTO);
@@ -46,42 +90,14 @@ public class MiniroomController {
 		return "redirect:/home/buy";
 	}
 
-	@GetMapping("/home/buy")
-	public ModelAndView buy(HttpSession session,
-							  @RequestParam(value="category",required=false,defaultValue="bed") String category
+	//미니룸에 내아이템 적용
+	@PutMapping("/home/style")
+	public String applyMiniroom(MyItemDTO myItemDTO) throws Exception{
+		System.out.println(myItemDTO);
+//		myItemDTO = miniroomService.selectByMyItemId(itemId);
+//		model.addAttribute("myItem", myItemDTO);
+		miniroomService.applyMiniroom(myItemDTO);
 
-	) throws Exception {
-
-		List<ItemDTO> list =  miniroomService.selectAllItems(category);
-		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
-		ModelAndView mav = new ModelAndView("home_buy");
-
-
-		String userId = mDto.getId();
-		mav.addObject("itemList",list);
-		mav.addObject("memberId",userId);
-		return mav;
+		return "redirect:/home/style";
 	}
-
-	@GetMapping("/home/style")
-	public ModelAndView style(HttpSession session,
-							  @RequestParam(value="category",required=false,defaultValue="bed") String category
-
-	) throws Exception {
-		List<MyItemDTO> myItemList =  miniroomService.selectAllMyItems(category);
-		List<ItemDTO> itemList =  miniroomService.selectAllItems(category);
-		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
-		ModelAndView mav = new ModelAndView("home_style");
-
-		System.out.println(myItemList);
-		String userId = mDto.getId();
-		mav.addObject("myItemList",myItemList);
-		mav.addObject("itemList",itemList);
-
-		mav.addObject("memberId",userId);
-		return mav;
-	}
-
-
-
 }
