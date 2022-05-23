@@ -7,7 +7,7 @@ $(document).ready(function(){
 			alert("비밀번호가 틀립니다.");
 			event.preventDefault();
 		}else if(privileage == 0){
-			location.href="/narangnorang/mypage/admin";
+			location.href="/narangnorang/admin";
 		}else{
 			location.href="/narangnorang/mypage/edit";
 		}
