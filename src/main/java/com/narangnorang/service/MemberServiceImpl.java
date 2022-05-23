@@ -67,5 +67,11 @@ public class MemberServiceImpl implements MemberService {
 	public int generalEdit(MemberDTO dto) throws Exception {
 		return memberDAO.generalEdit(dto);
 	}
+
+	// 상담사회원 정보수정
+	@Override
+	public int counselorEdit(MemberDTO dto) throws Exception {
+		return memberDAO.counselorEdit(dto);
+	}
 	
 }

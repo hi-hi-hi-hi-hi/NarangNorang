@@ -73,4 +73,13 @@
 	]]>
 	</update>
 
+	<!-- 상담사회원 정보수정 -->
+	<update id="counselorEdit" parameterType="MemberDTO">
+	<![CDATA[
+		UPDATE member
+		SET phone = #{phone}, zipcode = #{zipcode}, address1 = #{address1}, address2 = #{address2}, address3 = #{address3}, job = #{job}, introduction = #{introduction}
+		WHERE id = #{id}
+	]]>
+	</update>
+	
 </mapper>

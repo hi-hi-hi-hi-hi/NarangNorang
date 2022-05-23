@@ -30,4 +30,7 @@ public interface MemberService {
 	// 일반회원 정보수정
 	public int generalEdit(MemberDTO dto) throws Exception;
 	
+	// 상담사회원 정보수정
+	public int counselorEdit(MemberDTO dto) throws Exception;
+	
 }

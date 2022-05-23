@@ -129,11 +129,21 @@ public class MemberController {
 		session.setAttribute("findPw", memberDTO);
 		return "member/newPwForm";
 	}
+	@GetMapping("/myPage/newPwForm")
+	public String myPageNewPwForm(HttpSession session) throws Exception {
+		session.getAttribute("login");
+		return "member/myPageNewPwForm";
+	}
 	
 	// 새 비번 변경
 	@PutMapping("/newPw")
 	@ResponseBody
 	public int newPw(MemberDTO memberDTO) throws Exception {
+		return memberService.newPw(memberDTO);
+	}
+	@PutMapping("/myPage/newPw")
+	@ResponseBody
+	public int myPageNewPw(MemberDTO memberDTO) throws Exception {
 		return memberService.newPw(memberDTO);
 	}
 	
@@ -154,8 +164,15 @@ public class MemberController {
 	// 일반회원 정보 수정
 	@PutMapping("/generalEdit")
 	public String generalEdit(HttpSession session, MemberDTO memberDTO) throws Exception {
-		System.out.println("dgd");
 		memberService.generalEdit(memberDTO);
+		session.invalidate();
+		return "redirect:/login";
+	}
+	
+	// 상담사회원 정보 수정
+	@PutMapping("/counselorEdit")
+	public String counselorEdit(HttpSession session, MemberDTO memberDTO) throws Exception {
+		memberService.counselorEdit(memberDTO);
 		session.invalidate();
 		return "redirect:/login";
 	}
