@@ -5,6 +5,8 @@ import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
+import com.narangnorang.dto.MyRoomDTO;
+import com.narangnorang.service.MiniroomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -18,12 +20,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.narangnorang.dto.MemberDTO;
 import com.narangnorang.service.MemberService;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MemberController {
 
 	@Autowired
 	MemberService memberService;
+	@Autowired
+	MiniroomService miniroomService;
 	@Autowired
 	JavaMailSender javaMailSender;
 
@@ -35,8 +40,15 @@ public class MemberController {
 
 	// 홈 (로그인 O)
 	@GetMapping("/home")
-	public String home() throws Exception {
-		return "home";
+	public ModelAndView home(HttpSession session) throws Exception {
+
+		MemberDTO mDTO = (MemberDTO) session.getAttribute("login");
+		String memberId = mDTO.getId();
+		MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(memberId);
+		myRoomDTO.setMemberId(memberId);
+		ModelAndView mav = new ModelAndView("home");
+		mav.addObject("myRoomDTO", myRoomDTO);
+		return mav;
 	}
 
 	// 로그인 폼
