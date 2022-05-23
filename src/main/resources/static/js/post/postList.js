@@ -8,42 +8,35 @@ $(document).ready(function(){
 	
 	let pageGroup = Math.ceil(currentPage / pageCount)
 	let last = pageGroup * pageCount;  
+	let first = last - (pageCount - 1);
 	
 	if (last > totalPage){
 		last = totalPage;
 	}
 	
-	let first = last - (pageCount - 1);
+	
 	let next = last + 1;
 	let prev = first - 1; 
 	
 	let h = "";
 	
 	if (prev > 0){
-		h += "<button id='prev'>이전</button>";
+		h += "<a id='prev' href='/narangnorang/post?category=" + category + "&p=" + prev + "'>" + "이전" + "</a>";
 	}
-	
 	for (var i = first; i <= last; i++){
 		if (currentPage == i) {
 			h += i
 		}else{
-			h += "<a href='/narangnorang/post?category=" + category + "&currentPage=" + i + "'>" + i + "</a>";
+			h += "<a href='/narangnorang/post?category=" + category + "&p=" + i + "'>" + i + "</a>";
 		}
 	}
 	
 	if (last < totalPage){
-		h += "<button id='next'>다음</button>"
+		h += "<a id='next' href='/narangnorang/post?category=" + category + "&p=" + next + "'>" + "다음" + "</a>";
 	}
 	
 	$("#page").html(h);
 	
-	$("#prev").on("click", function(){
-		console.log("prev");
-	});
-	
-	$("#next").on("click", function(){
-		console.log("next");
-	});
 
 	$("#keyword").on("keydown", function(e){
 		if(e.keyCode == 13){
@@ -85,5 +78,17 @@ $(document).ready(function(){
 				console.log(xhr, status, e)
 			}
            });
+	});
+	
+	$("#allList").on("click", function(){
+		location.href = "/narangnorang/post?category=" + category;
+	});
+	
+	$("#overTen").on("click", function(){
+		location.href = "/narangnorang/post?category=" + category + "&likes=10";
+	});
+	
+	$("#overThirty").on("click", function(){
+		location.href = "/narangnorang/post?category=" + category + "&likes=30";
 	});
 });

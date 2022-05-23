@@ -17,5 +17,6 @@ ${retrieve.memberId} 조회${retrieve.views} 추천${retrieve.likes} ${retrieve.
 <textarea>${retrieve.content}</textarea><br>
 <hr>
 댓글 ${retrieve.replies}
+
 </body>
 </html>
