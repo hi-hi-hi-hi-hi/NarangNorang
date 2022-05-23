@@ -1,5 +1,6 @@
 package com.narangnorang.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.narangnorang.dto.MemberDTO;
@@ -32,5 +33,14 @@ public interface MemberService {
 	
 	// 상담사회원 정보수정
 	public int counselorEdit(MemberDTO dto) throws Exception;
+	
+	// 모든 회원
+	public List<MemberDTO> selectAll() throws Exception;
+	
+	// 선택 계정 삭제
+	public int delSelected(List<String> list) throws Exception;
+	
+	// 미승인 상담사 회원
+	public List<MemberDTO> selectByPrivileage2() throws Exception;
 	
 }

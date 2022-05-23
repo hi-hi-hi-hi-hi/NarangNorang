@@ -82,4 +82,34 @@
 	]]>
 	</update>
 	
+	<!-- 모든 회원 -->
+	<select id="selectAll" resultType="MemberDTO">
+	<![CDATA[
+		SELECT * 
+		FROM member
+		WHERE privileage != 0
+	]]>
+	</select>
+	
+	<!-- 선택 회원 삭제 -->
+	<delete id="delSelected" parameterType="arraylist">
+		DELETE 
+		FROM member
+		<where>
+			id IN
+			<foreach item="item" index="index" collection="list" open="(" separator="," close=")" >
+	            #{item}
+			</foreach>
+		</where>
+	</delete>
+	
+	<!-- 미승인 상담사 회원 -->
+	<select id="selectByPrivileage2" resultType="MemberDTO">
+	<![CDATA[
+		SELECT * 
+		FROM member
+		WHERE privileage == 2
+	]]>
+	</select>
+	
 </mapper>
