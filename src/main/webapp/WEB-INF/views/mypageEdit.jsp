@@ -19,9 +19,6 @@
 		<c:when test="${privileage == 2 or privileage == 1}">
 			<jsp:include page="member/counselorEdit.jsp" flush="true" /><br>
 		</c:when>
-		<c:otherwise>
-			<jsp:include page="member/generalEdit.jsp" flush="true" /><br>
-		</c:otherwise>
 	</c:choose>
 	
 </body>

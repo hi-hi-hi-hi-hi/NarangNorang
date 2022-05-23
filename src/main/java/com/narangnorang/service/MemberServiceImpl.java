@@ -1,5 +1,6 @@
 package com.narangnorang.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.narangnorang.dao.MiniroomDAO;
@@ -72,6 +73,24 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int counselorEdit(MemberDTO dto) throws Exception {
 		return memberDAO.counselorEdit(dto);
+	}
+
+	// 모든 회원
+	@Override
+	public List<MemberDTO> selectAll() throws Exception {
+		return memberDAO.selectAll();
+	}
+
+	// 선택 계정 삭제
+	@Override
+	public int delSelected(List<String> list) throws Exception {
+		return memberDAO.delSelected(list);
+	}
+
+	// 미승인 상담사 회원
+	@Override
+	public List<MemberDTO> selectByPrivileage2() throws Exception {
+		return memberDAO.selectByPrivileage2();
 	}
 	
 }
