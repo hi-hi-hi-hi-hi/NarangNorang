@@ -1,6 +1,7 @@
 package com.narangnorang.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -13,12 +14,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.narangnorang.dto.MemberDTO;
 import com.narangnorang.dto.MessageDTO;
 import com.narangnorang.service.MessageService;
+
 
 @Controller
 public class MessageController {
@@ -74,8 +78,37 @@ public class MessageController {
 			throws Exception {
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
 		messageInfo.put("sender", memberDTO.getId());
-		messageService.insertMessage(messageInfo);
+		messageService.sendMessage(messageInfo);
 
 		return "home";
+	}
+	
+	@GetMapping("/message/chats/{otherId}")
+	public ModelAndView popupChats(HttpSession session, @PathVariable @ModelAttribute String otherId) throws Exception{
+		ModelAndView mav = new ModelAndView();
+		Map<String, String> map = new HashMap<String, String>();
+		
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
+		String userId = memberDTO.getId();
+		
+		map.put("userId", userId);
+		map.put("otherId", otherId);
+		
+		mav.setViewName("/message/chats");
+		mav.addObject("chats", messageService.getChats(map));
+		mav.addObject("userId", userId);
+		return mav;
+	}
+	
+	@ResponseBody
+	@PostMapping("/message/send")
+	public Map<String, Object> sendMessage(@RequestBody Map<String, String> messageInfo) throws Exception {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		int sended = messageService.sendMessage(messageInfo);
+		if(sended == 1) {
+			result.put("result", "ok");
+		}
+		return result;
 	}
 }
