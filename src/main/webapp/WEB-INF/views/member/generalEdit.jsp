@@ -13,7 +13,7 @@
 	휴대전화: <input type="text" name="phone" id="phone" value="${login.phone}"><br>
 	지역: <input type="text" name="region" id="region" value="${login.region}"><br>
 	<br>
-	<a href="">비밀번호 변경</a><br>
+	<a href="/narangnorang/myPage/newPwForm">비밀번호 변경</a><br>
 	<br>
 	<input type="submit" value="확인">
 	<input type="button" value="취소" onclick="javascript:history.back()">

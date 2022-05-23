@@ -21,8 +21,13 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
-	public int insertMessage(Map<String, String> messageInfo) throws Exception {
-		return messageDAO.insertMessage(messageInfo);
+	public int sendMessage(Map<String, String> messageInfo) throws Exception {
+		return messageDAO.sendMessage(messageInfo);
+	}
+
+	@Override
+	public List<MessageDTO> getChats(Map<String, String> map) throws Exception {
+		return messageDAO.getChats(map);
 	}
 
 

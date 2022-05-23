@@ -19,8 +19,12 @@ public class MessageDAO {
 		return sqlSession.selectList("com.config.MessageMapper.selectMessageList", id);
 	}
 	
-	public int insertMessage(Map<String, String> messageInfo) {
-		return sqlSession.insert("com.config.MessageMapper.insertMessage", messageInfo);
+	public int sendMessage(Map<String, String> messageInfo) {
+		return sqlSession.insert("com.config.MessageMapper.sendMessage", messageInfo);
+	}
+	
+	public List<MessageDTO> getChats(Map<String, String> map) {
+		return sqlSession.selectList("com.config.MessageMapper.getChats", map);
 	}
 	
 
