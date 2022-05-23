@@ -21,7 +21,7 @@ public class MiniroomController {
 	//구매 버튼 클릭시 실행
 	@PostMapping("/home/buy")
 	public String buy(HttpSession session,MyItemDTO myItemDTO) throws Exception{
-		System.out.println(myItemDTO);
+		System.out.println("please Automatic pull request");
 		int num = miniroomService.insertBuy(myItemDTO);
 
 
