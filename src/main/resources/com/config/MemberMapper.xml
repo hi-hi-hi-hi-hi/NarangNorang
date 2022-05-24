@@ -17,7 +17,7 @@
 	<![CDATA[
         SELECT COUNT(*)
         FROM member
-        WHERE id = #{id}
+        WHERE email = #{email}
       ]]>
     </select>
     
@@ -26,23 +26,23 @@
 	<![CDATA[
         SELECT COUNT(*)
         FROM member
-        WHERE nickname = #{nickname}
+        WHERE name = #{name}
     ]]>
     </select>
     
     <!-- 일반회원가입 -->
     <insert id="generalSignUp" parameterType="MemberDTO">
    	<![CDATA[
-		INSERT	INTO member (id, password, phone, privileage, nickname, region)
-		VALUES (#{id},#{password},#{phone},3,#{nickname},#{region})
+		INSERT	INTO member (id, email, password, phone, privilege, name, region, datetime)
+		VALUES (seq_member.nextval+2,#{email},#{password},#{phone},3,#{name},#{region},sysdate)
 	]]>
 	</insert>
 	
 	<!-- 상담사회원가입 -->
     <insert id="counselorSignUp" parameterType="MemberDTO">
    	<![CDATA[
-		INSERT	INTO member (id, password, phone, privileage, name, zipcode, address1, address2, address3, job, introduction)
-		VALUES (#{id},#{password},#{phone},2,#{name},#{zipcode},#{address1},#{address2},#{address3},#{job},#{introduction})
+		INSERT	INTO member (id, email, password, phone, privilege, name, zipcode, address1, address2, address3, job, introduction, datetime)
+		VALUES (seq_member.nextval,#{email},#{password},#{phone},2,#{name},#{zipcode},#{address1},#{address2},#{address3},#{job},#{introduction}, sysdate)
 	]]>
 	</insert>
 	
@@ -87,7 +87,7 @@
 	<![CDATA[
 		SELECT * 
 		FROM member
-		WHERE privileage != 0
+		WHERE privilege != 0
 	]]>
 	</select>
 	
@@ -108,7 +108,7 @@
 	<![CDATA[
 		SELECT * 
 		FROM member
-		WHERE privileage = 2
+		WHERE privilege = 2
 	]]>
 	</select>
 	

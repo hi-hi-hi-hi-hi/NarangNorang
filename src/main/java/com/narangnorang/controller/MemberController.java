@@ -232,28 +232,28 @@ public class MemberController {
 	}
 	
 	// 아이디 중복 체크
-	@PostMapping("/checkId")
+	@PostMapping("/checkEmail")
 	@ResponseBody
-	public int checkId(@RequestParam("id") String id) throws Exception {
-		return memberService.checkId(id);
+	public int checkEmail(@RequestParam("email") String email) throws Exception {
+		return memberService.checkId(email);
 	}
 	
 	// 닉네임 중복 체크
-	@PostMapping("/checkNickname")
+	@PostMapping("/checkName")
 	@ResponseBody
-	public int checkNickname(@RequestParam("nickname") String nickname) throws Exception {
-		return memberService.checkNickname(nickname);
+	public int checkNickname(@RequestParam("name") String name) throws Exception {
+		return memberService.checkNickname(name);
 	}
 	
 	// 인증 이메일
 	@PostMapping("/checkMail")
 	@ResponseBody
-	public String sendMail(String id) throws Exception{
+	public String sendMail(String email) throws Exception{
 		Random random = new Random();  //난수 생성을 위한 랜덤 클래스
 		String key="";  //인증번호 
 
 		SimpleMailMessage message = new SimpleMailMessage();
-		message.setTo(id); //스크립트에서 보낸 메일을 받을 사용자 이메일 주소 
+		message.setTo(email); //스크립트에서 보낸 메일을 받을 사용자 이메일 주소 
 		//입력 키를 위한 코드
 		for(int i =0; i<3;i++) {
 			int index=random.nextInt(25)+65; //A~Z까지 랜덤 알파벳 생성

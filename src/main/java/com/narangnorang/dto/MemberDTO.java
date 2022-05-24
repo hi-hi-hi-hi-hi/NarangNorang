@@ -21,6 +21,7 @@ public class MemberDTO {
 	private String phone;
 	private String datetime;
 
+
 	// 일반
 	private String region;
 	private Integer point;
