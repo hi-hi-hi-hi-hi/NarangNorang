@@ -20,7 +20,7 @@ public class TestResultDAO {
 	}
 
 	// 지난 테스트 결과
-	public List<TestResultDTO> selectList(String memberId) throws Exception {
+	public List<TestResultDTO> selectList(int memberId) throws Exception {
 		return sqlSession.selectList("com.config.TestResultMapper.selectList", memberId);
 	}
 
