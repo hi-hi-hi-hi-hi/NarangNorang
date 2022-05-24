@@ -53,6 +53,7 @@ public class MemberController {
 //		mav.addObject("myRoomDTO", myRoomDTO);
 		return mav;
 	}
+
 	
 	// 로그인 폼
 	@GetMapping("/login")

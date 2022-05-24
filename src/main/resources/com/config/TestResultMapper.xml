@@ -11,7 +11,7 @@
 	</insert>
 
 	<!-- 지난 테스트 결과 -->
-	<select id="selectList" parameterType="string" resultType="TestResultDTO">
+	<select id="selectList" parameterType="int" resultType="TestResultDTO">
 		SELECT id, member_id AS "memberId", datetime, type, result
 		FROM test_result
 		WHERE member_id = #{memberId}

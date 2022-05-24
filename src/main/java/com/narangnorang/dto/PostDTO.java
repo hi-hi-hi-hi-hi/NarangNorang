@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class PostDTO {
 
 	private int id;
-	private String memberId;
+	private int memberId;
 	private String category;
 	private String title;
 	private String content;
@@ -22,7 +22,6 @@ public class PostDTO {
 	private int likes;
 	private int views;
 	// Member
-	private String memberNickname;
 	private String memberName;
 
 }

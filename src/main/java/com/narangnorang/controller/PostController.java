@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.narangnorang.dto.MemberDTO;
 import com.narangnorang.dto.PageDTO;
 import com.narangnorang.dto.PostDTO;
+import com.narangnorang.dto.ReplyDTO;
 import com.narangnorang.service.PostService;
 
 @Controller
@@ -54,7 +55,7 @@ public class PostController {
 		return mav;
 	}
 	
-	//글 검색
+	// 글 검색
 	@ResponseBody
 	@GetMapping("/post/search")
 	public List<PostDTO> search(String searchCol, String keyword, String category) throws Exception{
@@ -66,12 +67,12 @@ public class PostController {
 
 	}
 	
+	// 자세히 보기
 	@GetMapping("/post/{id}")
 	public ModelAndView postRetrieve(@PathVariable int id) throws Exception{
 		PostDTO pDto = postService.selectById(id);
 		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("postRetrieve");
+		ModelAndView mav = new ModelAndView("postRetrieve");
 		mav.addObject("retrieve", pDto);
 		return mav;
 	}
@@ -90,9 +91,10 @@ public class PostController {
 	public ModelAndView postWritePro(PostDTO pDto, HttpSession session) throws Exception{
 		ModelAndView mav = new ModelAndView("post/postWriteSuccess");
 		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
-		String userId = mDto.getId();
-		pDto.setMemberId(userId);
+		pDto.setMemberId(mDto.getId());
+		pDto.setMemberName(mDto.getName());
 		mav.addObject("category", pDto.getCategory());
+		System.out.println(pDto);
 		int result = postService.insert(pDto);
 		return mav;
 	}
@@ -119,6 +121,17 @@ public class PostController {
 	@PutMapping("/post/{id}")
 	public int postEditPro(@PathVariable int id, PostDTO pDto) throws Exception{
 		int result = postService.update(pDto);
+		return result;
+	}
+	
+	// 댓글 등록
+	@ResponseBody
+	@PostMapping("/post/reply")
+	public int insertReply(HttpSession session, ReplyDTO rDto) throws Exception{
+		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
+		rDto.setMemberId(mDto.getId());
+		rDto.setMemberName(mDto.getName());
+		int result = postService.insertReply(rDto);
 		return result;
 	}
 	

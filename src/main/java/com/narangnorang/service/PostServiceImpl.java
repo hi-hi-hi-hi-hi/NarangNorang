@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.narangnorang.dao.PostDAO;
 import com.narangnorang.dto.PageDTO;
 import com.narangnorang.dto.PostDTO;
+import com.narangnorang.dto.ReplyDTO;
 
 @Service("postService")
 public class PostServiceImpl implements PostService {
@@ -58,6 +59,15 @@ public class PostServiceImpl implements PostService {
 	public List<PostDTO> search(HashMap<String, Object> map) throws Exception {
 		return dao.search(map);
 	}
+	
+	@Transactional
+	@Override
+	public int insertReply(ReplyDTO dto) throws Exception {
+		dao.updateReplies(Integer.parseInt(dto.getPostId()));
+		return dao.insertReply(dto);
+	}
+	
+	
 
 	
 

@@ -65,7 +65,7 @@ $(document).ready(function(){
        					str = "<tr>"
        					str += "<td>"+item.id+"</td>";
        					str += "<td><a href = '/narangnorang/post/" + item.id + "'>" + item.title + "</a></td>";
-       					str += "<td>"+item.memberId+"</td>";
+       					str += "<td>"+item.memberName+"</td>";
        					str += "<td>"+item.datetime+"</td>";
        					str += "<td>"+item.views+"</td>";
        					str += "<td>"+item.likes+"</td>";
