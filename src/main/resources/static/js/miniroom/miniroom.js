@@ -7,16 +7,26 @@ $(document).ready(function(){
     $(".req").on("click", function(){
 
         var target = $(this).attr("data-xxx");
+        var itemId=$(this).attr("data-item");
         if(target == 'wish'){
-            var itemId=$(this).attr("data-item");
-            console.log(itemId);
+            $.ajax({
+                type: 'PUT',
+                url: '/narangnorang/home/buy/'+itemId,
 
-            $("form").attr({
-                "action": "/narangnorang/home/buy/"+itemId,
-                "method":"post"
+                datatype: "json",
+                data:{
+                    itemId: itemId,
+                },
+                success: function(data){
+
+                    location.href="/narangnorang/home/buy/"+itemId;
+                },
+                error: function(xhr, status, e){
+                    console.log(xhr,status, e)
+                },
             });
-            // $("form").submit();
-
+            console.log("위시리스트에 추가되었습니다");
+            alert("위시리스트에 추가되었습니다.");
         }else if (target=='order'){
             var itemId=$(this).attr("data-item");
             console.log(itemId)
