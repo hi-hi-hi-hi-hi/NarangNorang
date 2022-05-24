@@ -43,16 +43,16 @@ public class MemberController {
 	}
 
 	// 홈 (로그인 O)
-	@GetMapping("/home")
-	public ModelAndView home(HttpSession session) throws Exception {
-		MemberDTO mDTO = (MemberDTO) session.getAttribute("login");
-		String memberId = mDTO.getId();
-		MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(memberId);
-		myRoomDTO.setMemberId(memberId);
-		ModelAndView mav = new ModelAndView("home");
-		mav.addObject("myRoomDTO", myRoomDTO);
-		return mav;
-	}
+    @GetMapping("/home")
+    public ModelAndView home(HttpSession session) throws Exception {
+        MemberDTO mDTO = (MemberDTO) session.getAttribute("login");
+        int memberId = mDTO.getId();
+//        MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(memberId);
+//        myRoomDTO.setMemberId(memberId);
+        ModelAndView mav = new ModelAndView("home");
+//        mav.addObject("myRoomDTO", myRoomDTO);
+        return mav;
+    }
 	
 	// 로그인 폼
 	@GetMapping("/login")

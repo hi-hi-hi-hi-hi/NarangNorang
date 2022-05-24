@@ -11,26 +11,26 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Alias("MemberDTO")
 public class MemberDTO {
-
+	
 	// 공통
-	private String id; // 이메일
+	private int id;
+	private String email;
 	private String password;
-	private String phone;
-	private int privileage;
-	
-	// 일반
-	private String nickname;
-	private String region;
-	private String datetime;
-	private Integer point;
-	
-	// 상담사
+	private int privilege;
 	private String name;
+	private String phone;
+	private String datetime;
+	   
+	// 일반
+	private String region;
+	private Integer point;
+	   
+	// 상담사
 	private String zipcode;
 	private String address1;
 	private String address2;
 	private String address3;
 	private String job;
 	private String introduction;
-
+	
 }

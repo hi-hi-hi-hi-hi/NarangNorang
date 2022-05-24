@@ -13,13 +13,12 @@ import lombok.NoArgsConstructor;
 public class ReplyDTO {
 
 	private int id;
-	private String memberId;
+	private int memberId;
 	private String postId;
 	private String content;
 	private String datetime;
 	private int likes;
 	// Member
-	private String memberNickname;
 	private String memberName;
 
 }
