@@ -22,7 +22,7 @@ public class TestResultServiceImpl implements TestResultService {
 
 	// 지난 테스트 결과
 	@Override
-	public List<TestResultDTO> selectList(String memberId) throws Exception {
+	public List<TestResultDTO> selectList(int memberId) throws Exception {
 		return testResultDAO.selectList(memberId);
 	}
 
