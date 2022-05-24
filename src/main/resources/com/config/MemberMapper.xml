@@ -115,7 +115,7 @@
 	<!-- 선택 상담사 승급 -->
 	<update id="privileageUp" parameterType="arraylist">
 		UPDATE member
-		SET privileage = 1
+		SET privilege = 1
 		<where>
 			id IN
 			<foreach item="item" index="index" collection="list" open="(" separator="," close=")" >
