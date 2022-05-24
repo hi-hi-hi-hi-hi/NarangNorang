@@ -21,8 +21,8 @@ public class MemberDAO {
 	}
 	
 	// 아이디 중복 체크
-	public int checkId(String id) throws Exception {
-		return sqlSession.selectOne("com.config.MemberMapper.checkId", id);
+	public int checkId(String email) throws Exception {
+		return sqlSession.selectOne("com.config.MemberMapper.checkId", email);
 	}
 	
 	// 닉네임 중복 체크
