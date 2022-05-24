@@ -13,14 +13,14 @@ import lombok.NoArgsConstructor;
 public class MyRoomDTO {
 
 	private int id;
-	private String memberId;
+	//member 고유번호
+	private int memberId;
 	private int floor;
 	private int wallpaper;
 	private int bed;
 	private int closet;
 	private int desk;
 	private int walldeco;
-	// Member
-	private String memberNickname;
+	private String memberName;
 
 }

@@ -41,8 +41,10 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	@Override
 	public int generalSignUp(MemberDTO dto) throws Exception {
+
 		//String email = dto.getEmail();
 		return memberDAO.generalSignUp(dto); //& miniroomDAO.insertDefaultItems(email);
+
 	}
 	
 	// 상담사 회원가입

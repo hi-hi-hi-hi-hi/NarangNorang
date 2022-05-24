@@ -46,9 +46,12 @@ public class MemberController {
 	@GetMapping("/home")
 	public ModelAndView home(HttpSession session) throws Exception {
 		MemberDTO mDTO = (MemberDTO) session.getAttribute("login");
-		int memberId = mDTO.getId();
-//		MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(memberId);
-//		myRoomDTO.setMemberId(memberId);
+
+		String email = mDTO.getEmail();
+		int id = mDTO.getId();
+		MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(id);
+		myRoomDTO.setMemberId(id);
+
 		ModelAndView mav = new ModelAndView("home");
 //		mav.addObject("myRoomDTO", myRoomDTO);
 		return mav;

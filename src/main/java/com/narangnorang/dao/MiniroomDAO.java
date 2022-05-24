@@ -55,10 +55,14 @@ public class MiniroomDAO {
 	//	public List<MyItemDTO> selectAllMyItems(Map<String,String> map) {
 //		return sqlSession.selectList("com.config.MiniroomMapper.selectAllMyItems",map);
 //	}
-	public List<MyItemDTO> selectAllMyItems(HashMap<String, String> map) {
+	public List<MyItemDTO> selectAllMyItems(HashMap<String, Object> map) {
 		return sqlSession.selectList("com.config.MiniroomMapper.selectAllMyItems",map);
 	}
-	public MyRoomDTO selectMyRoom(String memberId){
-		return sqlSession.selectOne("com.config.MiniroomMapper.selectMyRoom",memberId);
+	public MyRoomDTO selectMyRoom(int id){
+		return sqlSession.selectOne("com.config.MiniroomMapper.selectMyRoom",id);
+	}
+	public MemberDTO selectMember(String email) {
+		return sqlSession.selectOne("com.config.miniroomMapper.selectMember",email);
+
 	}
 }
