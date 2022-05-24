@@ -1,9 +1,9 @@
 $(document).ready(function(){
 	var nicknameDuplication = false;
 	$("#generalEdit").on("submit", function(){
-		var nickname = $('#nickname').val();
-		var originNickname = $('#originNickname').val()
-		if(nickname == originNickname){
+		var name = $('#name').val();
+		var originName = $('#originName').val()
+		if(name == originName){
 			if(confirm("정보를 수정하시면 다시 로그인 해야 합니다. 진행하시겠습니까?")){
 			}else{
 				event.preventDefault();
@@ -22,16 +22,16 @@ $(document).ready(function(){
 	// 닉네임 중복 체크
 	$("#checkNickname").on("click", function(){
 		var mesg = "사용 불가";
-		var nickname = $('#nickname').val();
-		var originNickname = $('#originNickname').val()
+		var name = $('#name').val();
+		var originName = $('#originName').val()
 		$.ajax({
-			url: '/narangnorang/checkNickname',
+			url: '/narangnorang/checkName',
 			type: 'post',
 			data: {
-				nickname: nickname
+				name: name
 			},
 			success: function(cnt){
-				if(nickname==originNickname){
+				if(name==originName){
 					mesg = "지금 사용중인 닉네임 입니다.";
 					$("#nicknameCheck").css("color", "blue");
 					nicknameDuplication = true;
@@ -43,7 +43,7 @@ $(document).ready(function(){
 	            	$("#nicknameCheck").css("color", "red");
 	                nicknameDuplication = false;
 	            }
-				if(nickname.length == 0){
+				if(name.length == 0){
 					mesg = "닉네임을 입력해주세요";
 					$("#nicknameCheck").css("color", "red");
 	                nicknameDuplication = false;

@@ -7,7 +7,7 @@
 
 <form action="/narangnorang/counselorEdit" id="counselorEdit" method="post">
 	<input type="hidden" name="_method" value="put"/>
-	아이디 : <input type="text" name="id" id="id" value="${login.id}" readonly="readonly"><br>
+	아이디 : <input type="text" name="email" id="email" value="${login.email}" readonly="readonly"><br>
 	이름: <input type="text" name="name" id="name" value="${login.name}" readonly="readonly"><br>
 	휴대전화: <input type="text" name="phone" id="phone" value="${login.phone}" required="required"><br>
 	

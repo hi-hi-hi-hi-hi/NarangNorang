@@ -6,11 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="/narangnorang/js/member/counselPrivileage2.js"></script>
+<script src="/narangnorang/js/member/counselPrivilege2.js"></script>
 <title>회원관리</title>
 </head>
 <body>
 <article id="member">
+	<a href="/narangnorang/admin">회원 관리</a>
+	<a href="/narangnorang/admin/counselPrivilege2">상담사 인증 관리</a>
 	<table border="1">
 		<thead>
 			<tr>
@@ -18,7 +20,7 @@
 				<th><strong>id</strong></th>
 				<th><strong>password</strong></th>
 				<th><strong>phone</strong></th>
-				<th><strong>privileage</strong></th>
+				<th><strong>privilege</strong></th>
 				<th><strong>name</strong></th>
 				<th><strong>zipcode</strong></th>
 				<th><strong>address1</strong></th>
@@ -36,7 +38,7 @@
 					<td>${list.id}</td>
 					<td>${list.password}</td>
 					<td>${list.phone}</td>
-					<td>${list.privileage}</td>
+					<td>${list.privilege}</td>
 					<td>${list.name}</td>
 					<td>${list.zipcode}</td>
 					<td>${list.address1}</td>
@@ -51,7 +53,7 @@
 	</table>
 	
 	
-	<input type="button" id="upPrivileage" value="상담사로 승급">
+	<input type="button" id="upPrivilege" value="상담사로 승급">
 	<input type="button" value="취소" onclick="javascript:history.back()">
 </article>
 </body>

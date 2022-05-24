@@ -1,4 +1,3 @@
-////////////////////////////////////////
 $(document).ready(function(){
 	var isCertification = false;
 	var idDuplication = false;
@@ -164,6 +163,7 @@ $(document).ready(function(){
 
 	// 닉네임 중복 체크
 	$("#checkName").on("click", function(){
+		var mesg = "사용 가능한 닉네임입니다.";
 		$.ajax({
 			url: '/narangnorang/checkName',
 			type: 'post',
@@ -172,14 +172,14 @@ $(document).ready(function(){
 			},
 			success: function(cnt){
 				if(cnt != 1){
-	                $('.nickname_ok').css("display","inline-block"); 
-	                $('.nickname_already').css("display", "none");
+					$("#nicknameCheckResult").css("color", "blue");
 	                nicknameDuplication = true;
 	            } else {
-	                $('.nickname_already').css("display","inline-block");
-	                $('.nickname_ok').css("display", "none");
+	            	$("#nicknameCheckResult").css("color", "red");
+	            	mesg = "이미 등록된 닉네임입니다.";
 	                nicknameDuplication = false;
 	            }
+				$("#nicknameCheckResult").text(mesg);
 			},
 			error: function(){
 				alert("에러");

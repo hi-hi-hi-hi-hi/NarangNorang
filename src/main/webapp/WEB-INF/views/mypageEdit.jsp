@@ -11,12 +11,12 @@
 	<h1>회원 정보 수정</h1>
 	<jsp:include page="common/top.jsp" flush="true" /><br>
 	<jsp:include page="common/navBar.jsp" flush="true" /><br>
-	<c:set var="privileage" value="${login.privileage}" />
+	<c:set var="privilege" value="${login.privilege}" />
 	<c:choose>
-		<c:when test="${privileage == 3}">
+		<c:when test="${privilege == 3}">
 			<jsp:include page="member/generalEdit.jsp" flush="true" /><br>
 		</c:when>
-		<c:when test="${privileage == 2 or privileage == 1}">
+		<c:when test="${privilege == 2 or privilege == 1}">
 			<jsp:include page="member/counselorEdit.jsp" flush="true" /><br>
 		</c:when>
 	</c:choose>

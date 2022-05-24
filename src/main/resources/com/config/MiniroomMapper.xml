@@ -33,7 +33,7 @@
 		Insert into MY_ROOM (id, member_ID, floor, wallpaper,bed,closet,desk,walldeco)
 		values (seq_My_Room.nextval, #{id}, 1,11,21,31,41,51 )
 	</insert>
-
+	
 	<update id="wishupdate" parameterType="int">
 	<![CDATA[
 		update MY_ITEM
