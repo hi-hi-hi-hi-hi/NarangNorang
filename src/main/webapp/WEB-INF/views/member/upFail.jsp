@@ -3,5 +3,5 @@
 
 <script>
 	alert("선택된 항목이 없습니다.");
-	location.href = "/narangnorang/admin";
+	location.href = "/narangnorang/admin/counselPrivileage2";
 </script>

@@ -8,8 +8,11 @@
 	<select id="selectMessageList" resultType="MessageDTO" parameterType="String">
 		<![CDATA[
 			SELECT sender, reciever, content, message.datetime, send.nickname as senderNickname, send.name as senderName, recieve.nickname as recieverNickname, recieve.name as recieverName
-			FROM message, member send, member recieve
-			WHERE (sender = #{id} OR reciever = #{id}) AND send.id=sender AND recieve.id=reciever
+			FROM (message LEFT OUTER JOIN member send ON (message.sender = send.id)) 
+				LEFT OUTER JOIN member recieve ON (message.reciever = recieve.id)
+			WHERE (sender = #{id} OR reciever = #{id}) 
+				AND (send.id = sender OR send.id IS NULL) 
+				AND (recieve.id = reciever OR send.id IS NULL)
 			AND message.datetime in (select max(message.datetime) from message group by sender, reciever)
 			ORDER BY datetime desc
 		]]>
@@ -28,8 +31,9 @@
 	<select id="getChats" resultType="MessageDTO" parameterType="hashmap">
 	<![CDATA[
 		SELECT sender, reciever, content, message.datetime, send.nickname as senderNickname, send.name as senderName, recieve.nickname as recieverNickname, recieve.name as recieverName
-		FROM message, member send, member recieve
-		WHERE (sender = #{userId} OR reciever = #{userId}) AND (sender = #{otherId} OR reciever = #{otherId}) AND send.id=sender AND recieve.id=reciever
+		FROM (message LEFT OUTER JOIN member send ON (message.sender = send.id)) 
+				LEFT OUTER JOIN member recieve ON (message.reciever = recieve.id)
+		WHERE (sender = #{userId} OR reciever = #{userId}) AND (sender = #{otherId} OR reciever = #{otherId})
 		ORDER BY datetime
 	]]>
 	</select>

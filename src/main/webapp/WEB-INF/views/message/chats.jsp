@@ -42,17 +42,22 @@
 	
 	
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 </head>
+
 <body>
-	<h2> 
+	<h2>
 		<c:choose>
-		<c:when test="${chats[0].sender == userId}">
-			${chats[0].recieverNickname}${chats[0].recieverName}
-		</c:when>
-		<c:otherwise>
-			${chats[0].senderNickname}${chats[0].senderName}
-		</c:otherwise>
+			<c:when test="${(empty chats[0].recieverNickname && empty chats[0].recieverName) || (empty chats[0].senderNickname && empty chats[0].senderName)}">
+				"탈퇴한 사용자"
+			</c:when>
+			<c:when test="${chats[0].sender == userId}">
+				${chats[0].recieverNickname}${chats[0].recieverName}
+			</c:when>
+			<c:otherwise>
+				${chats[0].senderNickname}${chats[0].senderName}
+			</c:otherwise>
 		</c:choose>
 		님과의 채팅
 	</h2>
@@ -60,23 +65,31 @@
 	<table style="width:80%" border="1" >
 		<c:forEach items="${chats}" var="message">
 			<tr>
-				<td style="width:50%" align="left">
+				<td style="width: 50%" align="left">
 					<c:if test="${message.sender != userId}">
 						${message.content} <br>
 					</c:if>
 				</td>
-				<td style="width:50%" align="right">
+				<td style="width: 50%" align="right">
 					<c:if test="${message.sender == userId}">
 						${message.content} <br>
 					</c:if>
 				</td>
 			</tr>
 		</c:forEach>
+		
 		<tr>
-		<td colspan="2" align="center">
+			<td colspan="2" align="center">
 				<input type="text" id="content">
-				<button id="sendMessage" onclick="sendMessage('${userId}', '${otherId}')">전송</button>
-		</td>
+				<c:choose>
+					<c:when test="${(empty chats[0].recieverNickname && empty chats[0].recieverName) || (empty chats[0].senderNickname && empty chats[0].senderName)}">
+						<button disabled>전송</button>
+					</c:when>
+					<c:otherwise>
+						<button id="sendMessage" onclick="sendMessage('${userId}', '${otherId}')">전송</button>
+					</c:otherwise>
+				</c:choose>
+			</td>
 		</tr>
 	</table>
 

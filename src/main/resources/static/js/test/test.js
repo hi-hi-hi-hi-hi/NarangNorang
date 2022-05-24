@@ -1,3 +1,6 @@
+window.onload = function() {
+	goNext(0);
+}
 
 const selectList = [];
 
@@ -11,18 +14,21 @@ function select(idx, option) {
 }
 
 function goNext(idx) {
+	let progressBar = document.querySelector('.progress-bar');
+	progressBar.style.width = (idx + 1) / qnaList.length * 100 + '%';
 	let question = document.querySelector('.question');
-	question.innerText = qnaList[idx].question;
+	question.innerHTML = '<h5>' + qnaList[idx].question + '</h5>';
 	let answer = document.querySelector('.answer');
-	for ( let child of answer.childNodes) {
-		child.style.display = 'none';
+	while (answer.hasChildNodes()) {
+		answer.removeChild(answer.firstChild);
 	}
 	for ( let i in qnaList[idx].answer) {
-		let btn = document.createElement('button');
+		let btn = document.createElement('div');
+		btn.classList.add('btn', 'btn-outline-dark', 'd-grid', 'gap-2', 'col-6', 'mx-auto', 'my-3');
+		btn.innerText = qnaList[idx].answer[i].text;
 		btn.addEventListener('click', function() {
 			select(idx, i);
 		});
-		btn.innerText = qnaList[idx].answer[i].text;
 		answer.appendChild(btn);
 	}
 }
