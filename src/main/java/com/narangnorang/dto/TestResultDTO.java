@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class TestResultDTO {
 
 	private int id;
-	private String memberId;
+	private int memberId;
 	private String datetime;
 	private int type;
 	private int result;

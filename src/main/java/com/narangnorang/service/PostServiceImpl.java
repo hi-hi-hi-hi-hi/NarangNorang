@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.narangnorang.dao.PostDAO;
 import com.narangnorang.dto.PageDTO;
 import com.narangnorang.dto.PostDTO;
+import com.narangnorang.dto.ReplyDTO;
 
 @Service("postService")
 public class PostServiceImpl implements PostService {
@@ -23,8 +24,8 @@ public class PostServiceImpl implements PostService {
 	}
 	
 	@Override
-	public PageDTO<PostDTO> totalRecord(String category) throws Exception {
-		return dao.totalRecord(category);
+	public PageDTO<PostDTO> totalRecord(HashMap<String,Object> map) throws Exception {
+		return dao.totalRecord(map);
 	}
 	
 	@Transactional
@@ -32,6 +33,11 @@ public class PostServiceImpl implements PostService {
 	public PostDTO selectById(int id)  throws Exception{
 		dao.updateViews(id);
 		return dao.selectById(id);
+	}
+	
+	@Override
+	public PostDTO selectByLikes(HashMap<String, Object> map) throws Exception {
+		return dao.selectByLikes(map);
 	}
 
 	@Override
@@ -53,6 +59,15 @@ public class PostServiceImpl implements PostService {
 	public List<PostDTO> search(HashMap<String, Object> map) throws Exception {
 		return dao.search(map);
 	}
+	
+	@Transactional
+	@Override
+	public int insertReply(ReplyDTO dto) throws Exception {
+		dao.updateReplies(Integer.parseInt(dto.getPostId()));
+		return dao.insertReply(dto);
+	}
+	
+	
 
 	
 

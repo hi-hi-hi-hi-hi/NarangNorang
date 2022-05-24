@@ -8,18 +8,18 @@ $(document).ready(function(){
 	
 	// 일반회원 form 입력 유효성 체크
 	$("#general").on("submit", function(){
-		var id = $("#id").val();
+		var email = $("#email").val();
 		var password = $("#password").val();
 		var password2 = $("#password2").val();
-		var nickname = $("#nickname").val();
+		var name = $("#name").val();
 		var phone = $("#phone").val();
 		var region = $("#region").val();
 		
-		if(id.length == 0){
+		if(email.length == 0){
 			alert("아이디를 입력해주세요");
 			event.preventDefault();
 		}else{
-			if(!email_check(id)){
+			if(!email_check(email)){
 				alert("이메일 형식에 맞게 입력해주세요");
 				event.preventDefault();
 			}else{
@@ -43,7 +43,7 @@ $(document).ready(function(){
 									alert("비밀번호가 일치하지 않습니다");
 									event.preventDefault();
 								}else{
-									if(nickname.length == 0){
+									if(name.length == 0){
 										alert("닉네임을 입력해주세요");
 										event.preventDefault();
 									}else{
@@ -100,8 +100,8 @@ $(document).ready(function(){
 	
 	// 인증메일 전송
 	$("#sendMail").click(function() {
-		var id = $("#id").val();
-		if(!email_check(id)){
+		var email = $("#email").val();
+		if(!email_check(email)){
 			alert("이메일 형식에 맞게 입력해주세요");
 			event.preventDefault();
 		}else{
@@ -111,9 +111,10 @@ $(document).ready(function(){
 				dataType : 'text',
 				async : "false",
 				data : {
-					id : id
+					email : email
 				},
 				success : function(data) {
+					console.log(data);
 					key = data;
 				},
 				error: function(xhr, status, e){
@@ -135,24 +136,25 @@ $(document).ready(function(){
 		}
 	});
 	
-	//아이디 중복체크
-	$("#checkId").on("click", function(){
+	// 아이디 중복체크
+	$("#checkEmail").on("click", function(){
+		var mesg = "사용 가능한 이메일입니다.";
 		$.ajax({
-			url: '/narangnorang/checkId',
+			url: '/narangnorang/checkEmail',
 			type: 'post',
 			data: {
-				id: $('#id').val()
+				email: $('#email').val()
 			},
 			success: function(cnt){
 				if(cnt != 1){
-	                $('#id_ok').css("display","inline-block"); 
-	                $('#id_already').css("display", "none");
+					$("#emailCheckResult").css("color", "blue");
 	                idDuplication = true;
 	            } else {
-	                $('#id_already').css("display","inline-block");
-	                $('#id_ok').css("display", "none");
+	            	$("#emailCheckResult").css("color", "red");
+	            	mesg = "사용 불가능한 이메일입니다.";
 	                idDuplication = false;
 	            }
+				$("#emailCheckResult").text(mesg);
 			},
 			error: function(){
 				alert("에러");
@@ -161,12 +163,12 @@ $(document).ready(function(){
 	});
 
 	// 닉네임 중복 체크
-	$("#checkNickname").on("click", function(){
+	$("#checkName").on("click", function(){
 		$.ajax({
-			url: '/narangnorang/checkNickname',
+			url: '/narangnorang/checkName',
 			type: 'post',
 			data: {
-				nickname: $('#nickname').val()
+				name: $('#name').val()
 			},
 			success: function(cnt){
 				if(cnt != 1){

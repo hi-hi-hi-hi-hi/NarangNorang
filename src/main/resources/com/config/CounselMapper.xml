@@ -9,7 +9,7 @@
 	<![CDATA[
 		SELECT *
 		FROM member
-		WHERE privileage=1
+		WHERE privilege=1
 	]]>
 	</select>
 

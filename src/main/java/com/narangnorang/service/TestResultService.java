@@ -10,6 +10,6 @@ public interface TestResultService {
 	public int insert(TestResultDTO testResultDTO) throws Exception;
 
 	// 지난 테스트 결과
-	public List<TestResultDTO> selectList(String memberId) throws Exception;
+	public List<TestResultDTO> selectList(int memberId) throws Exception;
 
 }

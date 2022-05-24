@@ -1,5 +1,6 @@
 package com.narangnorang.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.narangnorang.dao.MiniroomDAO;
@@ -26,8 +27,8 @@ public class MemberServiceImpl implements MemberService {
 
 	// 아이디 중복 체크
 	@Override
-	public int checkId(String id) throws Exception {
-		return memberDAO.checkId(id);
+	public int checkId(String email) throws Exception {
+		return memberDAO.checkId(email);
 	}
 	
 	// 닉네임 중복 체크
@@ -40,8 +41,10 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	@Override
 	public int generalSignUp(MemberDTO dto) throws Exception {
-		String id = dto.getEmail();
-		return memberDAO.generalSignUp(dto) & miniroomDAO.insertDefaultItems(id);
+
+		//String email = dto.getEmail();
+		return memberDAO.generalSignUp(dto); //& miniroomDAO.insertDefaultItems(email);
+
 	}
 	
 	// 상담사 회원가입
@@ -66,6 +69,36 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int generalEdit(MemberDTO dto) throws Exception {
 		return memberDAO.generalEdit(dto);
+	}
+
+	// 상담사회원 정보수정
+	@Override
+	public int counselorEdit(MemberDTO dto) throws Exception {
+		return memberDAO.counselorEdit(dto);
+	}
+
+	// 모든 회원
+	@Override
+	public List<MemberDTO> selectAll() throws Exception {
+		return memberDAO.selectAll();
+	}
+
+	// 선택 계정 삭제
+	@Override
+	public int delSelected(List<String> list) throws Exception {
+		return memberDAO.delSelected(list);
+	}
+
+	// 미승인 상담사 회원
+	@Override
+	public List<MemberDTO> selectByPrivileage2() throws Exception {
+		return memberDAO.selectByPrivileage2();
+	}
+
+	// 선택 상담사 승급
+	@Override
+	public int privileageUp(List<String> list) throws Exception {
+		return memberDAO.privileageUp(list);
 	}
 	
 }

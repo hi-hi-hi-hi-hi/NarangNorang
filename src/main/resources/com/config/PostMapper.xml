@@ -6,42 +6,66 @@
 
 	<select id="selectAllByCategory" parameterType="hashmap" resultType="PostDTO">
 		<![CDATA[
-			select *
-			from (select rownum, id,
+			select rownum,
+					id,
 					member_id as memberId,
+					member_name as memberName,
 					title,
 					datetime,
 					replies,
 					likes,
 					views
 			from post
-			where category = #{category}
-			order by id desc)
-			OFFSET (#{pageDto.currentPage}-1)*#{pageDto.limit} + 1 ROWS FETCH FIRST 3 ROWS ONLY
+			where category=#{category} AND likes >= #{likes}
+			order by id desc
+			OFFSET (#{pageDto.currentPage}-1)*#{pageDto.limit} ROWS FETCH FIRST #{pageDto.limit} ROWS ONLY
 		]]>
 	</select>
 	
-	<select id="totalRecord" parameterType="String" resultType="PageDTO">
+	<select id="totalRecord" parameterType="hashmap" resultType="PageDTO">
 		<![CDATA[
 			select count(*) as totalRows
 			from post
-			where category = #{category}
+			where category = #{category} AND likes >= #{likes}
 		]]>
 	</select>
 
 	
 	<select id="selectById" resultType="PostDTO" parameterType="int">
 		<![CDATA[
-			select id, category, content, title, member_id as memberId, views, likes, datetime, replies
-			from post
+			select id,
+					category,
+					content, 
+					title, 
+					member_name as memberName, 
+					views,
+					likes, 
+					datetime, 
+					replies
+			from post 
 			where id = #{id}
+		]]>
+	</select>
+	
+	<select id="selectByLikes" resultType="PostDTO" parameterType="hashmap">
+		<![CDATA[
+			select id,
+					member_name as memberName,
+					title,
+					datetime,
+					replies,
+					likes,
+					views
+			from post
+			where likes >= #{likes} AND (category = #{category})
+			order by id desc
 		]]>
 	</select>
 	
 	<select id="search" resultType="PostDTO" parameterType="hashmap">
 		<![CDATA[
 			select id,
-					member_id as memberId,
+					member_name as memberName,
 					title,
 					datetime,
 					replies,
@@ -64,8 +88,8 @@
 	
 	<insert id="insert" parameterType="PostDTO">
 		<![CDATA[
-			insert into post ( id, member_id, category, title, content )
-			values ( seq_post.nextval, #{memberId}, #{category}, #{title}, #{content} )
+			insert into post ( id, member_id, member_name, category, title, content )
+			values ( seq_post.nextval, #{memberId}, #{memberName}, #{category}, #{title}, #{content} )
 		]]>
 	</insert>
 	
@@ -83,6 +107,21 @@
 			where id = #{id}
 		]]>
 	</delete>
+	
+	<insert id="insertReply" parameterType="ReplyDTO">
+		<![CDATA[
+			insert into reply ( id, member_id, member_name, post_id, content )
+			values ( seq_reply.nextval, #{memberId}, #{memberName}, #{postId}, #{content} )
+		]]>
+	</insert>
+	
+	<update id="updateReplies" parameterType="int">
+		<![CDATA[
+			update post
+			set replies =  replies + 1
+			where id = #{id}
+		]]>
+	</update>
 	
 
 </mapper>

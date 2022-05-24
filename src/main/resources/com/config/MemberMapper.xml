@@ -8,7 +8,7 @@
 	<select id="selectMember" parameterType="hashmap" resultType="MemberDTO">
 	<![CDATA[
 		SELECT * FROM member
-		WHERE id = #{id} AND password = #{password}
+		WHERE email = #{email} AND password = #{password}
 	]]>
 	</select>
 	
@@ -17,7 +17,7 @@
 	<![CDATA[
         SELECT COUNT(*)
         FROM member
-        WHERE id = #{id}
+        WHERE email = #{email}
       ]]>
     </select>
     
@@ -26,23 +26,23 @@
 	<![CDATA[
         SELECT COUNT(*)
         FROM member
-        WHERE nickname = #{nickname}
+        WHERE name = #{name}
     ]]>
     </select>
     
     <!-- 일반회원가입 -->
     <insert id="generalSignUp" parameterType="MemberDTO">
    	<![CDATA[
-		INSERT	INTO member (id, password, phone, privileage, nickname, region)
-		VALUES (#{id},#{password},#{phone},3,#{nickname},#{region})
+		INSERT	INTO member (id, email, password, phone, privilege, name, region, datetime)
+		VALUES (seq_member.nextval+2,#{email},#{password},#{phone},3,#{name},#{region},sysdate)
 	]]>
 	</insert>
 	
 	<!-- 상담사회원가입 -->
     <insert id="counselorSignUp" parameterType="MemberDTO">
    	<![CDATA[
-		INSERT	INTO member (id, password, phone, privileage, name, zipcode, address1, address2, address3, job, introduction)
-		VALUES (#{id},#{password},#{phone},2,#{name},#{zipcode},#{address1},#{address2},#{address3},#{job},#{introduction})
+		INSERT	INTO member (id, email, password, phone, privilege, name, zipcode, address1, address2, address3, job, introduction, datetime)
+		VALUES (seq_member.nextval,#{email},#{password},#{phone},2,#{name},#{zipcode},#{address1},#{address2},#{address3},#{job},#{introduction}, sysdate)
 	]]>
 	</insert>
 	
@@ -73,4 +73,55 @@
 	]]>
 	</update>
 
+	<!-- 상담사회원 정보수정 -->
+	<update id="counselorEdit" parameterType="MemberDTO">
+	<![CDATA[
+		UPDATE member
+		SET phone = #{phone}, zipcode = #{zipcode}, address1 = #{address1}, address2 = #{address2}, address3 = #{address3}, job = #{job}, introduction = #{introduction}
+		WHERE id = #{id}
+	]]>
+	</update>
+	
+	<!-- 모든 회원 -->
+	<select id="selectAll" resultType="MemberDTO">
+	<![CDATA[
+		SELECT * 
+		FROM member
+		WHERE privilege != 0
+	]]>
+	</select>
+	
+	<!-- 선택 회원 삭제 -->
+	<delete id="delSelected" parameterType="arraylist">
+		DELETE 
+		FROM member
+		<where>
+			id IN
+			<foreach item="item" index="index" collection="list" open="(" separator="," close=")" >
+	            #{item}
+			</foreach>
+		</where>
+	</delete>
+	
+	<!-- 미승인 상담사 회원 -->
+	<select id="selectByPrivileage2" resultType="MemberDTO">
+	<![CDATA[
+		SELECT * 
+		FROM member
+		WHERE privilege = 2
+	]]>
+	</select>
+	
+	<!-- 선택 상담사 승급 -->
+	<update id="privileageUp" parameterType="arraylist">
+		UPDATE member
+		SET privilege = 1
+		<where>
+			id IN
+			<foreach item="item" index="index" collection="list" open="(" separator="," close=")" >
+	            #{item}
+			</foreach>
+		</where>
+	</update>
+	
 </mapper>

@@ -1,5 +1,6 @@
 package com.narangnorang.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -20,8 +21,8 @@ public class MemberDAO {
 	}
 	
 	// 아이디 중복 체크
-	public int checkId(String id) throws Exception {
-		return sqlSession.selectOne("com.config.MemberMapper.checkId", id);
+	public int checkId(String email) throws Exception {
+		return sqlSession.selectOne("com.config.MemberMapper.checkId", email);
 	}
 	
 	// 닉네임 중복 체크
@@ -52,6 +53,31 @@ public class MemberDAO {
 	// 일반회원 정보수정
 	public int generalEdit(MemberDTO dto) throws Exception {
 		return sqlSession.update("com.config.MemberMapper.generalEdit", dto);
+	}
+	
+	// 상담사회원 정보수정
+	public int counselorEdit(MemberDTO dto) throws Exception {
+		return sqlSession.update("com.config.MemberMapper.counselorEdit", dto);
+	}
+	
+	// 모든 회원
+	public List<MemberDTO> selectAll() throws Exception {
+		return sqlSession.selectList("com.config.MemberMapper.selectAll");
+	}
+	
+	// 선택 계정 삭제
+	public int delSelected(List<String> list) throws Exception {
+		return sqlSession.delete("com.config.MemberMapper.delSelected", list);
+	}
+	
+	// 미승인 상담사 회원
+	public List<MemberDTO> selectByPrivileage2() throws Exception {
+		return sqlSession.selectList("com.config.MemberMapper.selectByPrivileage2");
+	}
+	
+	// 선택 상담사 승급
+	public int privileageUp(List<String> list) throws Exception {
+		return sqlSession.update("com.config.MemberMapper.privileageUp", list);
 	}
 
 }
