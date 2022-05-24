@@ -20,11 +20,11 @@ public class MemberDTO {
 	private String name;
 	private String phone;
 	private String datetime;
-	   
+
 	// 일반
 	private String region;
 	private Integer point;
-	   
+
 	// 상담사
 	private String zipcode;
 	private String address1;

@@ -8,7 +8,7 @@
 	<select id="selectMember" parameterType="hashmap" resultType="MemberDTO">
 	<![CDATA[
 		SELECT * FROM member
-		WHERE id = #{id} AND password = #{password}
+		WHERE email = #{email} AND password = #{password}
 	]]>
 	</select>
 	
