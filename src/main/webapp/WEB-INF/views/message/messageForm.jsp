@@ -11,10 +11,11 @@
 </head>
 
 <body>
-	<h1>쪽지보내기</h1>
+	<h1>상담신청</h1>
 	<form id="messageForm">
 		받는사람: <b>${counselor.name}</b> 상담사 
 		<input type="hidden"id="id" value="${counselor.id}" />
+		<input type="hidden"id="privilege" value="${counselor.privilege}" />
 		<textarea id="content" rows="20" cols="60"></textarea>
 	</form>
 	<button type="submit" id="button">보내기</button>
