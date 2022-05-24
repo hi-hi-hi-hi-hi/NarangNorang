@@ -1,5 +1,6 @@
 package com.narangnorang.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.narangnorang.dto.MyItemDTO;
@@ -36,6 +37,11 @@ public class MiniroomServiceImpl implements MiniroomService {
 	}
 
 	@Override
+	public int wishzero(int itemId) {
+		return miniroomDAO.wishzero(itemId);
+	}
+
+	@Override
 	public int applyMiniroom(MyItemDTO myItemDTO) {
 		return miniroomDAO.applyMiniroom(myItemDTO);
 	}
@@ -53,8 +59,8 @@ public class MiniroomServiceImpl implements MiniroomService {
 //		return list;
 //	}
 	@Override
-	public List<MyItemDTO> selectAllMyItems(String category) {
-		List<MyItemDTO> list = miniroomDAO.selectAllMyItems(category);
+	public List<MyItemDTO> selectAllMyItems(HashMap<String, String> map) {
+		List<MyItemDTO> list = miniroomDAO.selectAllMyItems(map);
 
 		return list;
 	}

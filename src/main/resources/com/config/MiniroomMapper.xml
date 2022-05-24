@@ -32,6 +32,13 @@
 		where item_Id = #{itemId}
 		]]>
 	</update>
+	<update id="wishzero" parameterType="int">
+	<![CDATA[
+		update MY_ITEM
+		set wish = 0
+		where item_Id = #{itemId}
+		]]>
+	</update>
 
 	<update id="applyMiniroom" parameterType="hashmap">
 		<![CDATA[
@@ -102,13 +109,13 @@
 		]]>
 	</select>
 
-	<select id="selectAllMyItems" resultType="ItemDTO" parameterType="String">
+	<select id="selectAllMyItems" resultType="ItemDTO" parameterType="hashmap">
 	<![CDATA[
 		select m.member_ID, m.item_ID as id, m.wish,i.category, i.name, i.price
 		from MY_ITEM m
 				 Inner Join ITEM i
 							ON m.item_id = i.id
-		where i.category=#{category}
+		where i.category=#{category} and m.member_ID=#{memberId}
 
 		]]>
 	</select>

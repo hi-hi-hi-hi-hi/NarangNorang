@@ -9,7 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -43,18 +46,20 @@ public class MiniroomController {
 							  @RequestParam(value="category",required=false,defaultValue="bed") String category
 	) throws Exception {
 
-
+		HashMap<String, String> map = new HashMap<>();
 		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
 		String memberId = mDto.getId();
 
-		List<MyItemDTO> myItemList =  miniroomService.selectAllMyItems(category);
+
 		List<ItemDTO> itemList =  miniroomService.selectAllItems(category);
 		ModelAndView mav = new ModelAndView("home_style");
 
 
 		MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(memberId);
 		myRoomDTO.setMemberId(memberId);
-
+		map.put("category", category);
+		map.put("memberId",memberId);
+		List<MyItemDTO> myItemList =  miniroomService.selectAllMyItems(map);
 		mav.addObject("myItemList",myItemList);
 		mav.addObject("itemList",itemList);
 		mav.addObject("myRoomDTO", myRoomDTO);
@@ -65,17 +70,28 @@ public class MiniroomController {
 
 	//물건 구매
 	@PostMapping("/home/buy")
-	public String buy(HttpSession session,MyItemDTO myItemDTO) throws Exception{
-		System.out.println(myItemDTO);
+	public String buy(HttpSession session, MyItemDTO myItemDTO, HttpServletResponse response) throws Exception{
 
 		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
-
 		String userId = mDto.getId();
 		myItemDTO.setMemberId(userId);
+		int itemId = myItemDTO.getItemId();
 
-		int num = miniroomService.insertBuy(myItemDTO);
+		MyItemDTO check = miniroomService.selectByMyItemId(itemId);
 
+		if(check == null){
+			miniroomService.insertBuy(myItemDTO);
+		}else if(check.getWish() == 1){
+			miniroomService.wishzero(itemId);
+		}else if(check.getWish() == 0){
 
+			String mesg="이미 구매한 아이템입니다.";
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('"+mesg);
+			out.println("')");
+			out.println("</script>");
+		}
 		return "redirect:/home/buy";
 	}
 
