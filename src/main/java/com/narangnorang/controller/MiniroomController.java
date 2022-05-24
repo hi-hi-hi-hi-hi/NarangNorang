@@ -64,7 +64,6 @@ public class MiniroomController {
 		myRoomDTO.setMemberId(id);
 		map.put("category", category);
 		map.put("id",id);
-		System.out.println(map);
 		List<MyItemDTO> myItemList =  miniroomService.selectAllMyItems(map);
 		mav.addObject("myItemList",myItemList);
 		mav.addObject("itemList",itemList);

@@ -43,7 +43,7 @@ $(document).ready(function(){
                 "action": "/narangnorang/home/style",
                 "method":"post"
             });
-            //$("form").submit();
+            $("form").submit();
 
         }//end if
 
