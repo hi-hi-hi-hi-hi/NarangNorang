@@ -109,23 +109,21 @@
 		]]>
 	</update>
 
-
-
 	<select id="selectAllMyItems" resultType="ItemDTO" parameterType="hashmap">
 	<![CDATA[
-		select m.member_ID, m.item_ID as id, m.wish,i.category, i.name, i.price
+		select m.member_ID, m.item_ID, m.wish,i.category, i.name, i.price
 		from MY_ITEM m
 				 Inner Join ITEM i
 							ON m.item_id = i.id
-		where i.category=#{category} and m.member_ID=#{memberId}
+		where i.category=#{category} and m.member_ID=#{id}
 
 		]]>
 	</select>
-	<select id="selectMyRoom" resultType="MyRoomDTO" parameterType="String">
+	<select id="selectMyRoom" resultType="MyRoomDTO" parameterType="int">
 	<![CDATA[
 		select member_id, floor, wallpaper, bed, closet,desk, walldeco
 		from MY_ROOM
-		where member_id=#{memberId}
+		where member_id=#{id}
 
 		]]>
 	</select>

@@ -36,7 +36,7 @@ public class MessageController {
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
 		ModelAndView mav = new ModelAndView();
 		if (memberDTO != null) {
-			String id = memberDTO.getId();
+			String id = memberDTO.getEmail();
 			mav.setViewName("message");
 
 			List<MessageDTO> messageList = messageService.selectMessageList(id);
@@ -77,7 +77,7 @@ public class MessageController {
 	public String sendMessageToCounselor(HttpSession session, @RequestParam Map<String, String> messageInfo)
 			throws Exception {
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
-		messageInfo.put("sender", memberDTO.getId());
+		messageInfo.put("sender", memberDTO.getEmail());
 		messageService.sendMessage(messageInfo);
 
 		return "home";
@@ -89,7 +89,7 @@ public class MessageController {
 		Map<String, String> map = new HashMap<String, String>();
 		
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
-		String userId = memberDTO.getId();
+		String userId = memberDTO.getEmail();
 		
 		map.put("userId", userId);
 		map.put("otherId", otherId);

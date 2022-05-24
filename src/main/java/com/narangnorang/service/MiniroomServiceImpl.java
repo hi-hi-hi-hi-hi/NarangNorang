@@ -1,8 +1,10 @@
 package com.narangnorang.service;
 
+import java.lang.reflect.Member;
 import java.util.HashMap;
 import java.util.List;
 
+import com.narangnorang.dto.MemberDTO;
 import com.narangnorang.dto.MyItemDTO;
 import com.narangnorang.dto.MyRoomDTO;
 import org.springframework.stereotype.Service;
@@ -47,6 +49,11 @@ public class MiniroomServiceImpl implements MiniroomService {
 	}
 
 	@Override
+	public MemberDTO selectMember(String email) {
+		return miniroomDAO.selectMember(email);
+	}
+
+	@Override
 	public MyItemDTO selectByMyItemId(int itemId) {
 		MyItemDTO myItemDTO = miniroomDAO.selectByMyItemId(itemId);
 		return myItemDTO;
@@ -59,15 +66,15 @@ public class MiniroomServiceImpl implements MiniroomService {
 //		return list;
 //	}
 	@Override
-	public List<MyItemDTO> selectAllMyItems(HashMap<String, String> map) {
+	public List<MyItemDTO> selectAllMyItems(HashMap<String, Object> map) {
 		List<MyItemDTO> list = miniroomDAO.selectAllMyItems(map);
 
 		return list;
 	}
 
 	@Override
-	public MyRoomDTO selectMyRoom(String memberId) {
-		MyRoomDTO myRoomDTO = miniroomDAO.selectMyRoom(memberId) ;
+	public MyRoomDTO selectMyRoom(int id) {
+		MyRoomDTO myRoomDTO = miniroomDAO.selectMyRoom(id) ;
 		return myRoomDTO;
 	}
 

@@ -40,7 +40,7 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	@Override
 	public int generalSignUp(MemberDTO dto) throws Exception {
-		String id = dto.getId();
+		String id = dto.getEmail();
 		return memberDAO.generalSignUp(dto) & miniroomDAO.insertDefaultItems(id);
 	}
 	

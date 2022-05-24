@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class MyItemDTO {
 
 	private int id;
-	private String memberId;
+	private int memberId;
 	private int itemId;
 	private int wish;
 

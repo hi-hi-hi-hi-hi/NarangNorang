@@ -36,7 +36,7 @@ public class TestController {
 	public String insert(HttpSession session, @PathVariable("type") int type, @PathVariable("result") int result)
 			throws Exception {
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
-		String memberId = memberDTO.getId();
+		String memberId = memberDTO.getEmail();
 		TestResultDTO testResultDTO = new TestResultDTO(0, memberId, null, type, result);
 		testResultService.insert(testResultDTO);
 		return "redirect:/test/" + type + "/" + result;
@@ -46,7 +46,7 @@ public class TestController {
 	@GetMapping("/test/results")
 	public String selectList(HttpSession session, Model model) throws Exception {
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
-		String memberId = memberDTO.getId();
+		String memberId = memberDTO.getEmail();
 		List<TestResultDTO> testResultList = testResultService.selectList(memberId);
 		model.addAttribute("testResultList", testResultList);
 		return "test";

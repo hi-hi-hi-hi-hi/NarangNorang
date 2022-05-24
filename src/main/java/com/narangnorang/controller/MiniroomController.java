@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
+import java.lang.reflect.Member;
 import java.util.HashMap;
 import java.util.List;
 
@@ -31,11 +32,13 @@ public class MiniroomController {
 		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
 		ModelAndView mav = new ModelAndView("home_buy");
 
-		String memberId = mDto.getId();
-		MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(memberId);
-		myRoomDTO.setMemberId(memberId);
+
+		int id = mDto.getId();
+
+		MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(id);
+		myRoomDTO.setMemberId(id);
 		mav.addObject("itemList",list);
-		mav.addObject("memberId",memberId);
+		mav.addObject("memberId",id);
 		mav.addObject("myRoomDTO", myRoomDTO);
 
 		return mav;
@@ -46,25 +49,28 @@ public class MiniroomController {
 							  @RequestParam(value="category",required=false,defaultValue="bed") String category
 	) throws Exception {
 
-		HashMap<String, String> map = new HashMap<>();
+		HashMap<String, Object> map = new HashMap<>();
 		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
-		String memberId = mDto.getId();
+
+
+		int id = mDto.getId();
 
 
 		List<ItemDTO> itemList =  miniroomService.selectAllItems(category);
 		ModelAndView mav = new ModelAndView("home_style");
 
 
-		MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(memberId);
-		myRoomDTO.setMemberId(memberId);
+		MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(id);
+		myRoomDTO.setMemberId(id);
 		map.put("category", category);
-		map.put("memberId",memberId);
+		map.put("id",id);
+		System.out.println(map);
 		List<MyItemDTO> myItemList =  miniroomService.selectAllMyItems(map);
 		mav.addObject("myItemList",myItemList);
 		mav.addObject("itemList",itemList);
 		mav.addObject("myRoomDTO", myRoomDTO);
 
-		mav.addObject("memberId",memberId);
+		mav.addObject("memberId",id);
 		return mav;
 	}
 
@@ -73,8 +79,9 @@ public class MiniroomController {
 	public String buy(HttpSession session, MyItemDTO myItemDTO, HttpServletResponse response) throws Exception{
 
 		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
-		String userId = mDto.getId();
-		myItemDTO.setMemberId(userId);
+
+		int id = mDto.getId();
+		myItemDTO.setMemberId(id);
 		int itemId = myItemDTO.getItemId();
 
 		MyItemDTO check = miniroomService.selectByMyItemId(itemId);
@@ -98,22 +105,13 @@ public class MiniroomController {
 	// 위시리스트
 	@PutMapping("/home/buy/{itemId}")
 	public String wishupdate(@PathVariable("itemId") int itemId) throws Exception{
-//		System.out.println(myItemDTO);
-//		myItemDTO = miniroomService.selectByMyItemId(itemId);
-//		model.addAttribute("myItem", myItemDTO);
-		int wishNum = miniroomService.wishupdate(itemId);
-		if(wishNum == 0){
-
-		}
+		miniroomService.wishupdate(itemId);
 		return "redirect:/home/buy";
 	}
 
 	//미니룸에 내아이템 적용
 	@PutMapping("/home/style")
 	public String applyMiniroom(MyItemDTO myItemDTO) throws Exception{
-		System.out.println(myItemDTO);
-//		myItemDTO = miniroomService.selectByMyItemId(itemId);
-//		model.addAttribute("myItem", myItemDTO);
 		miniroomService.applyMiniroom(myItemDTO);
 
 		return "redirect:/home/style";
