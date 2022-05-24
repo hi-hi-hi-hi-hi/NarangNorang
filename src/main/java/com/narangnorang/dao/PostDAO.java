@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.narangnorang.dto.PageDTO;
 import com.narangnorang.dto.PostDTO;
+import com.narangnorang.dto.ReplyDTO;
 
 @Repository("postDAO")
 public class PostDAO {
@@ -49,5 +50,13 @@ public class PostDAO {
 	
 	public int delete(int id) {
 		return session.delete("com.config.PostMapper.delete", id);
+	}
+	
+	public int insertReply(ReplyDTO dto) {
+		return session.insert("com.config.PostMapper.insertReply", dto);
+	}
+	
+	public int updateReplies(int id) {
+		return session.update("com.config.PostMapper.updateReplies", id);
 	}
 }
