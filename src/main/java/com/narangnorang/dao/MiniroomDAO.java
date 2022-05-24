@@ -33,8 +33,6 @@ public class MiniroomDAO {
 	}
 
 	public int applyMiniroom(MyItemDTO myItemDTO){
-		System.out.println(myItemDTO.getMemberId());
-		System.out.println(myItemDTO.getItemId());
 		if(myItemDTO.getItemId() <= 10){
 			return sqlSession.update("com.config.MiniroomMapper.applyMiniroomFloor",myItemDTO);
 		}else if(myItemDTO.getItemId() <= 20){

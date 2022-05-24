@@ -13,6 +13,15 @@
 		]]>
 	</select>
 
+	<select id="selectByMyItemId" resultType="MyItemDTO" parameterType="int">
+	<![CDATA[
+		select id, member_ID, item_ID, wish
+		from MY_ITEM
+		where item_Id=#{itemId}
+
+		]]>
+	</select>
+
 	<insert id="insertBuy" parameterType="MyItemDTO">
 		Insert into MY_ITEM (id, member_ID, item_ID, wish)
 		values (seq_My_Item.nextval, #{memberId}, #{itemId},#{wish} )
@@ -100,14 +109,7 @@
 		]]>
 	</update>
 
-	<select id="selectByMyItemId" resultType="MyItemDTO" parameterType="int">
-	<![CDATA[
-		select id, member_ID, item_ID, wish
-		from MY_ITEM
-		where item_Id=#{itemId}
 
-		]]>
-	</select>
 
 	<select id="selectAllMyItems" resultType="ItemDTO" parameterType="hashmap">
 	<![CDATA[

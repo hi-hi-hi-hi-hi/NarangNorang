@@ -101,8 +101,10 @@ public class MiniroomController {
 //		System.out.println(myItemDTO);
 //		myItemDTO = miniroomService.selectByMyItemId(itemId);
 //		model.addAttribute("myItem", myItemDTO);
-		miniroomService.wishupdate(itemId);
+		int wishNum = miniroomService.wishupdate(itemId);
+		if(wishNum == 0){
 
+		}
 		return "redirect:/home/buy";
 	}
 
