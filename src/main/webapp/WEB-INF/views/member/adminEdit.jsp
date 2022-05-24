@@ -11,7 +11,7 @@
 </head>
 <body>
 <article id="member">
-		<a href="">상담사 인증 관리</a>
+		<a href="/narangnorang/admin/counselPrivileage2">상담사 인증 관리</a>
 		<table border="1">
 			<thead>
 				<tr>

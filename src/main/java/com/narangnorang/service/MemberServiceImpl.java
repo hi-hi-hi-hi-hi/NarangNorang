@@ -92,5 +92,11 @@ public class MemberServiceImpl implements MemberService {
 	public List<MemberDTO> selectByPrivileage2() throws Exception {
 		return memberDAO.selectByPrivileage2();
 	}
+
+	// 선택 상담사 승급
+	@Override
+	public int privileageUp(List<String> list) throws Exception {
+		return memberDAO.privileageUp(list);
+	}
 	
 }

@@ -1,5 +1,6 @@
 package com.narangnorang.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.narangnorang.dto.*;
@@ -27,10 +28,11 @@ public class MiniroomDAO {
 	public int wishupdate(int itemId) {
 		return sqlSession.update("com.config.MiniroomMapper.wishupdate", itemId);
 	}
+	public int wishzero(int itemId) {
+		return sqlSession.update("com.config.MiniroomMapper.wishzero", itemId);
+	}
 
 	public int applyMiniroom(MyItemDTO myItemDTO){
-		System.out.println(myItemDTO.getMemberId());
-		System.out.println(myItemDTO.getItemId());
 		if(myItemDTO.getItemId() <= 10){
 			return sqlSession.update("com.config.MiniroomMapper.applyMiniroomFloor",myItemDTO);
 		}else if(myItemDTO.getItemId() <= 20){
@@ -53,8 +55,8 @@ public class MiniroomDAO {
 	//	public List<MyItemDTO> selectAllMyItems(Map<String,String> map) {
 //		return sqlSession.selectList("com.config.MiniroomMapper.selectAllMyItems",map);
 //	}
-	public List<MyItemDTO> selectAllMyItems(String category) {
-		return sqlSession.selectList("com.config.MiniroomMapper.selectAllMyItems",category);
+	public List<MyItemDTO> selectAllMyItems(HashMap<String, String> map) {
+		return sqlSession.selectList("com.config.MiniroomMapper.selectAllMyItems",map);
 	}
 	public MyRoomDTO selectMyRoom(String memberId){
 		return sqlSession.selectOne("com.config.MiniroomMapper.selectMyRoom",memberId);

@@ -43,4 +43,7 @@ public interface MemberService {
 	// 미승인 상담사 회원
 	public List<MemberDTO> selectByPrivileage2() throws Exception;
 	
+	// 선택 상담사 승급
+	public int privileageUp(List<String> list) throws Exception;
+	
 }

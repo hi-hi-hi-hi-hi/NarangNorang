@@ -74,5 +74,10 @@ public class MemberDAO {
 	public List<MemberDTO> selectByPrivileage2() throws Exception {
 		return sqlSession.selectList("com.config.MemberMapper.selectByPrivileage2");
 	}
+	
+	// 선택 상담사 승급
+	public int privileageUp(List<String> list) throws Exception {
+		return sqlSession.update("com.config.MemberMapper.privileageUp", list);
+	}
 
 }
