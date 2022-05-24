@@ -15,7 +15,6 @@ import org.springframework.http.MediaType;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +25,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.narangnorang.dto.MemberDTO;
 import com.narangnorang.service.MemberService;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MemberController {
@@ -47,7 +45,6 @@ public class MemberController {
 	// 홈 (로그인 O)
 	@GetMapping("/home")
 	public ModelAndView home(HttpSession session) throws Exception {
-
 		MemberDTO mDTO = (MemberDTO) session.getAttribute("login");
 		String memberId = mDTO.getId();
 		MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(memberId);
@@ -56,7 +53,7 @@ public class MemberController {
 		mav.addObject("myRoomDTO", myRoomDTO);
 		return mav;
 	}
-
+	
 	// 로그인 폼
 	@GetMapping("/login")
 	public String loginForm() throws Exception {
@@ -184,7 +181,7 @@ public class MemberController {
 	}
 	
 	// 관리자 페이지 - 회원 관리
-	@GetMapping(value="/mypage/admin", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/admin", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ModelAndView getAllLists() throws Exception{
 		List<MemberDTO> lists = memberService.selectAll();
@@ -194,7 +191,7 @@ public class MemberController {
 	}
 	
 	// 관리자 페이지 - 선택 계정 삭제
-	@GetMapping("/mypage/admin/delMember")
+	@GetMapping("/admin/delMember")
 	public String delMember(HttpServletRequest request) throws Exception{
 		String nextPage = "";
 		String [] check = request.getParameterValues("check");
@@ -203,19 +200,34 @@ public class MemberController {
 		}else {
 			List<String> list = Arrays.asList(check);
 			memberService.delSelected(list);
-			nextPage = "redirect:/mypage/admin";
+			nextPage = "redirect:/admin";
 		}
 		return nextPage;
 	}
 	
 	// 관리자 페이지 - 상담사 권한 관리
-	@GetMapping("/mypage/admin/counselPrivileage2")
+	@GetMapping("/admin/counselPrivileage2")
 	@ResponseBody
 	public ModelAndView getPrivileage2() throws Exception{
 		List<MemberDTO> lists = memberService.selectByPrivileage2();
 		ModelAndView mav = new ModelAndView("member/counselPrivileage2");
 		mav.addObject("lists", lists);
 		return mav;
+	}
+	
+	// 관리자 페이지 - 상담사 권한 UP
+	@GetMapping("/admin/privileageUp")
+	public String privileageUp(HttpServletRequest request) throws Exception{
+		String nextPage = "";
+		String [] check = request.getParameterValues("check");
+		if(check == null) {
+			nextPage = "member/upFail";
+		}else {
+			List<String> list = Arrays.asList(check);
+			memberService.privileageUp(list);
+			nextPage = "redirect:/admin/counselPrivileage2";
+		}
+		return nextPage;
 	}
 	
 	// 아이디 중복 체크

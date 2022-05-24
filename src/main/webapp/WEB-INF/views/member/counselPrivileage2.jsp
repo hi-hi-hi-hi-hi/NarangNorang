@@ -51,7 +51,7 @@
 	</table>
 	
 	
-	<input type="button" id="upgradePrivileage" value="상담사로 승급">
+	<input type="button" id="upPrivileage" value="상담사로 승급">
 	<input type="button" value="취소" onclick="javascript:history.back()">
 </article>
 </body>
