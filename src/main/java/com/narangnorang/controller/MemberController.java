@@ -53,7 +53,7 @@ public class MemberController {
 		myRoomDTO.setMemberId(id);
 
 		ModelAndView mav = new ModelAndView("home");
-//		mav.addObject("myRoomDTO", myRoomDTO);
+		mav.addObject("myRoomDTO", myRoomDTO);
 		return mav;
 	}
 

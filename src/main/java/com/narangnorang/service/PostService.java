@@ -11,6 +11,7 @@ public interface PostService {
 	public List<PostDTO> selectAllByCategory(HashMap<String, Object> map) throws Exception;
 	public PageDTO<PostDTO> totalRecord(HashMap<String,Object> map) throws Exception;
 	public PostDTO selectById(int id) throws Exception;
+	public List<ReplyDTO> selectAllReply(int id) throws Exception;
 	public PostDTO selectByLikes(HashMap<String,Object> map) throws Exception;
 	public int insert(PostDTO dto) throws Exception;
 	public int update(PostDTO dto) throws Exception;

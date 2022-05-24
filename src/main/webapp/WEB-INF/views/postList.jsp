@@ -11,7 +11,7 @@
 	var category = '${category}';
 	var totalRows = '${pageDto.totalRows}';
 	var limit = '${pageDto.limit}';
-	var currentPage = '${pageDto.currentPage}'
+	var currentPage = '${pageDto.currentPage}';
 </script>
 <script type="text/javascript" src="/narangnorang/js/post/postList.js"></script>
 </head>
