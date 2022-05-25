@@ -36,24 +36,20 @@ public class TestController {
 	public String insert(HttpSession session, @PathVariable("type") int type, @PathVariable("result") int result)
 			throws Exception {
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
-
 		int memberId = memberDTO.getId();
-
 		TestResultDTO testResultDTO = new TestResultDTO(0, memberId, null, type, result);
 		testResultService.insert(testResultDTO);
 		return "redirect:/test/" + type + "/" + result;
 	}
 
 	// 지난 테스트 결과
-	@GetMapping("/test/results")
+	@GetMapping("/mynorang/test")
 	public String selectList(HttpSession session, Model model) throws Exception {
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
-
 		int memberId = memberDTO.getId();
-
 		List<TestResultDTO> testResultList = testResultService.selectList(memberId);
 		model.addAttribute("testResultList", testResultList);
-		return "test";
+		return "mynorang";
 	}
 
 	// 에러 처리
