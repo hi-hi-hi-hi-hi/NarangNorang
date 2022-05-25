@@ -5,15 +5,11 @@
 <mapper namespace="com.config.MessageMapper">
 
 	<!-- 쪽지 List -->
-	<select id="selectMessageList" resultType="MessageDTO" parameterType="String">
+	<select id="selectMessageList" resultType="MessageDTO" parameterType="Integer">
 		<![CDATA[
-			SELECT sender, reciever, content, message.datetime, send.nickname as senderNickname, send.name as senderName, recieve.nickname as recieverNickname, recieve.name as recieverName
-			FROM (message LEFT OUTER JOIN member send ON (message.sender = send.id)) 
-				LEFT OUTER JOIN member recieve ON (message.reciever = recieve.id)
-			WHERE (sender = #{id} OR reciever = #{id}) 
-				AND (send.id = sender OR send.id IS NULL) 
-				AND (recieve.id = reciever OR send.id IS NULL)
-			AND message.datetime in (select max(message.datetime) from message group by sender, reciever)
+			SELECT *
+			FROM message
+			WHERE (sender_id = ${id} OR reciever_id = ${id}) AND datetime in (select max(datetime) from message group by sender_id, reciever_id)
 			ORDER BY datetime desc
 		]]>
 	</select>
@@ -21,8 +17,8 @@
 	<!-- 쪽지 보내기 -->
 	<insert id="sendMessage" parameterType="hashmap">
 	<![CDATA[
-		INSERT INTO message ( id, sender, reciever, content)
-		values (seq_message.nextval, #{sender}, #{reciever}, #{content}) 
+		INSERT INTO message ( id, sender_id, sender_name, sender_privilege, reciever_id, reciever_name, reciever_privilege, content)
+		values (seq_message.nextval, #{senderId}, #{senderName}, #{senderPrivilege}, #{recieverId}, #{recieverName}, #{recieverPrivilege}, #{content}) 
 	
 	]]>
 	</insert>
@@ -30,10 +26,9 @@
 	<!-- 쪽지 대화내역 가져오기-->
 	<select id="getChats" resultType="MessageDTO" parameterType="hashmap">
 	<![CDATA[
-		SELECT sender, reciever, content, message.datetime, send.nickname as senderNickname, send.name as senderName, recieve.nickname as recieverNickname, recieve.name as recieverName
-		FROM (message LEFT OUTER JOIN member send ON (message.sender = send.id)) 
-				LEFT OUTER JOIN member recieve ON (message.reciever = recieve.id)
-		WHERE (sender = #{userId} OR reciever = #{userId}) AND (sender = #{otherId} OR reciever = #{otherId})
+		SELECT *
+		FROM message
+		WHERE (sender_id = ${userId} OR reciever_id = ${userId}) AND (sender_id = ${otherId} OR reciever_id = ${otherId})
 		ORDER BY datetime
 	]]>
 	</select>
