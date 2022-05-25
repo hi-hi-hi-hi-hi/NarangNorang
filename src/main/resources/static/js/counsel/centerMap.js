@@ -73,6 +73,7 @@ function searchMyRegion(){
 	var keyword = document.getElementById('userRegion').value + ' 정신';
 	ps.keywordSearch(keyword, placesSearchCB);
 }
+
 $("#searchRegion").keydown(function(keyNum){
 	if(keyNum.keyCode == 13){
 		searchCenter();

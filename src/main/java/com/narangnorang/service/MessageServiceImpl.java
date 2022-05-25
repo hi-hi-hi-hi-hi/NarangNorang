@@ -16,17 +16,17 @@ public class MessageServiceImpl implements MessageService {
 	MessageDAO messageDAO;
 
 	@Override
-	public List<MessageDTO> selectMessageList(String id) throws Exception {
+	public List<MessageDTO> selectMessageList(int id) throws Exception {
 		return messageDAO.selectMessageList(id);
 	}
 
 	@Override
-	public int sendMessage(Map<String, String> messageInfo) throws Exception {
+	public int sendMessage(Map<String, Object> messageInfo) throws Exception {
 		return messageDAO.sendMessage(messageInfo);
 	}
 
 	@Override
-	public List<MessageDTO> getChats(Map<String, String> map) throws Exception {
+	public List<MessageDTO> getChats(Map<String, Object> map) throws Exception {
 		return messageDAO.getChats(map);
 	}
 

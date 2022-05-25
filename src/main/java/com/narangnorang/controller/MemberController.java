@@ -51,9 +51,8 @@ public class MemberController {
 		int id = mDTO.getId();
 		MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(id);
 		myRoomDTO.setMemberId(id);
-
 		ModelAndView mav = new ModelAndView("home");
-//		mav.addObject("myRoomDTO", myRoomDTO);
+		mav.addObject("myRoomDTO", myRoomDTO);
 		return mav;
 	}
 
