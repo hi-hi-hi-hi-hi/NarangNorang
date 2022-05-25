@@ -4,39 +4,29 @@
 <table border="1" style="width: 500px">
 	<c:forEach items="${messageList}" var="message">
 		<tr>
+			<td>
+				<c:if test="${empty message.senderName || empty message.recieverName}">
+					<b style="font-size: 11px; color: grey">탈퇴한 사용자</b>
+				</c:if>
+				
+				<c:choose>
+					<c:when test="${message.senderId==id}">
+						<c:set var="otherId" value="${message.recieverId}" />
+							${message.recieverName}
+						<c:if test="${message.recieverPrivilege == 1 && !empty message.recieverName}">
+							<b style="font-size: 11px; color: green"> 상담사</b>
+						</c:if>
+					</c:when>
 
-			<c:choose>
-				<c:when test="${message.sender==id}">
-					<c:set var="otherId" value="${message.reciever}" />
-					<c:choose>
-						<c:when test="${empty message.recieverName && empty message.recieverNickname}">
-							<td>탈퇴한 사용자</td>
-						</c:when>
-						<c:when test="${empty message.recieverName}">
-							<td>${message.recieverNickname}</td>
-						</c:when>
-						<c:otherwise>
-							<td>${message.recieverName}<b style="font-size: 11px; color: green"> 상담사</b></td>
-						</c:otherwise>
-					</c:choose>
-				</c:when>
-
-				<c:otherwise>
-					<c:set var="otherId" value="${message.sender}" />
-					<c:choose>
-						<c:when
-							test="${empty message.senderName && empty message.senderNickname}">
-							<td>탈퇴한 사용자</td>
-						</c:when>
-						<c:when test="${empty message.senderName}">
-							<td>${message.senderNickname}</td>
-						</c:when>
-						<c:otherwise>
-							<td>${message.senderName}<b style="font-size:11px; color:green"> 상담사</b></td>
-						</c:otherwise>
-					</c:choose>
-				</c:otherwise>
-			</c:choose>
+					<c:otherwise>
+						<c:set var="otherId" value="${message.senderId}" />
+							${message.senderName}
+						<c:if test="${message.senderPrivilege == 1 && !empty message.senderName}">
+							<b style="font-size: 11px; color: green"> 상담사</b>
+						</c:if>
+					</c:otherwise>
+				</c:choose>
+			</td>
 
 			<td><a href="javascript:popChats('${otherId}');">${message.content}</a></td>
 			<td>${message.datetime}</td>

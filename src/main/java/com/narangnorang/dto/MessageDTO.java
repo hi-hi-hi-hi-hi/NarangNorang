@@ -13,14 +13,14 @@ import lombok.NoArgsConstructor;
 public class MessageDTO {
 
 	private int id;
-	private String sender; // id
-	private String reciever; // id
+	private int senderId; // id
+	private int recieverId; // id
 	private String content;
 	private String datetime;
 	// Member
-	private String senderNickname;
 	private String senderName;
-	private String recieverNickname;
+	private int senderPrivilege;
 	private String recieverName;
+	private int recieverPrivilege;
 
 }
