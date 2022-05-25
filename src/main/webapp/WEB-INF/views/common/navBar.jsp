@@ -6,4 +6,4 @@
 <a href="/narangnorang/home">대나무숲</a>
 <a href="/narangnorang/test">테스트</a>
 <a href="/narangnorang/counsel">상담하기</a>
-<a href="/narangnorang/test/results">나의 노랑</a>
+<a href="/narangnorang/mynorang/test">나의노랑</a>
