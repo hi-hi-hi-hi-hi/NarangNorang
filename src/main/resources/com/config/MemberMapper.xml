@@ -34,7 +34,7 @@
     <insert id="generalSignUp" parameterType="MemberDTO">
    	<![CDATA[
 		INSERT	INTO member (id, email, password, phone, privilege, name, region, datetime)
-		VALUES (seq_member.nextval+2,#{email},#{password},#{phone},3,#{name},#{region},sysdate)
+		VALUES (seq_member.nextval,#{email},#{password},#{phone},3,#{name},#{region},sysdate)
 	]]>
 	</insert>
 	

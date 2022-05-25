@@ -29,7 +29,6 @@ $(document).ready(function(){
             alert("위시리스트에 추가되었습니다.");
         }else if (target=='order'){
             var itemId=$(this).attr("data-item");
-            console.log(itemId)
             //주문
             $("form").attr({
                 "action": "/narangnorang/home/buy",

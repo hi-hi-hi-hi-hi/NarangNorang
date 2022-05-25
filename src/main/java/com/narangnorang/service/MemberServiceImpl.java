@@ -1,5 +1,6 @@
 package com.narangnorang.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,8 +43,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int generalSignUp(MemberDTO dto) throws Exception {
 
-		//String email = dto.getEmail();
-		return memberDAO.generalSignUp(dto); //& miniroomDAO.insertDefaultItems(email);
+		String name = dto.getName();
+		HashMap<String, String> map = new HashMap<>();
+
+		map.put("name",name);
+		return memberDAO.generalSignUp(dto) & miniroomDAO.insertDefaultItems(map);
 
 	}
 	
