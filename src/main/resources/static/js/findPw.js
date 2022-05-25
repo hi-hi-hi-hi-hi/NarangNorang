@@ -3,11 +3,11 @@ $(document).ready(function(){
 	var isCertification = false;
 	
 	$("#sendMail").on("click", function(){
-		var id = $("#id").val();
-		if(!email_check(id)){
+		var email = $("#email").val();
+		if(!email_check(email)){
 			alert("이메일 형식에 맞게 입력해주세요");
 			event.preventDefault();
-		}else if(id.length == 0 || idDuplication == true){
+		}else if(email.length == 0 || idDuplication == true){
 			alert("아이디를 확인해주세요.");
 			event.preventDefault();
 		}else{
@@ -17,9 +17,10 @@ $(document).ready(function(){
 				dataType : 'text',
 				async : "false",
 				data : {
-					id : id
+					email : email
 				},
 				success : function(data) {
+					console.log(data);
 					key = data;
 				},
 				error: function(xhr, status, e){
@@ -30,16 +31,17 @@ $(document).ready(function(){
 		}
 	});
 	
-	//아이디 중복체크
-	$("#checkId").on("click", function(){
+	//아이디 존재 여부 확인
+	$("#checkEmail").on("click", function(){
+		var email = $('#email').val();
 		$.ajax({
-			url: '/narangnorang/checkId',
+			url: '/narangnorang/checkEmail',
 			type: 'post',
 			data: {
-				id: $('#id').val()
+				email: email
 			},
 			success: function(cnt){
-				if(!email_check($('#id').val())){
+				if(!email_check(email)){
 					alert("이메일 형식에 맞게 입력해주세요");
 					event.preventDefault();
 	            }else if(cnt != 1){
@@ -80,11 +82,11 @@ $(document).ready(function(){
 	});
 	
 	$("#findPw").on("submit", function(){
-		if(idDuplication = false){
-			alert("id를 확인해주세요");
+		if(idDuplication == true){
+			alert("email을 확인해주세요");
 			event.preventDefault();
 		}
-		else if(isCertification = false){
+		else if(isCertification == false){
 			alert("이메일 인증이 완료되지 않았습니다.");
 			event.preventDefault();
 		}

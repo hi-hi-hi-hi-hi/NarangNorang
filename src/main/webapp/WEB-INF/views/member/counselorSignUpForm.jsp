@@ -9,11 +9,10 @@
 <div class="container">
 	<form action="/narangnorang/counselorSignUp" id="counselor" method="post">
 		아이디(이메일)<br>
-		<input type="text" name="id" id="id" placeholder="Email">
-		<input type="button" id="checkId" value="중복 체크">
+		<input type="text" name="email" id="email" placeholder="Email">
+		<input type="button" id="checkEmail" value="중복 체크">
 		<input type="button" id="sendMail" value="인증메일보내기"><br>
-		<span id="id_ok">사용 가능한 아이디입니다.</span>
-		<span id="id_already">이미 등록된 아이디입니다.</span><br>
+		<span id="emailCheckResult" style="color:blue"></span><br>
 		인증확인<br>
 		<input type="text" name="com" id="com" placeholder="인증확인">
 		<input type="button" id="compare" value="인증확인"><br>

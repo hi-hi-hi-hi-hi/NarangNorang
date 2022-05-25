@@ -25,8 +25,7 @@
 		닉네임<br>
 		<input type="text" name="name" id="name" placeholder="NICKNAME">
 		<input type="button" id="checkName" value="중복 체크"><br>
-		<span class="nickname_ok">사용 가능한 닉네임입니다.</span>
-		<span class="nickname_already">이미 등록된 닉네임입니다.</span><br>
+		<span id="nicknameCheckResult" style="color:blue"></span><br>
 		휴대전화<br>
 		<input type="text" name="phone" id="phone" placeholder="-제외 번호"><br>
 		<br>

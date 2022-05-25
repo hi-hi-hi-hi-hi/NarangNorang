@@ -6,7 +6,6 @@ $(document).ready(function(){
 				"method": "GET"
 			});
 			$("form").submit();
-			alert("계정이 삭제되었습니다.");
 		}else{
 			event.preventDefault();
 		}

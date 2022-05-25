@@ -40,9 +40,9 @@ public class MemberDAO {
 		return sqlSession.insert("com.config.MemberMapper.counselorSignUp", dto);
 	}
 	
-	// id로 회원찾기
-	public MemberDTO selectById(String id) throws Exception {
-		return sqlSession.selectOne("com.config.MemberMapper.selectById", id);
+	// email로 회원찾기
+	public MemberDTO selectByEmail(String email) throws Exception {
+		return sqlSession.selectOne("com.config.MemberMapper.selectByEmail", email);
 	}
 	
 	// 새 비밀번호 설정
