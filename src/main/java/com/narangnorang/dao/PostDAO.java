@@ -28,6 +28,10 @@ public class PostDAO {
 		return session.selectOne("com.config.PostMapper.selectById", id);
 	}
 	
+	public List<ReplyDTO> selectAllReply(int id) {
+		return session.selectList("com.config.PostMapper.selectAllReply", id);
+	}
+	
 	public PostDTO selectByLikes(HashMap<String, Object> map) {
 		return session.selectOne("com.config.PostMapper.selectByLikes", map);
 	}

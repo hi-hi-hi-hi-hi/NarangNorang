@@ -36,6 +36,11 @@ public class PostServiceImpl implements PostService {
 	}
 	
 	@Override
+	public List<ReplyDTO> selectAllReply(int id) throws Exception {
+		return dao.selectAllReply(id);
+	}
+	
+	@Override
 	public PostDTO selectByLikes(HashMap<String, Object> map) throws Exception {
 		return dao.selectByLikes(map);
 	}
@@ -66,9 +71,6 @@ public class PostServiceImpl implements PostService {
 		dao.updateReplies(Integer.parseInt(dto.getPostId()));
 		return dao.insertReply(dto);
 	}
-	
-	
-
 	
 
 }

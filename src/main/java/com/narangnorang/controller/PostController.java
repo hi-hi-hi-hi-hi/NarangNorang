@@ -71,9 +71,10 @@ public class PostController {
 	@GetMapping("/post/{id}")
 	public ModelAndView postRetrieve(@PathVariable int id) throws Exception{
 		PostDTO pDto = postService.selectById(id);
-		
+		List<ReplyDTO> replyList = postService.selectAllReply(id);
 		ModelAndView mav = new ModelAndView("postRetrieve");
 		mav.addObject("retrieve", pDto);
+		mav.addObject("replyList", replyList);
 		return mav;
 	}
 	

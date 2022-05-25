@@ -37,6 +37,7 @@
 					category,
 					content, 
 					title, 
+					member_id as memberId,
 					member_name as memberName, 
 					views,
 					likes, 
@@ -44,6 +45,20 @@
 					replies
 			from post 
 			where id = #{id}
+		]]>
+	</select>
+	
+	<select id="selectAllReply" resultType="ReplyDTO" parameterType="int">
+		<![CDATA[
+			select id,
+					member_id as memberId,
+					member_name as memberName,
+					post_id,
+					content,
+					datetime,
+					likes
+			from reply
+			where post_id = #{postId}
 		]]>
 	</select>
 	

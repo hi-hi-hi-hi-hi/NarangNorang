@@ -91,4 +91,5 @@ $(document).ready(function(){
 	$("#overThirty").on("click", function(){
 		location.href = "/narangnorang/post?category=" + category + "&likes=30";
 	});
+
 });
