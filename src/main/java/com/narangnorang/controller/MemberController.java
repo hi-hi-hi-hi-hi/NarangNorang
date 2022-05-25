@@ -47,7 +47,6 @@ public class MemberController {
 	public ModelAndView home(HttpSession session) throws Exception {
 		MemberDTO mDTO = (MemberDTO) session.getAttribute("login");
 
-		String email = mDTO.getEmail();
 		int id = mDTO.getId();
 
 		MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(id);

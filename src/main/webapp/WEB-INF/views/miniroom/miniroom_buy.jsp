@@ -63,7 +63,7 @@
 							</tr>
 							<tr>
 								<td class="td_red" align ="center"><font color="red"><strong>
-									가격${dto.price}	</strong></font>
+									가격${dto.price}</strong></font>
 								</td>
 							</tr>
 							<form name="buyForm">
@@ -73,6 +73,7 @@
 
 
 									<input type="text" name="itemId" value="${dto.id}">
+									<input type="hidden" name="price" value="${dto.price}">
 							</tr>
 							<tr>
 								<td class= "inline-flex" align ="center">

@@ -12,9 +12,10 @@ public interface MiniroomService {
 	public int wishzero(int itemId);
 	public int applyMiniroom(MyItemDTO myItemDTO);
 	public MemberDTO selectMember(String email);
-	public MyItemDTO selectByMyItemId(int itemId);
-	//	public List<MyItemDTO> selectAllMyItems(Map<String,String> map);
+	public MyItemDTO selectByMyItemId(HashMap<String, Object> map);
 	public List<MyItemDTO> selectAllMyItems(HashMap<String, Object> map);
 	public MyRoomDTO selectMyRoom(int id);
+	public int updatePoint(HashMap<String, Object> pointMap);
+	public ItemDTO selectClickItem(Integer itemId);
 
 }

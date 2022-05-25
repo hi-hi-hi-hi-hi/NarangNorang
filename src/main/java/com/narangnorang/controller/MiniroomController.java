@@ -64,7 +64,6 @@ public class MiniroomController {
 		myRoomDTO.setMemberId(id);
 		map.put("category", category);
 		map.put("id",id);
-		System.out.println(map);
 		List<MyItemDTO> myItemList =  miniroomService.selectAllMyItems(map);
 		mav.addObject("myItemList",myItemList);
 		mav.addObject("itemList",itemList);
@@ -76,29 +75,77 @@ public class MiniroomController {
 
 	//물건 구매
 	@PostMapping("/home/buy")
-	public String buy(HttpSession session, MyItemDTO myItemDTO, HttpServletResponse response) throws Exception{
+	public String buy(HttpSession session, MyItemDTO myItemDTO,Integer price, HttpServletResponse response) throws Exception{
+		//alert 출력하고 싶다. 맞왜틀?
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
 
+		//세션 받아오기.
 		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
 
-		int id = mDto.getId();
-		myItemDTO.setMemberId(id);
+		//member고유번호
+		int memberId = mDto.getId();
+
+		//파라미터 이용해서 구매 버튼 클릭한 해당 itemId 받아옴.
 		int itemId = myItemDTO.getItemId();
 
-		MyItemDTO check = miniroomService.selectByMyItemId(itemId);
+		// myItem에 insert하는 부분에 사용(insertBuy)
+		myItemDTO.setMemberId(memberId);
 
+		// Check에 쓰임. click한 아이템 price찾기에 쓰임.
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("itemId",itemId);
+		map.put("memberId",memberId);
+
+		//click한 아이템 price찾기
+		//ItemDTO itemDTO = miniroomService.selectClickItem((Integer)(itemId));
+
+		int point =mDto.getPoint();
+
+		//price랑 memberId 등록.
+		HashMap<String, Object> pointMap = new HashMap<>();
+		pointMap.put("memberId",memberId);
+		pointMap.put("price",price);
+
+		//아이디와 아이템id 이용해서 myItem에 구매할 아이템이 있는지 check로 받아옴.
+		MyItemDTO check = miniroomService.selectByMyItemId(map);
+		String mesg=null;
+
+
+		//구매할 아이템이 myItem테이블에 없고 포인트가 price 이상이면구매. point없으면 포인트 부족메세지.
 		if(check == null){
-			miniroomService.insertBuy(myItemDTO);
-		}else if(check.getWish() == 1){
-			miniroomService.wishzero(itemId);
-		}else if(check.getWish() == 0){
+			if(point >= price){
+				//point 차감.
+				miniroomService.updatePoint(pointMap);
+				miniroomService.insertBuy(myItemDTO);
+				mesg="구매완료";
+			}else{
+				mesg="포인트가 부족합니다.";
+			}
 
-			String mesg="이미 구매한 아이템입니다.";
-			PrintWriter out = response.getWriter();
-			out.println("<script>");
-			out.println("alert('"+mesg);
-			out.println("')");
-			out.println("</script>");
+			//구매할 아이템이 이미 있는데, wish가 1이면 wish를 0으로 만들고 구매하기.
+		}else if(check.getWish() == 1){
+			if(point >= price){
+				miniroomService.wishzero(itemId);
+				//point 차감.
+				miniroomService.updatePoint(pointMap);
+				miniroomService.insertBuy(myItemDTO);
+				mesg="구매완료";
+
+			}else{
+				mesg="포인트가 부족합니다.";
+
+			}
+
+		//구매할 아이템이 이미 있는데 wish가 0이면 이미 구매한 아이템.
+		}else if(check.getWish() == 0){
+			mesg="이미 구매한 아이템입니다.";
 		}
+//		out.println("<script language='javascript'>");
+//		out.println("alert('"+mesg);
+//		out.println("');");
+//		out.println("</script>");
+//		out.flush();
 		return "redirect:/home/buy";
 	}
 

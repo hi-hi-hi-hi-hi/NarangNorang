@@ -13,11 +13,11 @@
 		]]>
 	</select>
 
-	<select id="selectByMyItemId" resultType="MyItemDTO" parameterType="int">
+	<select id="selectByMyItemId" resultType="MyItemDTO" parameterType="hashmap">
 	<![CDATA[
 		select id, member_ID, item_ID, wish
 		from MY_ITEM
-		where item_Id=#{itemId}
+		where item_Id=#{itemId} and member_ID=#{memberId}
 
 		]]>
 	</select>
@@ -28,10 +28,9 @@
 
 	</insert>
 
-
-	<insert id="insertDefaultItems" parameterType="String">
-		Insert into MY_ROOM (id, member_ID, floor, wallpaper,bed,closet,desk,walldeco)
-		values (seq_My_Room.nextval, #{id}, 1,11,21,31,41,51 )
+	<insert id="insertDefaultItems" parameterType="hashmap">
+		Insert into MY_ROOM (id, member_ID, floor, wallpaper,bed,closet,desk,walldeco, member_Name)
+		values (seq_My_Room.nextval, seq_Member.currval, 1,11,21,31,41,51, #{name})
 	</insert>
 	
 	<update id="wishupdate" parameterType="int">
@@ -111,7 +110,7 @@
 
 	<select id="selectAllMyItems" resultType="ItemDTO" parameterType="hashmap">
 	<![CDATA[
-		select m.member_ID, m.item_ID, m.wish,i.category, i.name, i.price
+		select i.id, i.category, i.name, i.price
 		from MY_ITEM m
 				 Inner Join ITEM i
 							ON m.item_id = i.id
@@ -124,7 +123,22 @@
 		select member_id, floor, wallpaper, bed, closet,desk, walldeco
 		from MY_ROOM
 		where member_id=#{id}
+		]]>
+	</select>
 
+	<update id="updatePoint" parameterType="hashmap">
+	<![CDATA[
+		update MEMBER
+		set point=point-#{price}
+		where id = #{memberId}
+		]]>
+	</update>
+
+	<select id="selectClickItem" resultType="ItemDTO" parameterType="Integer">
+	<![CDATA[
+		select *
+		from ITEM
+		where id=#{itemId}
 		]]>
 	</select>
 

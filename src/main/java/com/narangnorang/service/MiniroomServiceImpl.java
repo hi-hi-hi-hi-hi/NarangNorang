@@ -32,6 +32,10 @@ public class MiniroomServiceImpl implements MiniroomService {
 
 		return miniroomDAO.insertBuy(myItemDTO);
 	}
+	@Override
+	public int updatePoint(HashMap<String, Object> pointMap) {
+		return miniroomDAO.updatePoint(pointMap);
+	}
 
 	@Override
 	public int wishupdate(int itemId) {
@@ -54,17 +58,10 @@ public class MiniroomServiceImpl implements MiniroomService {
 	}
 
 	@Override
-	public MyItemDTO selectByMyItemId(int itemId) {
-		MyItemDTO myItemDTO = miniroomDAO.selectByMyItemId(itemId);
+	public MyItemDTO selectByMyItemId(HashMap<String, Object> map) {
+		MyItemDTO myItemDTO = miniroomDAO.selectByMyItemId(map);
 		return myItemDTO;
 	}
-
-	//	@Override
-//	public List<MyItemDTO> selectAllMyItems(Map<String,String> map) {
-//		List<MyItemDTO> list = miniroomDAO.selectAllMyItems(map);
-//
-//		return list;
-//	}
 	@Override
 	public List<MyItemDTO> selectAllMyItems(HashMap<String, Object> map) {
 		List<MyItemDTO> list = miniroomDAO.selectAllMyItems(map);
@@ -78,4 +75,10 @@ public class MiniroomServiceImpl implements MiniroomService {
 		return myRoomDTO;
 	}
 
+
+	@Override
+	public ItemDTO selectClickItem(Integer itemId) {
+		ItemDTO itemDTO = miniroomDAO.selectClickItem(itemId);
+		return itemDTO;
+	}
 }
