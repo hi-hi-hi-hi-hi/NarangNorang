@@ -28,7 +28,7 @@
 
 	</insert>
 
-	<insert id="insertDefaultItems" parameterType="hashmap">
+	<insert id="insertDefaultItems" parameterType="String">
 		Insert into MY_ROOM (id, member_ID, floor, wallpaper,bed,closet,desk,walldeco, member_Name)
 		values (seq_My_Room.nextval, seq_Member.currval, 1,11,21,31,41,51, #{name})
 	</insert>
@@ -128,19 +128,10 @@
 
 	<update id="updatePoint" parameterType="hashmap">
 	<![CDATA[
-		update MEMBER
-		set point=point-#{price}
-		where id = #{memberId}
+		UPDATE MEMBER
+		SET POINT = POINT - #{price}
+		WHERE ID = #{memberId}
 		]]>
 	</update>
-
-	<select id="selectClickItem" resultType="ItemDTO" parameterType="Integer">
-	<![CDATA[
-		select *
-		from ITEM
-		where id=#{itemId}
-		]]>
-	</select>
-
 
 </mapper>

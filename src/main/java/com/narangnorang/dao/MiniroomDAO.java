@@ -22,8 +22,8 @@ public class MiniroomDAO {
 		return sqlSession.insert("com.config.MiniroomMapper.insertBuy",myItemDTO);
 	}
 
-	public int insertDefaultItems(HashMap<String, String> map) {
-		return sqlSession.insert("com.config.MiniroomMapper.insertDefaultItems",map);
+	public int insertDefaultItems(String name) {
+		return sqlSession.insert("com.config.MiniroomMapper.insertDefaultItems",name);
 	}
 	public int wishupdate(int itemId) {
 		return sqlSession.update("com.config.MiniroomMapper.wishupdate", itemId);
@@ -38,8 +38,6 @@ public class MiniroomDAO {
 		}else if(myItemDTO.getItemId() <= 20){
 			return sqlSession.update("com.config.MiniroomMapper.applyMiniroomWallpaper",myItemDTO);
 		}else if(myItemDTO.getItemId() <= 30){
-
-			System.out.println(myItemDTO.getItemId());
 			return sqlSession.update("com.config.MiniroomMapper.applyMiniroomBed",myItemDTO);
 		}else if(myItemDTO.getItemId() <= 40){
 			return sqlSession.update("com.config.MiniroomMapper.applyMiniroomCloset",myItemDTO);
@@ -59,16 +57,9 @@ public class MiniroomDAO {
 	public MyRoomDTO selectMyRoom(int id){
 		return sqlSession.selectOne("com.config.MiniroomMapper.selectMyRoom",id);
 	}
-	public MemberDTO selectMember(String email) {
-		return sqlSession.selectOne("com.config.miniroomMapper.selectMember",email);
 
-	}
 
-	public int updatePoint(HashMap<String, Object> pointMap) {
-		return sqlSession.update("com.config.miniroomMapper.updatePoint",pointMap);
-	}
-
-	public ItemDTO selectClickItem(Integer itemId) {
-		return sqlSession.selectOne("com.config.miniroomMapper2.selectClickItem",itemId);
+	public int updatePoint(HashMap<String, Integer> pointMap) {
+		return sqlSession.update("com.config.MiniroomMapper.updatePoint",pointMap);
 	}
 }

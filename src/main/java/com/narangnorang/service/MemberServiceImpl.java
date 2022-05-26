@@ -44,10 +44,7 @@ public class MemberServiceImpl implements MemberService {
 	public int generalSignUp(MemberDTO dto) throws Exception {
 
 		String name = dto.getName();
-		HashMap<String, String> map = new HashMap<>();
-
-		map.put("name",name);
-		return memberDAO.generalSignUp(dto) & miniroomDAO.insertDefaultItems(map);
+		return memberDAO.generalSignUp(dto) & miniroomDAO.insertDefaultItems(name);
 
 	}
 	

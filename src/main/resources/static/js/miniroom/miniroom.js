@@ -18,31 +18,55 @@ $(document).ready(function(){
                     itemId: itemId,
                 },
                 success: function(data){
-
-                    location.href="/narangnorang/home/buy/"+itemId;
+                    alert("위시리스트에 추가되었습니다.");
                 },
                 error: function(xhr, status, e){
                     console.log(xhr,status, e)
                 },
             });
-            console.log("위시리스트에 추가되었습니다");
-            alert("위시리스트에 추가되었습니다.");
-        }else if (target=='order'){
-            var itemId=$(this).attr("data-item");
+
+        }else if (target=='buy'){
             //주문
+            // $.ajax({
+            //     type: 'POST',
+            //     url: '/narangnorang/home/buy',
+            //
+            //     data:data,
+            //     success: function(data){
+            //         location.href="/narangnorang/home/buy"
+            //     },
+            //     error: function(xhr, status, e){
+            //         console.log(xhr,status, e)
+            //         alert("에러발생")
+            //     },
+            // });
             $("form").attr({
                 "action": "/narangnorang/home/buy",
                 "method":"post"
             });
             $("form").submit();
 
+
         }else if(target == 'apply'){
-            var memberId = $(this).attr("data-item");
-            $("form").attr({
-                "action": "/narangnorang/home/style",
-                "method":"post"
+            $.ajax({
+                type: 'PUT',
+                url: '/narangnorang/home/style',
+
+                datatype: "json",
+                data:data,
+                success: function(data){
+                    alert("적용완료");
+                    location.href="/narangnorang/home/style";
+                },
+                error: function(xhr, status, e){
+                    console.log(xhr,status, e)
+                },
             });
-            $("form").submit();
+            // $("form").attr({
+            //     "action": "/narangnorang/home/style",
+            //     "method":"post"
+            // });
+            // $("form").submit();
 
         }//end if
 

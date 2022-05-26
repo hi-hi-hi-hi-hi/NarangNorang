@@ -34,6 +34,7 @@
 				<tr>
 					<td height="10"></td>
 					<!-- myItemDTO에 세션 스코프 로그인 아이디값 저장시켰음.-->
+
 				</tr>
 
 				<tr>
@@ -66,18 +67,24 @@
 									가격${dto.price}</strong></font>
 								</td>
 							</tr>
+							<tr>
+								<td class="td_red" align ="center"><strong>
+									상품명${dto.name}</strong>
+								</td>
+							</tr>
 							<form name="buyForm">
 							<tr>
 								<td height="10">
 
 
 
-									<input type="text" name="itemId" value="${dto.id}">
+									<input type="hidden" name="itemId" value="${dto.id}">
+									<input type="hidden" name="category" value="${dto.category}">
 									<input type="hidden" name="price" value="${dto.price}">
 							</tr>
 							<tr>
 								<td class= "inline-flex" align ="center">
-									<button class="req" data-xxx="order" data-item="${dto.id}">구매</button>&nbsp;&nbsp;
+									<button class="req" data-xxx="buy" data-item="${dto.id}">구매</button>&nbsp;&nbsp;
 									<button class="req" data-xxx="wish" data-item="${dto.id}">위시리스트</button>
 								</td>
 							</tr>
