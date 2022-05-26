@@ -57,11 +57,10 @@ public class MemberController {
 		return mav;
 	}
 
-	
 	// 로그인 폼
 	@GetMapping("/login")
 	public String loginForm() throws Exception {
-		return "loginForm";
+		return "member/loginForm";
 	}
 
 	// 로그인 처리
@@ -113,14 +112,14 @@ public class MemberController {
 	@PostMapping("/generalSignUp")
 	public String insertGeneral(MemberDTO memberDTO) throws Exception {
 		memberService.generalSignUp(memberDTO);
-		return "loginForm";
+		return "member/loginForm";
 	}
 	
 	// 상담사 회원가입 처리
 	@PostMapping("/counselorSignUp")
 	public String insertCounselor(MemberDTO memberDTO) throws Exception {
 		memberService.counselorSignUp(memberDTO);
-		return "loginForm";
+		return "member/loginForm";
 	}
 	
 	// 비번찾기 폼
