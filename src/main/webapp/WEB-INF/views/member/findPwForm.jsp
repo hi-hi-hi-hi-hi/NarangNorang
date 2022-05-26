@@ -11,13 +11,12 @@
 <body>
 <form action="/narangnorang/findPw" id="findPw" method="post">
 	아이디(이메일)<br>
-	<input type="text" name="email" id="email" required="required">
-	<input type="button" id="checkEmail" value="아이디 확인">
+	<input type="email" name="email" id="email" required="required">
 	<input type="button" id="sendMail" value="인증메일보내기"><br>
 	<span id="check-text"></span><br>
 	<br>
 	인증 번호<br>
-	<input type="text" name="com" id="com" placeholder="인증확인">
+	<input type="text" name="com" id="com" placeholder="인증확인" required="required">
 	<input type="button" id="compare" value="인증하기"><br>
 	<span id="compare-text"></span><br>
 	<br>

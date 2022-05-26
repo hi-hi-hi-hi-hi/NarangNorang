@@ -10,7 +10,7 @@
 	<h1>로그인</h1>
 	<form action="/narangnorang/login" method="post">
 		이메일 : <input type="text" name="email" required="required"><br>
-		비밀번호 : <input type="text" name="password" required="required"><br>
+		비밀번호 : <input type="password" name="password" required="required"><br>
 		<input type="submit" value="로그인">
 	</form>
 	<a href="/narangnorang/findPw">Forgot Password?</a><br>

@@ -12,9 +12,9 @@
 <form action="#" method="post">
 	<input type="hidden" name="id" id="id" value="${findPw.id}">
 	새 비밀번호<br>
-	<input type="text" name="password" id="password" placeholder="새 비밀번호" required><br>
+	<input type="password" name="password" id="password" placeholder="새 비밀번호" required="required"><br>
 	새 비밀번호 확인<br>
-	<input type="text" name="password2" id="password2" placeholder="새 비밀번호 확인" required><br>
+	<input type="password" name="password2" id="password2" placeholder="새 비밀번호 확인" required="required"><br>
 	<span id="pwCheckResult"></span><br>
 	<br>
 	<input type="button" id="newPw" value="변경하기">
