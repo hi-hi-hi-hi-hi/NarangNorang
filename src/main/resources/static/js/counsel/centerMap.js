@@ -17,7 +17,6 @@ var ps = new kakao.maps.services.Places();
 var keyword = document.getElementById('userRegion').value + ' 정신';
 ps.keywordSearch(keyword, placesSearchCB);
 
-
 // 키워드 검색 완료 시 호출되는 콜백함수 입니다
 function placesSearchCB (data, status, pagination) {
     if (status === kakao.maps.services.Status.OK) {
@@ -63,19 +62,24 @@ function displayMarker(place) {
 
 
 // 검색기능
+$(document).ready(function(){
+	// 키워드 검색
+	$("#searchBtn").on("click", function(){
+		var keyword = $("#searchRegion").val() + ' 정신';
+		ps.keywordSearch(keyword, placesSearchCB);
+	});
+	
+	// 내 주소기반 검색
+	$("#searchBtnMyRegion").on("click", function(){
+		var keyword = $("#userRegion").val() + ' 정신';
+		ps.keywordSearch(keyword, placesSearchCB);
+	});
+	
+	// Enter로 검색
+	$("#searchRegion").on("keydown", function(keyNum){
+		if(keyNum.keyCode == 13){
+			$("#searchBtn").trigger("click");
+		}
+	});
+});
 
-function searchCenter(){
-	var keyword = document.getElementById('searchRegion').value + ' 정신';
-	ps.keywordSearch(keyword, placesSearchCB);
-}
-
-function searchMyRegion(){
-	var keyword = document.getElementById('userRegion').value + ' 정신';
-	ps.keywordSearch(keyword, placesSearchCB);
-}
-
-$("#searchRegion").keydown(function(keyNum){
-	if(keyNum.keyCode == 13){
-		searchCenter();
-	}
-})

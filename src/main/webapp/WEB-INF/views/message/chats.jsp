@@ -18,10 +18,7 @@
 <body>
 	<h2>
 		<c:choose>
-			<c:when test="${chats[0].senderId == userId}">
-			<input type="hidden" id="senderId" value="${chats[0].senderId}"/>
-			<input type="hidden" id="senderName" value="${chats[0].senderName}"/>
-			<input type="hidden" id="senderPrivilege" value="${chats[0].senderPrivilege}"/>
+			<c:when test="${chats[0].senderId == login.id}">
 			<input type="hidden" id="recieverId" value="${chats[0].recieverId}"/>
 			<input type="hidden" id="recieverName" value="${chats[0].recieverName}"/>
 			<input type="hidden" id="recieverPrivilege" value="${chats[0].recieverPrivilege}"/>
@@ -31,9 +28,6 @@
 			<input type="hidden" id="recieverId" value="${chats[0].senderId}"/>
 			<input type="hidden" id="recieverName" value="${chats[0].senderName}"/>
 			<input type="hidden" id="recieverPrivilege" value="${chats[0].senderPrivilege}"/>
-			<input type="hidden" id="senderId" value="${chats[0].recieverId}"/>
-			<input type="hidden" id="senderName" value="${chats[0].recieverName}"/>
-			<input type="hidden" id="senderPrivilege" value="${chats[0].recieverPrivilege}"/>
 				${chats[0].senderName}
 			</c:otherwise>
 		</c:choose>
@@ -47,12 +41,12 @@
 		<c:forEach items="${chats}" var="message">
 			<tr>
 				<td style="width: 50%" align="left">
-					<c:if test="${message.senderId != userId}">
+					<c:if test="${message.senderId != login.id}">
 						${message.content} <br>
 					</c:if>
 				</td>
 				<td style="width: 50%" align="right">
-					<c:if test="${message.senderId == userId}">
+					<c:if test="${message.senderId == login.id}">
 						${message.content} <br>
 					</c:if>
 				</td>
@@ -67,7 +61,7 @@
 						<button disabled>전송</button>
 					</c:when>
 					<c:otherwise>
-						<button id="sendMessage" onclick="sendMessage()">전송</button>
+						<button id="sendMessage" onclick="sendMessage(${login.id}, '${login.name}', ${login.privilege})">전송</button>
 					</c:otherwise>
 				</c:choose>
 			</td>
