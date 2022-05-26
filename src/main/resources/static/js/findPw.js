@@ -48,11 +48,8 @@ $(document).ready(function(){
 	
 	//이메일 정규식 체크
 	function email_check(email) {
-
 		var reg = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-
 		return reg.test(email);
-
 	}
 	
 	// 인증번호 확인
