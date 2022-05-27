@@ -9,7 +9,7 @@
 	<input type="hidden" name="privilege" id="privilege" value="${login.privilege}"><br>
 	이메일 : ${login.email}<br>
 	<input type="hidden" name="password2" id="password2" value="${login.password}"><br>
-	비밀번호: <input type="text" name="password" id="password"><br>
+	비밀번호: <input type="password" name="password" id="password" required="required"><br>
 	<input type="button" id="pwCheck" value="확인">
 	<input type="button" value="취소" onclick="javascript:history.back()">
 </form>
