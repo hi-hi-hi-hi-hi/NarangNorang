@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.narangnorang.dao.PostDAO;
+import com.narangnorang.dto.LikerDTO;
 import com.narangnorang.dto.PageDTO;
 import com.narangnorang.dto.PostDTO;
 import com.narangnorang.dto.ReplyDTO;
@@ -65,12 +66,21 @@ public class PostServiceImpl implements PostService {
 		return dao.search(map);
 	}
 	
+	@Override
+	public PageDTO<PostDTO> searchRecord(HashMap<String, Object> map) throws Exception {
+		return dao.searchRecord(map);
+	}
+	
 	@Transactional
 	@Override
 	public int insertReply(ReplyDTO dto) throws Exception {
 		dao.updateReplies(Integer.parseInt(dto.getPostId()));
 		return dao.insertReply(dto);
 	}
-	
 
+	@Override
+	public int insertLiker(LikerDTO dto) throws Exception {
+		dao.updateLiker(Integer.parseInt(dto.getPostId()));
+		return dao.insertLiker(dto);
+	}
 }
