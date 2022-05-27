@@ -2,17 +2,19 @@ function closeChats() {
 	window.close();
 };
 
-function sendMessage(userId, otherId) {
+
+function sendMessage(userId, userName, userPrivilege) {
+	console.log(userId, userName, userPrivilege)
 	var data = {
 		"content" : $("#content").val(),
-		"senderId" : $("#senderId").val(),
-		"senderName" : $("#senderName").val(),
-		"senderPrivilege" : $("#senderPrivilege").val(),
+		"senderId" : userId,
+		"senderName" : userName,
+		"senderPrivilege" : userPrivilege,
 		"recieverId" : $("#recieverId").val(),
 		"recieverName" : $("#recieverName").val(),
 		"recieverPrivilege" : $("#recieverPrivilege").val()
 	}
-	console.log(data);
+	
 	$.ajax({
 		type : "POST",
 		url : "/narangnorang/message/send",
@@ -23,10 +25,8 @@ function sendMessage(userId, otherId) {
 			if (data.result == "ok") {
 				location.reload();
 				opener.location.reload();
-				$("#content").focus();
-				// getMessages();
-			}
-			;
+				$("#content").focus();	
+			};
 		},
 		error : function(xhr, status, e) {
 			alert("전송 실패");
@@ -36,10 +36,9 @@ function sendMessage(userId, otherId) {
 
 $(document).ready(function(){
 	$("#content").focus();
-	
 	$("#content").keydown(function(keyNum){
 		if(keyNum.keyCode == 13){
-			sendMessage();
+			$("#sendMessage").trigger("click");
 			$("#content").focus();
 		}
 	});

@@ -35,6 +35,7 @@ public class MessageController {
 	public ModelAndView selectMessageList(HttpSession session) throws Exception {
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
 		ModelAndView mav = new ModelAndView();
+		
 		if (memberDTO != null) {
 			int id = memberDTO.getId();
 			mav.setViewName("message");
@@ -42,13 +43,14 @@ public class MessageController {
 			List<MessageDTO> messageList = messageService.selectMessageList(id);
 			Iterator<MessageDTO> iter = messageList.iterator();
 			List<Integer> otherUsers = new ArrayList<Integer>();
-
+			
 			while (iter.hasNext()) {
 				MessageDTO messageDTO = iter.next();
-
+				// 만약 이미 대화방이 표시된 사용자면 제거
 				if (otherUsers.contains(messageDTO.getSenderId()) || otherUsers.contains(messageDTO.getRecieverId())) {
 					iter.remove();
 				} else {
+					// sender/reciever가 본인이 아닌 경우 리스트 추가
 					if (id != messageDTO.getSenderId()) {
 						otherUsers.add(messageDTO.getSenderId());
 					}
@@ -97,7 +99,6 @@ public class MessageController {
 		
 		mav.setViewName("/message/chats");
 		mav.addObject("chats", messageService.getChats(map));
-		mav.addObject("userId", userId);
 		return mav;
 	}
 	
