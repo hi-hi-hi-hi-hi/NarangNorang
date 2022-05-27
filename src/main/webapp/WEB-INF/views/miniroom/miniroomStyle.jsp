@@ -71,7 +71,7 @@
 									</tr>
 									<tr>
 										<td class= "inline-flex" align ="center">
-											<button class="req" data-xxx="apply" data-item="${memberId}">적용하기</button>
+											<button class="req" data-xxx="apply" >적용하기</button>
 										</td>
 									</tr>
 									</form>

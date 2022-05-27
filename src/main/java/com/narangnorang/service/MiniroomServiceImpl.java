@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.narangnorang.dao.MiniroomDAO;
 import com.narangnorang.dto.ItemDTO;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service("miniroomService")
@@ -26,15 +27,11 @@ public class MiniroomServiceImpl implements MiniroomService {
 		List<ItemDTO> list = miniroomDAO.selectAllItems(category);
 		return list;
 	}
-
+	@Transactional
 	@Override
-	public int insertBuy(MyItemDTO myItemDTO) {
-
+	public int insertBuy(MyItemDTO myItemDTO,HashMap<String, Integer> pointMap) {
+		miniroomDAO.updatePoint(pointMap);
 		return miniroomDAO.insertBuy(myItemDTO);
-	}
-	@Override
-	public int updatePoint(HashMap<String, Object> pointMap) {
-		return miniroomDAO.updatePoint(pointMap);
 	}
 
 	@Override
@@ -53,11 +50,6 @@ public class MiniroomServiceImpl implements MiniroomService {
 	}
 
 	@Override
-	public MemberDTO selectMember(String email) {
-		return miniroomDAO.selectMember(email);
-	}
-
-	@Override
 	public MyItemDTO selectByMyItemId(HashMap<String, Object> map) {
 		MyItemDTO myItemDTO = miniroomDAO.selectByMyItemId(map);
 		return myItemDTO;
@@ -73,12 +65,5 @@ public class MiniroomServiceImpl implements MiniroomService {
 	public MyRoomDTO selectMyRoom(int id) {
 		MyRoomDTO myRoomDTO = miniroomDAO.selectMyRoom(id) ;
 		return myRoomDTO;
-	}
-
-
-	@Override
-	public ItemDTO selectClickItem(Integer itemId) {
-		ItemDTO itemDTO = miniroomDAO.selectClickItem(itemId);
-		return itemDTO;
 	}
 }

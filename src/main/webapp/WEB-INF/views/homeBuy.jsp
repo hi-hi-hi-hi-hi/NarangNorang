@@ -16,7 +16,7 @@
 	<jsp:include page="common/top.jsp" flush="true" /><br>
 	<jsp:include page="common/navBar.jsp" flush="true" /><br>
 	<jsp:include page="miniroom/miniroomLink.jsp" flush="true" /><br>
-	<jsp:include page="miniroom/miniroom_buy.jsp" flush="true" />
+	<jsp:include page="miniroom/miniroomBuy.jsp" flush="true" />
 
 </body>
 </html>
