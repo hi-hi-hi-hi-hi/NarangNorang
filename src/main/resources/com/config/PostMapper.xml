@@ -89,6 +89,15 @@
 			from post
 			where (${searchCol} like '%'||#{keyword}||'%') AND (category = #{category})
 			order by id desc
+			OFFSET (#{pageDto.currentPage}-1)*#{pageDto.limit} ROWS FETCH FIRST #{pageDto.limit} ROWS ONLY
+		]]>
+	</select>
+	
+	<select id="searchRecord" parameterType="hashmap" resultType="PageDTO">
+		<![CDATA[
+			select count(*) as totalRows
+			from post
+			where (${searchCol} like '%'||#{keyword}||'%') AND (category = #{category})
 		]]>
 	</select>
 
@@ -134,6 +143,21 @@
 		<![CDATA[
 			update post
 			set replies =  replies + 1
+			where id = #{id}
+		]]>
+	</update>
+	
+	<insert id="insertLiker" parameterType="LikerDTO">
+		<![CDATA[
+			insert into liker ( id, member_id, post_id, reply_id )
+			values ( req_liker.nextval, #{memberId}, #{postId}, #{replyId})
+		]]>
+	</insert>
+	
+	<update id="updateLike" parameterType="int">
+		<![CDATA[
+			update post
+			set likes = likes + 1
 			where id = #{id}
 		]]>
 	</update>

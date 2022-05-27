@@ -40,4 +40,26 @@ $(document).ready(function(){
 			};
 			
 		});
+		
+		$("#btn_like").on("click", function(){
+			if(confirm("이 게시글을 추천하시겠습니까?") == true){
+				var content = $("#reply").val();
+				$.ajax({
+					type:'PUT',
+					url: '/narangnorang/post/like',
+					datatype: 'json',
+					data: {
+						
+					},
+					success: function(result){
+						alert("게시글을 추천하였습니다.");
+						location.href = "/narangnorang/post/" + id;
+					},
+					error: function(xhr, status, e){
+						console.log(xhr, status, e)
+					}
+				});
+			};
+			
+		});
 	});

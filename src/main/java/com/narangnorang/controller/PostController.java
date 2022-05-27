@@ -58,15 +58,26 @@ public class PostController {
 	// 글 검색
 	@ResponseBody
 	@GetMapping("/post/search")
-	public List<PostDTO> search(String searchCol, String keyword, String category) throws Exception{
+	public HashMap<String, Object> search(@RequestParam(defaultValue="1") int p,
+								String searchCol, String keyword, String category) throws Exception{
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("searchCol", searchCol);
 		map.put("keyword", keyword);
 		map.put("category", category);
-		return postService.search(map);
+		
+		PageDTO<PostDTO> pageDto = new PageDTO<PostDTO>();
+		pageDto.setCurrentPage(p);
+		pageDto.setLimit(5);
+		pageDto.setTotalRows(postService.searchRecord(map).getTotalRows());
+		map.put("pageDto", pageDto);
+		
+		HashMap<String, Object> returnMap = new HashMap<>();
+		returnMap.put("PageDTO", pageDto);
+		returnMap.put("PostDTO", postService.search(map));
 
+		return returnMap;
 	}
-	
+
 	// 자세히 보기
 	@GetMapping("/post/{id}")
 	public ModelAndView postRetrieve(@PathVariable int id) throws Exception{

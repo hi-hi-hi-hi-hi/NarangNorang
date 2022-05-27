@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.narangnorang.dto.LikerDTO;
 import com.narangnorang.dto.PageDTO;
 import com.narangnorang.dto.PostDTO;
 import com.narangnorang.dto.ReplyDTO;
@@ -44,6 +45,10 @@ public class PostDAO {
 		return session.selectList("com.config.PostMapper.search", map);
 	}
 	
+	public PageDTO<PostDTO> searchRecord(HashMap<String, Object> map) {
+		return session.selectOne("com.config.PostMapper.searchRecord", map);
+	}
+	
 	public int insert(PostDTO dto) {
 		return session.insert("com.config.PostMapper.insert", dto);
 	}
@@ -62,5 +67,13 @@ public class PostDAO {
 	
 	public int updateReplies(int id) {
 		return session.update("com.config.PostMapper.updateReplies", id);
+	}
+	
+	public int insertLiker(LikerDTO dto) {
+		return session.insert("com.config.PostMapper.insertLiker", dto);
+	}
+	
+	public int updateLiker(int id) {
+		return session.update("com.config.PostMapper.updateLike", id);
 	}
 }
