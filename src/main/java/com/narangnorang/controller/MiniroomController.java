@@ -73,7 +73,7 @@ public class MiniroomController {
 
 	//물건 구매
 	@PostMapping("/home/buy")
-	public ModelAndView buy(HttpSession session, MyItemDTO myItemDTO,Integer price,HttpServletResponse response,String category) throws Exception{
+	public ModelAndView buy(HttpSession session, MyItemDTO myItemDTO,int price,HttpServletResponse response,String category) throws Exception{
 		ModelAndView mav = new ModelAndView("miniroom/miniroomBuySuccess");
 		mav.addObject("category",category);
 
