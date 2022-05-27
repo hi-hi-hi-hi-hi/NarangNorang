@@ -35,8 +35,8 @@ public class TestController {
 	@PostMapping("/test/{type}/{result}")
 	public String insert(HttpSession session, @PathVariable("type") int type, @PathVariable("result") int result)
 			throws Exception {
-		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
-		int memberId = memberDTO.getId();
+		MemberDTO login = (MemberDTO) session.getAttribute("login");
+		int memberId = login.getId();
 		TestResultDTO testResultDTO = new TestResultDTO(0, memberId, null, type, result);
 		testResultService.insert(testResultDTO);
 		return "redirect:/test/" + type + "/" + result;

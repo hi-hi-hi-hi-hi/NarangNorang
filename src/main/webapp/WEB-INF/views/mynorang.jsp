@@ -16,6 +16,7 @@
 	<h1>테스트</h1>
 	<jsp:include page="common/top.jsp" flush="true" /><br>
 	<jsp:include page="common/navBar.jsp" flush="true" /><br>
+	<jsp:include page="common/norang.jsp" flush="true" /><br>
 	<c:choose>
 		<c:when test="${not empty testResultList}">
 			<jsp:include page="mynorang/test.jsp" flush="true" /><br>
