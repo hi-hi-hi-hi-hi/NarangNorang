@@ -18,8 +18,8 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		HttpSession session = request.getSession();
-		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
-		if (memberDTO != null) {
+		MemberDTO login = (MemberDTO) session.getAttribute("login");
+		if (login != null) {
 			return true;
 		}
 		response.sendRedirect("/narangnorang/sessionInvalidate");

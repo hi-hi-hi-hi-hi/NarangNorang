@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.narangnorang.dao.TestResultDAO;
 import com.narangnorang.dto.TestResultDTO;
 
-@Service("TestResultService")
+@Service("testResultService")
 public class TestResultServiceImpl implements TestResultService {
 
 	@Autowired
