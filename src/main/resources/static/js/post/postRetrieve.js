@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	
 		$("#btn_delete").on("click", function(){
 			if(confirm("정말 삭제하시겠습니까?") == true){
 			
@@ -26,7 +27,7 @@ $(document).ready(function(){
 					url: '/narangnorang/post/reply',
 					datatype: 'json',
 					data: {
-						content : content,
+						content: content,
 						postId: id
 					},
 					success: function(result){
@@ -42,24 +43,17 @@ $(document).ready(function(){
 		});
 		
 		$("#btn_like").on("click", function(){
-			if(confirm("이 게시글을 추천하시겠습니까?") == true){
-				var content = $("#reply").val();
-				$.ajax({
-					type:'PUT',
-					url: '/narangnorang/post/like',
-					datatype: 'json',
-					data: {
-						
-					},
-					success: function(result){
-						alert("게시글을 추천하였습니다.");
-						location.href = "/narangnorang/post/" + id;
-					},
-					error: function(xhr, status, e){
-						console.log(xhr, status, e)
-					}
-				});
-			};
-			
+			$.ajax({
+				type:'POST',
+				url: '/narangnorang/post/like/'+id,
+				success: function(result){
+					alert(result);
+					location.href = "/narangnorang/post/" + id;
+				},
+				error: function(xhr, status, e){
+					console.log(xhr, status, e)
+				}
+			});
 		});
+		
 	});

@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.narangnorang.dto.MemberDTO;
 import com.narangnorang.dto.PageDTO;
 import com.narangnorang.dto.PostDTO;
+import com.narangnorang.dto.PostLikerDTO;
 import com.narangnorang.dto.ReplyDTO;
 import com.narangnorang.service.PostService;
 
@@ -71,11 +72,11 @@ public class PostController {
 		pageDto.setTotalRows(postService.searchRecord(map).getTotalRows());
 		map.put("pageDto", pageDto);
 		
-		HashMap<String, Object> returnMap = new HashMap<>();
-		returnMap.put("PageDTO", pageDto);
-		returnMap.put("PostDTO", postService.search(map));
+		HashMap<String, Object> result = new HashMap<>();
+		result.put("PageDTO", pageDto);
+		result.put("PostDTO", postService.search(map));
 
-		return returnMap;
+		return result;
 	}
 
 	// 자세히 보기
@@ -147,6 +148,31 @@ public class PostController {
 		rDto.setMemberName(mDto.getName());
 		int result = postService.insertReply(rDto);
 		return result;
+	}
+	
+	// 추천
+	@ResponseBody
+	@PostMapping("/post/like/{id}")
+	public String insertLiker(HttpSession session, @PathVariable int id)throws Exception{	
+		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
+		PostLikerDTO postLikerDto = new PostLikerDTO();
+		postLikerDto.setPostId(id);
+		postLikerDto.setMemberId(mDto.getId());
+		
+		int result = 0;
+		String mesg = "";
+		
+		List<PostLikerDTO> list = postService.selectPostLiker(postLikerDto);
+		if(list.size() >= 1) {
+			postLikerDto.setId(list.get(0).getId());
+			result = postService.deletePostLiker(postLikerDto);
+			mesg = "추천을 취소했습니다.";
+		}else {
+			result = postService.insertPostLiker(postLikerDto);
+			mesg = "게시글을 추천하였습니다.";
+		}
+		
+		return mesg;
 	}
 	
 	// 에러 처리

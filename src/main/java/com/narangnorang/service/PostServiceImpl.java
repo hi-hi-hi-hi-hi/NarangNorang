@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.narangnorang.dao.PostDAO;
-import com.narangnorang.dto.LikerDTO;
 import com.narangnorang.dto.PageDTO;
 import com.narangnorang.dto.PostDTO;
+import com.narangnorang.dto.PostLikerDTO;
 import com.narangnorang.dto.ReplyDTO;
 
 @Service("postService")
@@ -77,10 +77,23 @@ public class PostServiceImpl implements PostService {
 		dao.updateReplies(Integer.parseInt(dto.getPostId()));
 		return dao.insertReply(dto);
 	}
+	
+	@Transactional
+	@Override
+	public int insertPostLiker(PostLikerDTO dto) throws Exception {
+		dao.plusPostLike(dto.getPostId());
+		return dao.insertPostLiker(dto);
+	}
 
 	@Override
-	public int insertLiker(LikerDTO dto) throws Exception {
-		dao.updateLiker(Integer.parseInt(dto.getPostId()));
-		return dao.insertLiker(dto);
+	public List<PostLikerDTO> selectPostLiker(PostLikerDTO dto) throws Exception {
+		return dao.selectPostLiker(dto);
+	}
+
+	@Transactional
+	@Override
+	public int deletePostLiker(PostLikerDTO dto) throws Exception {
+		dao.minusPostLike(dto.getPostId());
+		return dao.deletePostLiker(dto.getId());
 	}
 }

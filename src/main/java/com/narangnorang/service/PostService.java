@@ -3,9 +3,9 @@ package com.narangnorang.service;
 import java.util.HashMap;
 import java.util.List;
 
-import com.narangnorang.dto.LikerDTO;
 import com.narangnorang.dto.PageDTO;
 import com.narangnorang.dto.PostDTO;
+import com.narangnorang.dto.PostLikerDTO;
 import com.narangnorang.dto.ReplyDTO;
 
 public interface PostService {
@@ -20,5 +20,7 @@ public interface PostService {
 	public List<PostDTO> search(HashMap<String,Object> map) throws Exception;
 	public PageDTO<PostDTO> searchRecord(HashMap<String, Object> map) throws Exception;
 	public int insertReply(ReplyDTO dto) throws Exception;
-	public int insertLiker(LikerDTO dto) throws Exception;
+	public int insertPostLiker(PostLikerDTO dto) throws Exception;
+	public List<PostLikerDTO> selectPostLiker(PostLikerDTO dto) throws Exception;
+	public int deletePostLiker(PostLikerDTO dto) throws Exception;
 }
