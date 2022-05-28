@@ -4,7 +4,6 @@ function closeChats() {
 
 
 function sendMessage(userId, userName, userPrivilege) {
-	console.log(userId, userName, userPrivilege)
 	var data = {
 		"content" : $("#content").val(),
 		"senderId" : userId,
@@ -23,9 +22,9 @@ function sendMessage(userId, userName, userPrivilege) {
 		contentType : "application/json;charset=UTF-8",
 		success : function(data) {
 			if (data.result == "ok") {
-				location.reload();
-				opener.location.reload();
-				$("#content").focus();	
+				$("#chatsHistory").load("#chatsHistory");
+				$("#chatsList", opener.document).load("/narangnorang/message #chatsList");
+				$("#content").focus();
 			};
 		},
 		error : function(xhr, status, e) {
@@ -39,7 +38,6 @@ $(document).ready(function(){
 	$("#content").keydown(function(keyNum){
 		if(keyNum.keyCode == 13){
 			$("#sendMessage").trigger("click");
-			$("#content").focus();
 		}
 	});
 });
