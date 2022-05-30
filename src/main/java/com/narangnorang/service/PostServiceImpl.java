@@ -20,7 +20,7 @@ public class PostServiceImpl implements PostService {
 	PostDAO dao;
 	
 	@Override
-	public List<PostDTO> selectAllByCategory(HashMap<String, Object> map) {
+	public List<PostDTO> selectAllByCategory(HashMap<String, Object> map) throws Exception {
 		return dao.selectAllByCategory(map);
 	}
 	

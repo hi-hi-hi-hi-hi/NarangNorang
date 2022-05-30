@@ -15,15 +15,15 @@ public class MessageDAO {
 	@Autowired
 	SqlSession sqlSession;
 	
-	public List<MessageDTO> selectMessageList(int id) {
+	public List<MessageDTO> selectMessageList(int id)  throws Exception {
 		return sqlSession.selectList("com.config.MessageMapper.selectMessageList", id);
 	}
 	
-	public int sendMessage(Map<String, Object> messageInfo) {
+	public int sendMessage(Map<String, Object> messageInfo)  throws Exception {
 		return sqlSession.insert("com.config.MessageMapper.sendMessage", messageInfo);
 	}
 	
-	public List<MessageDTO> getChats(Map<String, Object> map) {
+	public List<MessageDTO> getChats(Map<String, Object> map)  throws Exception {
 		return sqlSession.selectList("com.config.MessageMapper.getChats", map);
 	}
 	

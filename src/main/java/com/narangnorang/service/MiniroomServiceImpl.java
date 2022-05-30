@@ -1,10 +1,8 @@
 package com.narangnorang.service;
 
-import java.lang.reflect.Member;
 import java.util.HashMap;
 import java.util.List;
 
-import com.narangnorang.dto.MemberDTO;
 import com.narangnorang.dto.MyItemDTO;
 import com.narangnorang.dto.MyRoomDTO;
 import org.springframework.stereotype.Service;
@@ -23,46 +21,46 @@ public class MiniroomServiceImpl implements MiniroomService {
 		this.miniroomDAO = dao;
 	}
 	@Override
-	public List<ItemDTO> selectAllItems(String category){
+	public List<ItemDTO> selectAllItems(String category) throws Exception{
 		List<ItemDTO> list = miniroomDAO.selectAllItems(category);
 		return list;
 	}
 	@Transactional
 	@Override
-	public int insertBuy(MyItemDTO myItemDTO,HashMap<String, Integer> pointMap) {
+	public int insertBuy(MyItemDTO myItemDTO,HashMap<String, Integer> pointMap) throws Exception {
 		miniroomDAO.updatePoint(pointMap);
 		return miniroomDAO.insertBuy(myItemDTO);
 	}
 
 	@Override
-	public int wishupdate(int itemId) {
+	public int wishupdate(int itemId) throws Exception {
 		return miniroomDAO.wishupdate(itemId);
 	}
 
 	@Override
-	public int wishzero(int itemId) {
+	public int wishzero(int itemId) throws Exception {
 		return miniroomDAO.wishzero(itemId);
 	}
 
 	@Override
-	public int applyMiniroom(MyItemDTO myItemDTO) {
+	public int applyMiniroom(MyItemDTO myItemDTO) throws Exception {
 		return miniroomDAO.applyMiniroom(myItemDTO);
 	}
 
 	@Override
-	public MyItemDTO selectByMyItemId(HashMap<String, Object> map) {
+	public MyItemDTO selectByMyItemId(HashMap<String, Object> map) throws Exception {
 		MyItemDTO myItemDTO = miniroomDAO.selectByMyItemId(map);
 		return myItemDTO;
 	}
 	@Override
-	public List<MyItemDTO> selectAllMyItems(HashMap<String, Object> map) {
+	public List<MyItemDTO> selectAllMyItems(HashMap<String, Object> map) throws Exception {
 		List<MyItemDTO> list = miniroomDAO.selectAllMyItems(map);
 
 		return list;
 	}
 
 	@Override
-	public MyRoomDTO selectMyRoom(int id) {
+	public MyRoomDTO selectMyRoom(int id) throws Exception {
 		MyRoomDTO myRoomDTO = miniroomDAO.selectMyRoom(id) ;
 		return myRoomDTO;
 	}
