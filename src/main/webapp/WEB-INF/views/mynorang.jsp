@@ -17,13 +17,6 @@
 	<jsp:include page="common/top.jsp" flush="true" /><br>
 	<jsp:include page="common/navBar.jsp" flush="true" /><br>
 	<jsp:include page="common/norang.jsp" flush="true" /><br>
-	<c:choose>
-		<c:when test="${not empty testResultList}">
-			<jsp:include page="mynorang/test.jsp" flush="true" /><br>
-		</c:when>
-		<c:otherwise>
-			<div>테스트를 먼저 진행해주세요.</div>
-		</c:otherwise>
-	</c:choose>
+	<jsp:include page="mynorang/mynorang.jsp" flush="true" /><br>
 </body>
 </html>

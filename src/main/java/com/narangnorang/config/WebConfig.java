@@ -15,12 +15,12 @@ public class WebConfig implements WebMvcConfigurer {
 	@Autowired
 	LoginHandlerInterceptor loginHandlerInterceptor;
 
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(loginHandlerInterceptor).excludePathPatterns("/main", "/login", "/logout",
-				"/sessionInvalidate", "/signUp", "/findPw" , "/**/*.css", "/**/*.js", "/checkEmail",
-				"/checkMail", "/checkName", "/generalSignUp", "/counselorSignUp", "/newPw");
-	}
+//	@Override
+//	public void addInterceptors(InterceptorRegistry registry) {
+//		registry.addInterceptor(loginHandlerInterceptor).excludePathPatterns("/main", "/login", "/logout",
+//				"/sessionInvalidate", "/signUp", "/findPw" , "/**/*.css", "/**/*.js", "/checkEmail",
+//				"/checkMail", "/checkName", "/generalSignUp", "/counselorSignUp", "/newPw");
+//	}
 
 	// PUT, DELETE 처리
 	@Bean
