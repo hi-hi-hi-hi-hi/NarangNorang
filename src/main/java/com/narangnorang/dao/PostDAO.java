@@ -65,8 +65,16 @@ public class PostDAO {
 		return session.insert("com.config.PostMapper.insertReply", dto);
 	}
 	
-	public int updateReplies(int id) {
-		return session.update("com.config.PostMapper.updateReplies", id);
+	public int deleteReply(int id) {
+		return session.delete("com.config.PostMapper.deleteReply", id);
+	}
+	
+	public int updateReplyContent(ReplyDTO dto) {
+		return session.update("com.config.PostMapper.updateReplyContent", dto);
+	}
+	
+	public int updateReplies(HashMap<String, Object> map) {
+		return session.update("com.config.PostMapper.updateReplies", map);
 	}
 	
 	public int insertPostLiker(PostLikerDTO dto) {

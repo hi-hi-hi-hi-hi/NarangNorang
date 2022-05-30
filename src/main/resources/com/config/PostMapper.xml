@@ -139,11 +139,27 @@
 		]]>
 	</insert>
 	
-	<update id="updateReplies" parameterType="int">
+	<delete id="deleteReply" parameterType="int">
+		<![CDATA[
+			delete from reply
+			where id = #{id}
+		]]>
+	</delete>
+	
+	<update id="updateReplyContent" parameterType="ReplyDTO">
+		<![CDATA[
+			update reply
+			set content = #{content}
+			where id = #{id}
+		]]>
+	</update>
+
+	
+	<update id="updateReplies" parameterType="hashmap">
 		<![CDATA[
 			update post
-			set replies =  replies + 1
-			where id = #{id}
+			set replies =  replies + #{amount}
+			where id = #{postId}
 		]]>
 	</update>
 	

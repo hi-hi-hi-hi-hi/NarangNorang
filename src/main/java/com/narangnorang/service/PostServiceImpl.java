@@ -73,9 +73,21 @@ public class PostServiceImpl implements PostService {
 	
 	@Transactional
 	@Override
-	public int insertReply(ReplyDTO dto) throws Exception {
-		dao.updateReplies(Integer.parseInt(dto.getPostId()));
-		return dao.insertReply(dto);
+	public int insertReply(HashMap<String, Object> map) throws Exception {
+		dao.updateReplies(map);
+		return dao.insertReply((ReplyDTO)map.get("replyDto"));
+	}
+	
+	@Transactional
+	@Override
+	public int deleteReply(HashMap<String, Object> map) throws Exception {
+		dao.updateReplies(map);
+		return dao.deleteReply((int)map.get("replyId"));
+	}
+	
+	@Override
+	public int updateReplyContent(ReplyDTO dto) throws Exception {
+		return dao.updateReplyContent(dto);
 	}
 	
 	@Transactional
@@ -96,4 +108,5 @@ public class PostServiceImpl implements PostService {
 		dao.minusPostLike(dto.getPostId());
 		return dao.deletePostLiker(dto.getId());
 	}
+
 }

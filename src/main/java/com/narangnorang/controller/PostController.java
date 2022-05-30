@@ -142,15 +142,42 @@ public class PostController {
 	// 댓글 등록
 	@ResponseBody
 	@PostMapping("/post/reply")
-	public int insertReply(HttpSession session, ReplyDTO rDto) throws Exception{
+	public int insertReply(HttpSession session, ReplyDTO replyDto) throws Exception{
+		HashMap<String, Object> map = new HashMap<>();
+		
 		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
-		rDto.setMemberId(mDto.getId());
-		rDto.setMemberName(mDto.getName());
-		int result = postService.insertReply(rDto);
+		replyDto.setMemberId(mDto.getId());
+		replyDto.setMemberName(mDto.getName());
+		
+		map.put("amount", 1);
+		map.put("postId", replyDto.getPostId());
+		map.put("replyDto", replyDto);
+		int result = postService.insertReply(map);
 		return result;
 	}
 	
-	// 추천
+	// 댓글 삭제
+	@ResponseBody
+	@DeleteMapping("/post/reply")
+	public int deleteReply(int postId, int replyId) throws Exception{
+		HashMap<String, Object> map = new HashMap<>();
+		
+		map.put("amount", -1);
+		map.put("postId", postId);
+		map.put("replyId", replyId);
+		
+		int result = postService.deleteReply(map);
+		return 0;
+	}
+	
+	// 댓글 수정
+	@ResponseBody
+	@PutMapping("/post/reply")
+	public int updateReplyContent(ReplyDTO replyDto) throws Exception{
+		return postService.updateReplyContent(replyDto);
+	}
+	
+	// 게시글 추천
 	@ResponseBody
 	@PostMapping("/post/like/{id}")
 	public String insertLiker(HttpSession session, @PathVariable int id)throws Exception{	

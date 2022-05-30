@@ -28,10 +28,10 @@ ${retrieve.memberName} 조회${retrieve.views} 추천${retrieve.likes} ${retriev
 <c:forEach var="dto" items="${replyList}" varStatus="status">
 	${dto.memberName} ${dto.datetime}
 	<c:if test="${sessionScope.login.id == dto.memberId}">
-	<button class="btn_deleteReply">수정</button> <button class="btn_delete">삭제</button>
+	<button id="btn_updateReply" onclick="updateReply(${dto.id})">수정</button> <button class="btn_deleteReply" onclick="deleteReply(${dto.id},${dto.postId})">삭제</button>
 	</c:if>
 	<br>
-	${dto.content}
+	<div id="reply${dto.id}">${dto.content}</div>
 	<hr>
 </c:forEach>
 <textarea id="reply"></textarea>
