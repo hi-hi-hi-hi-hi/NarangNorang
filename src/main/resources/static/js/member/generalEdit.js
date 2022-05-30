@@ -55,4 +55,13 @@ $(document).ready(function(){
 			}
 		});
 	});
+	
+	// 프로필 사진 수정
+	$("#photoUpdate").on("change", function(e){
+		var reader = new FileReader();
+		reader.onload = function(e){
+			var img = document.getElementById('photo');
+			img.setAttribute("src", e.target.result);
+		}
+	});
 });
