@@ -10,14 +10,17 @@
 <body>
 <a href="/narangnorang/post?category=${retrieve.category}"><button id="list">글 목록</button></a>
 <c:if test="${sessionScope.login.id == retrieve.memberId}">
-<a href="/narangnorang/post/edit/${retrieve.id}"><button id="update">수정</button></a>
-<button id="btn_delete">삭제</button>
+	<a href="/narangnorang/post/edit/${retrieve.id}"><button id="update">수정</button></a>
+	<button id="btn_delete">삭제</button>
 </c:if>
 <br>
 ${retrieve.category}<br>
 <input type="text" value="${retrieve.title}"><br>
 ${retrieve.memberName} 조회${retrieve.views} 추천${retrieve.likes} ${retrieve.datetime}
-<button id="btn_like">추천</button><br>
+<c:if test="${sessionScope.login.id != retrieve.memberId}">
+	<button id="btn_like">추천</button>
+</c:if>
+<br>
 <textarea>${retrieve.content}</textarea><br>
 <hr>
 댓글 ${retrieve.replies}
@@ -25,10 +28,10 @@ ${retrieve.memberName} 조회${retrieve.views} 추천${retrieve.likes} ${retriev
 <c:forEach var="dto" items="${replyList}" varStatus="status">
 	${dto.memberName} ${dto.datetime}
 	<c:if test="${sessionScope.login.id == dto.memberId}">
-	<button class="btn_deleteReply">수정</button> <button class="btn_delete">삭제</button>
+	<button id="btn_updateReply" onclick="updateReply(${dto.id})">수정</button> <button class="btn_deleteReply" onclick="deleteReply(${dto.id},${dto.postId})">삭제</button>
 	</c:if>
 	<br>
-	${dto.content}
+	<div id="reply${dto.id}">${dto.content}</div>
 	<hr>
 </c:forEach>
 <textarea id="reply"></textarea>

@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.narangnorang.dto.MemberDTO;
 import com.narangnorang.dto.PageDTO;
 import com.narangnorang.dto.PostDTO;
+import com.narangnorang.dto.PostLikerDTO;
 import com.narangnorang.dto.ReplyDTO;
 import com.narangnorang.service.PostService;
 
@@ -71,11 +72,11 @@ public class PostController {
 		pageDto.setTotalRows(postService.searchRecord(map).getTotalRows());
 		map.put("pageDto", pageDto);
 		
-		HashMap<String, Object> returnMap = new HashMap<>();
-		returnMap.put("PageDTO", pageDto);
-		returnMap.put("PostDTO", postService.search(map));
+		HashMap<String, Object> result = new HashMap<>();
+		result.put("PageDTO", pageDto);
+		result.put("PostDTO", postService.search(map));
 
-		return returnMap;
+		return result;
 	}
 
 	// 자세히 보기
@@ -141,12 +142,64 @@ public class PostController {
 	// 댓글 등록
 	@ResponseBody
 	@PostMapping("/post/reply")
-	public int insertReply(HttpSession session, ReplyDTO rDto) throws Exception{
+	public int insertReply(HttpSession session, ReplyDTO replyDto) throws Exception{
+		HashMap<String, Object> map = new HashMap<>();
+		
 		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
-		rDto.setMemberId(mDto.getId());
-		rDto.setMemberName(mDto.getName());
-		int result = postService.insertReply(rDto);
+		replyDto.setMemberId(mDto.getId());
+		replyDto.setMemberName(mDto.getName());
+		
+		map.put("amount", 1);
+		map.put("postId", replyDto.getPostId());
+		map.put("replyDto", replyDto);
+		int result = postService.insertReply(map);
 		return result;
+	}
+	
+	// 댓글 삭제
+	@ResponseBody
+	@DeleteMapping("/post/reply")
+	public int deleteReply(int postId, int replyId) throws Exception{
+		HashMap<String, Object> map = new HashMap<>();
+		
+		map.put("amount", -1);
+		map.put("postId", postId);
+		map.put("replyId", replyId);
+		
+		int result = postService.deleteReply(map);
+		return 0;
+	}
+	
+	// 댓글 수정
+	@ResponseBody
+	@PutMapping("/post/reply")
+	public int updateReplyContent(ReplyDTO replyDto) throws Exception{
+		return postService.updateReplyContent(replyDto);
+	}
+	
+	// 게시글 추천
+	@ResponseBody
+	@PostMapping("/post/like/{id}")
+	public String insertLiker(HttpSession session, @PathVariable int id)throws Exception{	
+		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
+		PostLikerDTO postLikerDto = new PostLikerDTO();
+		postLikerDto.setPostId(id);
+		postLikerDto.setMemberId(mDto.getId());
+		
+		int result = 0;
+		String mesg = "";
+		
+		List<PostLikerDTO> list = postService.selectPostLiker(postLikerDto);
+		if(list.size() >= 1) {
+			postLikerDto.setId(list.get(0).getId());
+			result = postService.deletePostLiker(postLikerDto);
+			mesg = "추천을 취소했습니다.";
+		}else {
+			result = postService.insertPostLiker(postLikerDto);
+			mesg = "게시글을 추천하였습니다.";
+		}
+		
+		return mesg;
 	}
 	
 	// 에러 처리

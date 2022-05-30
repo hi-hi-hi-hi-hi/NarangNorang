@@ -7,9 +7,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.narangnorang.dto.LikerDTO;
 import com.narangnorang.dto.PageDTO;
 import com.narangnorang.dto.PostDTO;
+import com.narangnorang.dto.PostLikerDTO;
 import com.narangnorang.dto.ReplyDTO;
 
 @Repository("postDAO")
@@ -65,15 +65,35 @@ public class PostDAO {
 		return session.insert("com.config.PostMapper.insertReply", dto);
 	}
 	
-	public int updateReplies(int id) {
-		return session.update("com.config.PostMapper.updateReplies", id);
+	public int deleteReply(int id) {
+		return session.delete("com.config.PostMapper.deleteReply", id);
 	}
 	
-	public int insertLiker(LikerDTO dto) {
-		return session.insert("com.config.PostMapper.insertLiker", dto);
+	public int updateReplyContent(ReplyDTO dto) {
+		return session.update("com.config.PostMapper.updateReplyContent", dto);
 	}
 	
-	public int updateLiker(int id) {
-		return session.update("com.config.PostMapper.updateLike", id);
+	public int updateReplies(HashMap<String, Object> map) {
+		return session.update("com.config.PostMapper.updateReplies", map);
+	}
+	
+	public int insertPostLiker(PostLikerDTO dto) {
+		return session.insert("com.config.PostMapper.insertPostLiker", dto);
+	}
+	
+	public int plusPostLike(int id) {
+		return session.update("com.config.PostMapper.plusPostLike", id);
+	}
+	
+	public int minusPostLike(int id) {
+		return session.update("com.config.PostMapper.minusPostLike", id);
+	}
+	
+	public List<PostLikerDTO> selectPostLiker(PostLikerDTO dto) {
+		return session.selectList("com.config.PostMapper.selectPostLiker", dto);
+	}
+	
+	public int deletePostLiker(int id) {
+		return session.delete("com.config.PostMapper.deletePostLiker", id);
 	}
 }

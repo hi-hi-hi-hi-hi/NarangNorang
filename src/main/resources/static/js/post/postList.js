@@ -45,12 +45,6 @@ $(document).ready(function(){
 	$("#page").html(h);
 	
 
-	$("#keyword").on("keyup", function(e){
-		//if(e.keyCode == 13){
-			$("#btn_search").trigger('click');
-		//}
-	});
-	
 	$("#keyword").on("keyup", function(){
 		
 		var searchCol = $("#searchCol").val();
