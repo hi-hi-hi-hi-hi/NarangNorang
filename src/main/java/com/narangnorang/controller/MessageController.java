@@ -107,6 +107,7 @@ public class MessageController {
 	public Map<String, Object> sendMessage(@RequestBody Map<String, Object> messageInfo) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		int sended = messageService.sendMessage(messageInfo);
+		
 		if(sended == 1) {
 			result.put("result", "ok");
 		}
