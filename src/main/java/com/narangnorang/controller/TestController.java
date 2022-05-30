@@ -43,13 +43,13 @@ public class TestController {
 	}
 
 	// 지난 테스트 결과
-	@GetMapping("/mynorang/test")
+	@GetMapping("/test/results")
 	public String selectList(HttpSession session, Model model) throws Exception {
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
 		int memberId = memberDTO.getId();
 		List<TestResultDTO> testResultList = testResultService.selectList(memberId);
 		model.addAttribute("testResultList", testResultList);
-		return "mynorang";
+		return "test";
 	}
 
 	// 에러 처리

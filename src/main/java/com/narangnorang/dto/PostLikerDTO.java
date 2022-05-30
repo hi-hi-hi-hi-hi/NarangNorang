@@ -9,12 +9,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Alias("LikerDTO")
-public class LikerDTO {
+@Alias("PostLikerDTO")
+public class PostLikerDTO {
 
 	private int id;
-	private String memberId;
-	private String postId;
-	private String replyId;
+	private int memberId;
+	private int postId;
 
 }
