@@ -13,7 +13,7 @@ public interface MiniroomService {
 	public int applyMiniroom(MyItemDTO myItemDTO);
 	public MyItemDTO selectByMyItemId(HashMap<String, Object> map);
 	public List<MyItemDTO> selectAllMyItems(HashMap<String, Object> map);
-	public MyRoomDTO selectMyRoom(int memberId);
+	public MyRoomDTO selectMyRoom(int id);
 	public int wishZero(HashMap<String, Object> map);
 	public List<ItemDTO> selectAllWishItems(HashMap<String, Object> map);
 
