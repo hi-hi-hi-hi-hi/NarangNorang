@@ -25,10 +25,6 @@ public class NorangController {
 	public String norang(HttpSession session) throws Exception {
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
 		int memberId = memberDTO.getId();
-
-		System.out.println(dailyLogService.selectList(memberId));
-		System.out.println(moodStateService.selectList(memberId));
-
 		return "norang";
 	}
 

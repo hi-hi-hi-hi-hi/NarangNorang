@@ -20,8 +20,8 @@ public class DailyLogDAO {
 	}
 
 	// 일일 데이터 조회
-	public List<DailyLogDTO> selectList(int memberId) throws Exception {
-		return sqlSession.selectList("com.config.DailyLogMapper.selectList", memberId);
+	public List<DailyLogDTO> selectList(DailyLogDTO dailyLogDTO) throws Exception {
+		return sqlSession.selectList("com.config.DailyLogMapper.selectList", dailyLogDTO);
 	}
 
 }

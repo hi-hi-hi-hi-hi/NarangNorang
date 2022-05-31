@@ -22,8 +22,8 @@ public class DailyLogServiceImpl implements DailyLogService {
 
 	// 일일 데이터 조회
 	@Override
-	public List<DailyLogDTO> selectList(int memberId) throws Exception {
-		return dailyLogDAO.selectList(memberId);
+	public List<DailyLogDTO> selectList(DailyLogDTO dailyLogDTO) throws Exception {
+		return dailyLogDAO.selectList(dailyLogDTO);
 	}
 
 }
