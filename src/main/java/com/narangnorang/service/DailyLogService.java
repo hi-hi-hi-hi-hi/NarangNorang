@@ -10,6 +10,6 @@ public interface DailyLogService {
 	public int insert(DailyLogDTO dailyLogDTO) throws Exception;
 
 	// 일일 데이터 조회
-	public List<DailyLogDTO> selectList(int memberId) throws Exception;
+	public List<DailyLogDTO> selectList(DailyLogDTO dailyLogDTO) throws Exception;
 
 }

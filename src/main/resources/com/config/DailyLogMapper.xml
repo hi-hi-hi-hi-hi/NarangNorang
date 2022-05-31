@@ -11,12 +11,12 @@
 	</insert>
 
 	<!-- 일일 데이터 조회 -->
-	<select id="selectList" parameterType="int" resultType="DailyLogDTO">
+	<select id="selectList" parameterType="DailyLogDTO" resultType="DailyLogDTO">
 		SELECT *
 		FROM daily_log
-		WHERE member_id = #{memberId}
+		WHERE member_id = #{memberId} and TO_CHAR(datetime, 'yyyy/MM') = #{datetime}
 		ORDER
-		BY id DESC
+		BY id ASC
 	</select>
 
 </mapper>
