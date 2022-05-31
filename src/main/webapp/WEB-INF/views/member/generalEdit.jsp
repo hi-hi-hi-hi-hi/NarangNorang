@@ -14,7 +14,7 @@
 				<img style="width:100px; height:100px;" src="/narangnorang/images/member/noImage.jpg">
 			</c:when>
 			<c:otherwise>
-				<img style="width:100px; height:100px;" src="/narangnorang/images/member/${login.id}.png">
+				<img style="width:100px; height:100px;" src="/narangnorang/images/member/${login.email}.png">
 			</c:otherwise>
 		</c:choose>
 	</div>
