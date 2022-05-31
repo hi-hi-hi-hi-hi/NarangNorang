@@ -35,13 +35,13 @@ public class MiniroomServiceImpl implements MiniroomService {
 	}
 
 	@Override
-	public int wishupdate(int itemId) {
-		return miniroomDAO.wishupdate(itemId);
+	public int wishInsert(HashMap<String, Object> map) {
+		return miniroomDAO.wishInsert(map);
 	}
 
 	@Override
-	public int wishzero(int itemId) {
-		return miniroomDAO.wishzero(itemId);
+	public int wishDelete(HashMap<String, Object> map) {
+		return miniroomDAO.wishDelete(map);
 	}
 
 	@Override
@@ -62,8 +62,18 @@ public class MiniroomServiceImpl implements MiniroomService {
 	}
 
 	@Override
-	public MyRoomDTO selectMyRoom(int id) {
-		MyRoomDTO myRoomDTO = miniroomDAO.selectMyRoom(id) ;
+	public MyRoomDTO selectMyRoom(int memberId) {
+		MyRoomDTO myRoomDTO = miniroomDAO.selectMyRoom(memberId) ;
 		return myRoomDTO;
+	}
+
+	@Override
+	public int wishZero(HashMap<String, Object> map) {
+		return miniroomDAO.wishZero(map);
+	}
+
+	@Override
+	public List<ItemDTO> selectAllWishItems(HashMap<String, Object> map) {
+		return miniroomDAO.selectAllWishItems(map);
 	}
 }

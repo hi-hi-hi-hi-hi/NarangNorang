@@ -19,6 +19,7 @@ $(document).ready(function(){
                 },
                 success: function(data){
                     alert("위시리스트에 추가되었습니다.");
+                    location.href="/narangnorang/home/buy/"+itemId;
                 },
                 error: function(xhr, status, e){
                     console.log(xhr,status, e)

@@ -13,9 +13,20 @@
 		]]>
 	</select>
 
+	<select id="selectAllWishItems" resultType="ItemDTO" parameterType="hashmap">
+	<![CDATA[
+		select id, category, name, price
+		from ITEM i
+				 Inner Join MY_ITEM m
+							ON m.item_id = i.id
+		where i.category=#{category} and m.wish=1 and m.member_ID=#{memberId}
+
+		]]>
+	</select>
+
 	<select id="selectByMyItemId" resultType="MyItemDTO" parameterType="hashmap">
 	<![CDATA[
-		select id, member_ID, item_ID, wish
+		select id, member_ID, item_ID,wish
 		from MY_ITEM
 		where item_Id=#{itemId} and member_ID=#{memberId}
 
@@ -24,7 +35,7 @@
 
 	<insert id="insertBuy" parameterType="MyItemDTO">
 		Insert into MY_ITEM (id, member_ID, item_ID, wish)
-		values (seq_My_Item.nextval, #{memberId}, #{itemId},#{wish} )
+		values (seq_My_Item.nextval, #{memberId}, #{itemId},0)
 
 	</insert>
 
@@ -32,21 +43,32 @@
 		Insert into MY_ROOM (id, member_ID, floor, wallpaper,bed,closet,desk,walldeco, member_Name)
 		values (seq_My_Room.nextval, seq_Member.currval, 1,11,21,31,41,51, #{name})
 	</insert>
+<<<<<<< Updated upstream
 
 	<update id="wishupdate" parameterType="int">
+=======
+	
+	<insert id="wishInsert" parameterType="hashmap">
+>>>>>>> Stashed changes
 	<![CDATA[
-		update MY_ITEM
-		set wish = 1
-		where item_Id = #{itemId}
+		Insert into MY_ITEM (id, member_Id,item_Id, wish)
+		values (seq_My_Item.nextval,#{memberId},#{itemId},1)
 		]]>
-	</update>
-	<update id="wishzero" parameterType="int">
+	</insert>
+	<delete id="wishDelete" parameterType="hashmap">
 	<![CDATA[
+		delete from MY_ITEM
+		where item_Id = #{itemId} and member_Id = #{memberId}
+		]]>
+	</delete>
+
+	<update id="wishZero" parameterType="hashmap">
+		<![CDATA[
 		update MY_ITEM
 		set wish = 0
-		where item_Id = #{itemId}
+		where member_Id=#{memberId} and item_Id=#{itemId}
 		]]>
-	</update>
+		</update>
 
 	<update id="applyMiniroom" parameterType="hashmap">
 		<![CDATA[
@@ -99,15 +121,6 @@
 		]]>
 		</update>
 
-
-	<update id="notWish" parameterType="MyItemDTO">
-	<![CDATA[
-		update MY_ITEM
-		set wish = 0
-		where item_Id = #{itemId}
-		]]>
-	</update>
-
 	<select id="selectAllMyItems" resultType="ItemDTO" parameterType="hashmap">
 	<![CDATA[
 		select i.id, i.category, i.name, i.price
@@ -122,7 +135,7 @@
 	<![CDATA[
 		select member_id, floor, wallpaper, bed, closet,desk, walldeco
 		from MY_ROOM
-		where member_id=#{id}
+		where member_id=#{memberId}
 		]]>
 	</select>
 
