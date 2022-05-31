@@ -36,7 +36,8 @@
 		</div>
 </table>
 <ul>
-	<li><a href="/narangnorang/home/buy">아이템 구매</a></li>
-	<li><a href="/narangnorang/home/style">미니룸 꾸미기</a></li>
+	<li><button><a href="/narangnorang/home/buy">아이템 구매</a></button></li>
+	<li><button><a href="/narangnorang/home/style">미니룸 꾸미기</a></button></li>
+	<li><button><a href="/narangnorang/home/wish">위시리스트</a></button></li>
 
 </ul>

@@ -25,13 +25,6 @@ public class MiniroomDAO {
 	public int insertDefaultItems(String name) {
 		return sqlSession.insert("com.config.MiniroomMapper.insertDefaultItems",name);
 	}
-	public int wishupdate(int itemId) {
-		return sqlSession.update("com.config.MiniroomMapper.wishupdate", itemId);
-	}
-	public int wishzero(int itemId) {
-		return sqlSession.update("com.config.MiniroomMapper.wishzero", itemId);
-	}
-
 	public int applyMiniroom(MyItemDTO myItemDTO){
 		if(myItemDTO.getItemId() <= 10){
 			return sqlSession.update("com.config.MiniroomMapper.applyMiniroomFloor",myItemDTO);
@@ -47,19 +40,33 @@ public class MiniroomDAO {
 		return sqlSession.update("com.config.MiniroomMapper.applyMiniroomWalldeco",myItemDTO);
 
 	}
+
 	public MyItemDTO selectByMyItemId(HashMap<String, Object> map){
 		return sqlSession.selectOne("com.config.MiniroomMapper.selectByMyItemId",map);
 	}
-
 	public List<MyItemDTO> selectAllMyItems(HashMap<String, Object> map) {
 		return sqlSession.selectList("com.config.MiniroomMapper.selectAllMyItems",map);
 	}
-	public MyRoomDTO selectMyRoom(int id){
-		return sqlSession.selectOne("com.config.MiniroomMapper.selectMyRoom",id);
-	}
 
+	public MyRoomDTO selectMyRoom(int memberId){
+		return sqlSession.selectOne("com.config.MiniroomMapper.selectMyRoom",memberId);
+	}
 
 	public int updatePoint(HashMap<String, Integer> pointMap) {
 		return sqlSession.update("com.config.MiniroomMapper.updatePoint",pointMap);
+	}
+
+	public int wishInsert(HashMap<String, Object> map){
+		return sqlSession.insert("com.config.MiniroomMapper.wishInsert", map);
+	}
+	public int wishDelete(HashMap<String, Object> map){
+		return sqlSession.delete("com.config.MiniroomMapper.wishDelete", map);
+	}
+
+	public int wishZero(HashMap<String, Object> map) {
+		return sqlSession.update("com.config.MiniroomMapper.wishzero", map);
+	}
+	public List<ItemDTO> selectAllWishItems(HashMap<String, Object> map) {
+		return sqlSession.selectList("com.config.MiniroomMapper.selectAllWishItems",map);
 	}
 }
