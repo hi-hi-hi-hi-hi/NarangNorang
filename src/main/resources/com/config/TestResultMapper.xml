@@ -12,7 +12,7 @@
 
 	<!-- 지난 테스트 결과 -->
 	<select id="selectList" parameterType="int" resultType="TestResultDTO">
-		SELECT id, member_id AS "memberId", datetime, type, result
+		SELECT *
 		FROM test_result
 		WHERE member_id = #{memberId}
 		ORDER BY id DESC

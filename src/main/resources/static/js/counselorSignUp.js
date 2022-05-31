@@ -1,4 +1,3 @@
-////////////////////////////////////////
 $(document).ready(function(){
 	var isCertification = false;
 	var idDuplication = false;
@@ -7,71 +6,25 @@ $(document).ready(function(){
 	
 	// 상담사 form 입력 유효성 체크
 	$("#counselor").on("submit", function(){
-		var id = $("#id").val();
-		var password = $("#password").val();
-		var password2 = $("#password").val();
-		var name = $("#name").val();
-		var phone = $("#phone").val();
-		var zipcode = $("#postcode").val();
-		var address1 = $("#roadAddress").val();
-		var address2 = $("#jibunAddress").val();
-		var address3 = $("#detailAddress").val();
-		var job = $("#job").val();
-		var introduction = $("#introduction").val();
-		
-		if(id.length == 0){
-			alert("아이디를 입력해주세요");
+		var email = $("#email").val();
+
+		if(!email_check(email)){
+			alert("이메일 형식에 맞게 입력해주세요");
 			event.preventDefault();
 		}else{
-			if(!email_check(id)){
-				alert("이메일 형식에 맞게 입력해주세요");
+			if(idDuplication == false){
+				alert("아이디 중복검사를 해주세요");
 				event.preventDefault();
 			}else{
-				if(idDuplication == false){
-					alert("아이디 중복검사를 해주세요");
+				if(isCertification == false){
+					alert("인증 확인이 필요합니다");
 					event.preventDefault();
 				}else{
-					if(isCertification == false){
-						alert("이메일 인증을 완료해 주세요");
+					if(pwCompare == false){
+						alert("비밀번호가 일치하지 않습니다");
 						event.preventDefault();
 					}else{
-						if(password.length == 0){
-							alert("비밀번호를 입력해주세요");
-							event.preventDefault();
-						}else{
-							if(password2.length == 0){
-								alert("비밀번호 재확인을 입력해주세요");
-								event.preventDefault();
-							}else{
-								if(pwCompare == false){
-									alert("비밀번호가 일치하지 않습니다");
-									event.preventDefault();
-								}else{
-									if(name.length == 0){
-										alert("이름을 입력해주세요");
-										event.preventDefault();
-									}else{
-										if(zipcode.length == 0 || address1.length == 0 ||
-										   address2.length == 0 || address3.length == 0){
-											alert("주소를 입력해주세요");
-											event.preventDefault();
-										}else{
-											if(job.length == 0){
-												alert("직업 입력해주세요");
-												event.preventDefault();
-											}else{
-												if(introduction.length == 0){
-													alert("소개글을 입력해주세요");
-													event.preventDefault();
-												}else{
-													alert("회원가입 완료");
-												}
-											}
-										}
-									}
-								}
-							}
-						}
+						alert("회원가입 완료");
 					}
 				}
 			}
@@ -80,11 +33,8 @@ $(document).ready(function(){
 
 	//이메일 정규식 체크
 	function email_check(email) {
-
 		var reg = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-
 		return reg.test(email);
-
 	}
 		
 	// 비번 재확인 체크
@@ -105,8 +55,8 @@ $(document).ready(function(){
 	
 	// 인증메일 전송
 	$("#sendMail").click(function() {
-		var id = $("#id").val();
-		if(!email_check(id)){
+		var email = $("#email").val();
+		if(!email_check(email)){
 			alert("이메일 형식에 맞게 입력해주세요");
 			event.preventDefault();
 		}else{
@@ -116,9 +66,10 @@ $(document).ready(function(){
 				dataType : 'text',
 				async : "false",
 				data : {
-					id : id
+					email : email
 				},
 				success : function(data) {
+					console.log(data);
 					key = data;
 				},
 				error: function(xhr, status, e){
@@ -140,29 +91,36 @@ $(document).ready(function(){
 		}
 	});
 	
-	//아이디 중복체크
-	$("#checkId").on("click", function(){
-		$.ajax({
-			url: '/narangnorang/checkId',
-			type: 'post',
-			data: {
-				id: $('#id').val()
-			},
-			success: function(cnt){
-				if(cnt != 1){
-	                $('#id_ok').css("display","inline-block"); 
-	                $('#id_already').css("display", "none");
-	                idDuplication = true;
-	            } else {
-	                $('#id_already').css("display","inline-block");
-	                $('#id_ok').css("display", "none");
-	                idDuplication = false;
-	            }
-			},
-			error: function(){
-				alert("에러");
-			}
-		});
+	// 아이디 중복체크
+	$("#checkEmail").on("click", function(){
+		var email = $("#email").val();
+		var mesg = "사용 가능한 이메일입니다.";
+		if(!email_check(email)){
+			alert("이메일 형식에 맞게 입력해주세요");
+			event.preventDefault();
+		}else{
+			$.ajax({
+				url: '/narangnorang/checkEmail',
+				type: 'post',
+				data: {
+					email: $('#email').val()
+				},
+				success: function(cnt){
+					if(cnt != 1){
+						$("#emailCheckResult").css("color", "blue");
+		                idDuplication = true;
+		            } else {
+		            	$("#emailCheckResult").css("color", "red");
+		            	mesg = "사용 불가능한 이메일입니다.";
+		                idDuplication = false;
+		            }
+					$("#emailCheckResult").text(mesg);
+				},
+				error: function(){
+					alert("에러");
+				}
+			});
+		}
 	});
 
 });

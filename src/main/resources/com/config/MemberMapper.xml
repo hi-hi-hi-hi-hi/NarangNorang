@@ -46,12 +46,12 @@
 	]]>
 	</insert>
 	
-	<!-- id로 회원 찾기 -->
-	<select id="selectById" parameterType="string" resultType="MemberDTO">
+	<!-- email로 회원 찾기 -->
+	<select id="selectByEmail" parameterType="string" resultType="MemberDTO">
 	<![CDATA[
 		SELECT * 
 		FROM member
-		WHERE id = #{id}
+		WHERE email = #{email}
 	]]>
 	</select>
 	
@@ -68,8 +68,8 @@
 	<update id="generalEdit" parameterType="MemberDTO">
 	<![CDATA[
 		UPDATE member
-		SET nickname = #{nickname}, phone = #{phone}, region = #{region}
-		WHERE id = #{id}
+		SET name = #{name}, phone = #{phone}, region = #{region}
+		WHERE email = #{email}
 	]]>
 	</update>
 
@@ -78,7 +78,7 @@
 	<![CDATA[
 		UPDATE member
 		SET phone = #{phone}, zipcode = #{zipcode}, address1 = #{address1}, address2 = #{address2}, address3 = #{address3}, job = #{job}, introduction = #{introduction}
-		WHERE id = #{id}
+		WHERE email = #{email}
 	]]>
 	</update>
 	

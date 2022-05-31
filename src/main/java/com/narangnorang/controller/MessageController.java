@@ -35,25 +35,27 @@ public class MessageController {
 	public ModelAndView selectMessageList(HttpSession session) throws Exception {
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
 		ModelAndView mav = new ModelAndView();
+		
 		if (memberDTO != null) {
-			String id = memberDTO.getEmail();
+			int id = memberDTO.getId();
 			mav.setViewName("message");
 
 			List<MessageDTO> messageList = messageService.selectMessageList(id);
 			Iterator<MessageDTO> iter = messageList.iterator();
-			List<String> otherUsers = new ArrayList<String>();
-
+			List<Integer> otherUsers = new ArrayList<Integer>();
+			
 			while (iter.hasNext()) {
 				MessageDTO messageDTO = iter.next();
-
-				if (otherUsers.contains(messageDTO.getSender()) || otherUsers.contains(messageDTO.getReciever())) {
+				// 만약 이미 대화방이 표시된 사용자면 제거
+				if (otherUsers.contains(messageDTO.getSenderId()) || otherUsers.contains(messageDTO.getRecieverId())) {
 					iter.remove();
 				} else {
-					if (!id.equals(messageDTO.getSender())) {
-						otherUsers.add(messageDTO.getSender());
+					// sender/reciever가 본인이 아닌 경우 리스트 추가
+					if (id != messageDTO.getSenderId()) {
+						otherUsers.add(messageDTO.getSenderId());
 					}
-					if (!id.equals(messageDTO.getReciever())) {
-						otherUsers.add(messageDTO.getReciever());
+					if (id != messageDTO.getRecieverId()) {
+						otherUsers.add(messageDTO.getRecieverId());
 					}
 				}
 			}
@@ -74,38 +76,38 @@ public class MessageController {
 	}
 
 	@PostMapping("/message/counsel")
-	public String sendMessageToCounselor(HttpSession session, @RequestParam Map<String, String> messageInfo)
+	public String sendMessageToCounselor(HttpSession session, @RequestParam Map<String, Object> messageInfo)
 			throws Exception {
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
-		messageInfo.put("sender", memberDTO.getEmail());
+		messageInfo.put("senderId", memberDTO.getId());
+		messageInfo.put("senderName", memberDTO.getName());
+		messageInfo.put("senderPrivilege", memberDTO.getPrivilege());
 		messageService.sendMessage(messageInfo);
-
 		return "home";
 	}
 	
 	@GetMapping("/message/chats/{otherId}")
 	public ModelAndView popupChats(HttpSession session, @PathVariable @ModelAttribute String otherId) throws Exception{
 		ModelAndView mav = new ModelAndView();
-		Map<String, String> map = new HashMap<String, String>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
-		String userId = memberDTO.getEmail();
+		int userId = memberDTO.getId();
 		
 		map.put("userId", userId);
 		map.put("otherId", otherId);
 		
 		mav.setViewName("/message/chats");
 		mav.addObject("chats", messageService.getChats(map));
-		mav.addObject("userId", userId);
 		return mav;
 	}
 	
 	@ResponseBody
 	@PostMapping("/message/send")
-	public Map<String, Object> sendMessage(@RequestBody Map<String, String> messageInfo) throws Exception {
+	public Map<String, Object> sendMessage(@RequestBody Map<String, Object> messageInfo) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
-		
 		int sended = messageService.sendMessage(messageInfo);
+		
 		if(sended == 1) {
 			result.put("result", "ok");
 		}

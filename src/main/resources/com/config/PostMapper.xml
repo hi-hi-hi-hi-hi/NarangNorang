@@ -37,6 +37,7 @@
 					category,
 					content, 
 					title, 
+					member_id as memberId,
 					member_name as memberName, 
 					views,
 					likes, 
@@ -44,6 +45,20 @@
 					replies
 			from post 
 			where id = #{id}
+		]]>
+	</select>
+	
+	<select id="selectAllReply" resultType="ReplyDTO" parameterType="int">
+		<![CDATA[
+			select id,
+					member_id as memberId,
+					member_name as memberName,
+					post_id,
+					content,
+					datetime,
+					likes
+			from reply
+			where post_id = #{postId}
 		]]>
 	</select>
 	
@@ -74,6 +89,15 @@
 			from post
 			where (${searchCol} like '%'||#{keyword}||'%') AND (category = #{category})
 			order by id desc
+			OFFSET (#{pageDto.currentPage}-1)*#{pageDto.limit} ROWS FETCH FIRST #{pageDto.limit} ROWS ONLY
+		]]>
+	</select>
+	
+	<select id="searchRecord" parameterType="hashmap" resultType="PageDTO">
+		<![CDATA[
+			select count(*) as totalRows
+			from post
+			where (${searchCol} like '%'||#{keyword}||'%') AND (category = #{category})
 		]]>
 	</select>
 
@@ -115,13 +139,66 @@
 		]]>
 	</insert>
 	
-	<update id="updateReplies" parameterType="int">
+	<delete id="deleteReply" parameterType="int">
+		<![CDATA[
+			delete from reply
+			where id = #{id}
+		]]>
+	</delete>
+	
+	<update id="updateReplyContent" parameterType="ReplyDTO">
+		<![CDATA[
+			update reply
+			set content = #{content}
+			where id = #{id}
+		]]>
+	</update>
+
+	
+	<update id="updateReplies" parameterType="hashmap">
 		<![CDATA[
 			update post
-			set replies =  replies + 1
+			set replies =  replies + #{amount}
+			where id = #{postId}
+		]]>
+	</update>
+	
+	<insert id="insertPostLiker" parameterType="PostLikerDTO">
+		<![CDATA[
+			insert into post_liker ( id, member_id, post_id )
+			values ( seq_post_liker.nextval, #{memberId}, #{postId} )
+		]]>
+	</insert>
+	
+	<update id="plusPostLike" parameterType="int">
+		<![CDATA[
+			update post
+			set likes = likes + 1
 			where id = #{id}
 		]]>
 	</update>
 	
+	<update id="minusPostLike" parameterType="int">
+		<![CDATA[
+			update post
+			set likes = likes - 1
+			where id = #{id}
+		]]>
+	</update>
+	
+	<select id="selectPostLiker" parameterType="PostLikerDTO" resultType="PostLikerDTO">
+		<![CDATA[
+			select *
+			from post_liker
+			where post_id=#{postId} AND member_id=#{memberId}
+		]]>
+	</select>
+	
+	<delete id="deletePostLiker" parameterType="int">
+		<![CDATA[
+			delete from post_liker
+			where id = #{id}
+		]]>
+	</delete>
 
 </mapper>

@@ -11,20 +11,21 @@
 </head>
 <body>
 <article id="member">
-		<a href="/narangnorang/admin/counselPrivileage2">상담사 인증 관리</a>
+	<a href="/narangnorang/admin">회원 관리</a>
+	<a href="/narangnorang/admin/counselPrivilege2">상담사 인증 관리</a>
 		<table border="1">
 			<thead>
 				<tr>
 					<th><strong>체크</strong></th>
 					<th><strong>id</strong></th>
+					<th><strong>email</strong></th>
 					<th><strong>password</strong></th>
 					<th><strong>phone</strong></th>
-					<th><strong>privileage</strong></th>
-					<th><strong>nickname</strong></th>
+					<th><strong>privilege</strong></th>
+					<th><strong>name</strong></th>
 					<th><strong>region</strong></th>
 					<th><strong>datetime</strong></th>
 					<th><strong>point</strong></th>
-					<th><strong>name</strong></th>
 					<th><strong>zipcode</strong></th>
 					<th><strong>address1</strong></th>
 					<th><strong>address2</strong></th>
@@ -39,14 +40,14 @@
   					<tr>
   						<td><input type="checkbox" name="check" id="check" value="${list.id}"></td>
 						<td>${list.id}</td>
+						<td>${list.email}</td>
 						<td>${list.password}</td>
 						<td>${list.phone}</td>
-						<td>${list.privileage}</td>
-						<td>${list.nickname}</td>
+						<td>${list.privilege}</td>
+						<td>${list.name}</td>
 						<td>${list.region}</td>
 						<td>${list.datetime}</td>
 						<td>${list.point}</td>
-						<td>${list.name}</td>
 						<td>${list.zipcode}</td>
 						<td>${list.address1}</td>
 						<td>${list.address2}</td>

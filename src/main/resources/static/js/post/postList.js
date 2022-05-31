@@ -1,4 +1,4 @@
-$(document).ready(function(){
+function pagingOp(totalRows, limit, currentPage){
 	var totalPage = Math.ceil(totalRows / limit); // 총 페이지 수
 	var pageCount = 5 // 한 그룹에 포함되는 페이지 수
 	
@@ -14,12 +14,19 @@ $(document).ready(function(){
 		last = totalPage;
 	}
 	
-	
 	let next = last + 1;
 	let prev = first - 1; 
 	
+	return [totalPage, first, last, prev, next];
+
+};
+
+$(document).ready(function(){
+	
 	let h = "";
 	
+	let [totalPage, first, last, prev, next] = pagingOp(totalRows, limit, currentPage);
+		
 	if (prev > 0){
 		h += "<a id='prev' href='/narangnorang/post?category=" + category + "&p=" + prev + "'>" + "이전" + "</a>";
 	}
@@ -38,13 +45,7 @@ $(document).ready(function(){
 	$("#page").html(h);
 	
 
-	$("#keyword").on("keydown", function(e){
-		if(e.keyCode == 13){
-			$("#btn_search").trigger('click');
-		}
-	});
-	
-	$("#btn_search").on("click", function(){
+	$("#keyword").on("keyup", function(){
 		
 		var searchCol = $("#searchCol").val();
 		var keyword = $("#keyword").val();
@@ -60,8 +61,9 @@ $(document).ready(function(){
                },
                success: function(result) {
                	$('#postTable > tbody').empty();
-               	if(result.length>=1){
-               		result.forEach(function(item){
+               	$('#page').empty();
+               	if(result.PostDTO.length>=1){
+               		result.PostDTO.forEach(function(item){
        					str = "<tr>"
        					str += "<td>"+item.id+"</td>";
        					str += "<td><a href = '/narangnorang/post/" + item.id + "'>" + item.title + "</a></td>";
@@ -72,12 +74,35 @@ $(document).ready(function(){
        					str += "</tr>";
        					$('#postTable').append(str);
                		});
+               		
+               		let searchH = "";
+    				
+    				let [sTotalPage, sFirst, sLast, sPrev, sNext] = pagingOp(result.PageDTO.totalRows, result.PageDTO.limit, result.PageDTO.currentPage);
+    				
+    				
+    				
+    				if (sPrev > 0){
+    					searchH += "<a id='searchPrevPage' href='/narangnorang/post/search?category=" + category + "&p=" + sPrev + "&searchCol=" + searchCol + "&keyword="+ keyword +"'>" + "이전" + "</a>";
+    				}
+    				for (var i = sFirst; i <= sLast; i++){
+    					if (result.PageDTO.currentPage == i) {
+    						searchH += i
+    					}else{
+    						searchH += "<a id='searchPage' href='/narangnorang/post/search?category=" + category + "&p=" + i + "&searchCol=" + searchCol + "&keyword="+ keyword + "'>" + i + "</a>";
+    					}
+    				}
+    				
+    				if (sLast < sTotalPage){
+    					searchH += "<a id='searchNextPage' href='/narangnorang/post/search?category=" + category + "&p=" + sNext + "&searchCol=" + searchCol + "&keyword="+ keyword +"'>" + "다음" + "</a>";
+    				}
+    				
+    				$("#page").html(searchH);
                	}
                },
 			error: function(xhr, status, e){
 				console.log(xhr, status, e)
 			}
-           });
+          });
 	});
 	
 	$("#allList").on("click", function(){
@@ -91,4 +116,5 @@ $(document).ready(function(){
 	$("#overThirty").on("click", function(){
 		location.href = "/narangnorang/post?category=" + category + "&likes=30";
 	});
+
 });

@@ -16,8 +16,10 @@
 		받는사람: <b>${counselor.name}</b> 상담사 
 		<input type="hidden"id="id" value="${counselor.id}" />
 		<input type="hidden"id="privilege" value="${counselor.privilege}" />
+		<input type="hidden"id="name" value="${counselor.name}" />
 		<textarea id="content" rows="20" cols="60"></textarea>
 	</form>
 	<button type="submit" id="button">보내기</button>
+	<button onclick="closeChats();">닫기</button>
 </body>
 </html>

@@ -48,6 +48,7 @@ public class MemberController {
 		MemberDTO mDTO = (MemberDTO) session.getAttribute("login");
 
 		int id = mDTO.getId();
+
 		MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(id);
 		myRoomDTO.setMemberId(id);
 
@@ -56,11 +57,10 @@ public class MemberController {
 		return mav;
 	}
 
-	
 	// 로그인 폼
 	@GetMapping("/login")
 	public String loginForm() throws Exception {
-		return "loginForm";
+		return "member/loginForm";
 	}
 
 	// 로그인 처리
@@ -112,14 +112,14 @@ public class MemberController {
 	@PostMapping("/generalSignUp")
 	public String insertGeneral(MemberDTO memberDTO) throws Exception {
 		memberService.generalSignUp(memberDTO);
-		return "loginForm";
+		return "member/loginForm";
 	}
 	
 	// 상담사 회원가입 처리
 	@PostMapping("/counselorSignUp")
 	public String insertCounselor(MemberDTO memberDTO) throws Exception {
 		memberService.counselorSignUp(memberDTO);
-		return "loginForm";
+		return "member/loginForm";
 	}
 	
 	// 비번찾기 폼
@@ -130,8 +130,8 @@ public class MemberController {
 	
 	// 새 비번 폼
 	@PostMapping("/findPw")
-	public String newPwForm(HttpSession session, @RequestParam("id") String id) throws Exception {
-		MemberDTO memberDTO = memberService.selectById(id);
+	public String newPwForm(HttpSession session, @RequestParam("email") String email) throws Exception {
+		MemberDTO memberDTO = memberService.selectByEmail(email);
 		session.setAttribute("findPw", memberDTO);
 		return "member/newPwForm";
 	}
@@ -184,7 +184,7 @@ public class MemberController {
 	}
 	
 	// 관리자 페이지 - 회원 관리
-	@GetMapping(value="/admin", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/admin")
 	@ResponseBody
 	public ModelAndView getAllLists() throws Exception{
 		List<MemberDTO> lists = memberService.selectAll();
@@ -209,17 +209,17 @@ public class MemberController {
 	}
 	
 	// 관리자 페이지 - 상담사 권한 관리
-	@GetMapping("/admin/counselPrivileage2")
+	@GetMapping("/admin/counselPrivilege2")
 	@ResponseBody
 	public ModelAndView getPrivileage2() throws Exception{
 		List<MemberDTO> lists = memberService.selectByPrivileage2();
-		ModelAndView mav = new ModelAndView("member/counselPrivileage2");
+		ModelAndView mav = new ModelAndView("member/counselPrivilege2");
 		mav.addObject("lists", lists);
 		return mav;
 	}
 	
 	// 관리자 페이지 - 상담사 권한 UP
-	@GetMapping("/admin/privileageUp")
+	@GetMapping("/admin/privilegeUp")
 	public String privileageUp(HttpServletRequest request) throws Exception{
 		String nextPage = "";
 		String [] check = request.getParameterValues("check");
@@ -228,7 +228,7 @@ public class MemberController {
 		}else {
 			List<String> list = Arrays.asList(check);
 			memberService.privileageUp(list);
-			nextPage = "redirect:/admin/counselPrivileage2";
+			nextPage = "redirect:/admin/counselPrivilege2";
 		}
 		return nextPage;
 	}

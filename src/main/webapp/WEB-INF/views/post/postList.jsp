@@ -32,7 +32,10 @@
 		<c:forEach var="dto" items="${postList}" varStatus="status">
 			<tr>
 				<td>${dto.id}</td>
-				<td><a href="/narangnorang/post/${dto.id}">${dto.title}</a><a id="comment">[${dto.replies}]</a></td>
+				<td>
+					<a href="/narangnorang/post/${dto.id}">${dto.title}</a>
+					<a id="comment">[${dto.replies}]</a>
+				</td>
 				<td>${dto.memberName}</td>
 				<td>${dto.datetime}</td>
 				<td>${dto.views}</td>

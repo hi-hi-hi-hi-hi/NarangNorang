@@ -54,10 +54,10 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.counselorSignUp(dto);
 	}
 
-	// id로 회원 찾기
+	// email로 회원 찾기
 	@Override
-	public MemberDTO selectById(String id) throws Exception {
-		return memberDAO.selectById(id);
+	public MemberDTO selectByEmail(String email) throws Exception {
+		return memberDAO.selectByEmail(email);
 	}
 	
 	// 새 비밀번호 설정

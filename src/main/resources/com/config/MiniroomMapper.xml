@@ -43,13 +43,8 @@
 		Insert into MY_ROOM (id, member_ID, floor, wallpaper,bed,closet,desk,walldeco, member_Name)
 		values (seq_My_Room.nextval, seq_Member.currval, 1,11,21,31,41,51, #{name})
 	</insert>
-<<<<<<< Updated upstream
 
-	<update id="wishupdate" parameterType="int">
-=======
-	
 	<insert id="wishInsert" parameterType="hashmap">
->>>>>>> Stashed changes
 	<![CDATA[
 		Insert into MY_ITEM (id, member_Id,item_Id, wish)
 		values (seq_My_Item.nextval,#{memberId},#{itemId},1)

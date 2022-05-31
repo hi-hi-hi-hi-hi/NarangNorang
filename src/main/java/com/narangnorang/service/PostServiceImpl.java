@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.narangnorang.dao.PostDAO;
 import com.narangnorang.dto.PageDTO;
 import com.narangnorang.dto.PostDTO;
+import com.narangnorang.dto.PostLikerDTO;
 import com.narangnorang.dto.ReplyDTO;
 
 @Service("postService")
@@ -33,6 +34,11 @@ public class PostServiceImpl implements PostService {
 	public PostDTO selectById(int id)  throws Exception{
 		dao.updateViews(id);
 		return dao.selectById(id);
+	}
+	
+	@Override
+	public List<ReplyDTO> selectAllReply(int id) throws Exception {
+		return dao.selectAllReply(id);
 	}
 	
 	@Override
@@ -60,15 +66,47 @@ public class PostServiceImpl implements PostService {
 		return dao.search(map);
 	}
 	
-	@Transactional
 	@Override
-	public int insertReply(ReplyDTO dto) throws Exception {
-		dao.updateReplies(Integer.parseInt(dto.getPostId()));
-		return dao.insertReply(dto);
+	public PageDTO<PostDTO> searchRecord(HashMap<String, Object> map) throws Exception {
+		return dao.searchRecord(map);
 	}
 	
+	@Transactional
+	@Override
+	public int insertReply(HashMap<String, Object> map) throws Exception {
+		dao.updateReplies(map);
+		return dao.insertReply((ReplyDTO)map.get("replyDto"));
+	}
 	
+	@Transactional
+	@Override
+	public int deleteReply(HashMap<String, Object> map) throws Exception {
+		dao.updateReplies(map);
+		return dao.deleteReply((int)map.get("replyId"));
+	}
+	
+	@Override
+	public int updateReplyContent(ReplyDTO dto) throws Exception {
+		return dao.updateReplyContent(dto);
+	}
+	
+	@Transactional
+	@Override
+	public int insertPostLiker(PostLikerDTO dto) throws Exception {
+		dao.plusPostLike(dto.getPostId());
+		return dao.insertPostLiker(dto);
+	}
 
-	
+	@Override
+	public List<PostLikerDTO> selectPostLiker(PostLikerDTO dto) throws Exception {
+		return dao.selectPostLiker(dto);
+	}
+
+	@Transactional
+	@Override
+	public int deletePostLiker(PostLikerDTO dto) throws Exception {
+		dao.minusPostLike(dto.getPostId());
+		return dao.deletePostLiker(dto.getId());
+	}
 
 }
