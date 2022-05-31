@@ -11,4 +11,14 @@ function popMessageForm(id, value) {
 	
 }
 
+$(document).ready(function(){
+	 $("#viewCenterMap").on("click", function(){
+		 $("#contents").load("/narangnorang/counsel/center");
+	 });
+	 
+	 $("#viewCounselorList").on("click", function(){
+		 $("#contents").load("/narangnorang/counsel");
+	 });
+});
+
 
