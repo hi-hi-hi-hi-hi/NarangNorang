@@ -46,4 +46,7 @@ public interface MemberService {
 	// 선택 상담사 승급
 	public int privileageUp(List<String> list) throws Exception;
 	
+	// 프로필 사진 업데이트
+	public int photoUpdate(MemberDTO dto) throws Exception;
+	
 }

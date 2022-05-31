@@ -1,5 +1,6 @@
 package com.narangnorang.controller;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.narangnorang.dto.MemberDTO;
@@ -181,6 +183,26 @@ public class MemberController {
 		memberService.counselorEdit(memberDTO);
 		session.invalidate();
 		return "redirect:/login";
+	}
+	
+	// 프로필 사진 수정
+	@PutMapping("/photoUpdate")
+	public String photoUpdate(MemberDTO memberDTO, @RequestParam("filename") MultipartFile mFile, @RequestParam("email") String email) throws Exception {
+		String uploadPath = "C:/bootstudy/sts-bundle/sts-3.9.14.RELEASE/project/HighFive/NarangNorang/src/main/resources/static/images/member/";
+		MemberDTO mDTO = memberService.selectByEmail(email);
+		try {
+			if(mDTO.getPhoto() != null) {
+				File file = new File(uploadPath + mDTO.getPhoto());
+				file.delete();
+			}
+			String newName = mFile.getOriginalFilename();
+			newName = mDTO.getEmail();
+			mFile.transferTo(new File(uploadPath + newName + ".png"));
+			memberService.photoUpdate(memberDTO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/mypage/edit";
 	}
 	
 	// 관리자 페이지 - 회원 관리

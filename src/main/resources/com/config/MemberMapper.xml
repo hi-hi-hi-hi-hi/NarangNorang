@@ -124,4 +124,11 @@
 		</where>
 	</update>
 	
+	<!-- 프로필 사진 업데이트 -->
+	<update id="photoUpdate" parameterType="MemberDTO">
+		UPDATE member
+		SET photo = #{email}
+		WHERE email = #{email}
+	</update>
+	
 </mapper>
