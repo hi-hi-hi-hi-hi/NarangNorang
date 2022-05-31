@@ -77,13 +77,14 @@ public class MiniroomController {
 		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
 		ModelAndView mav = new ModelAndView("homeWish");
 
-		int memberId = mDto.getId();
-		map.put("id",memberId);
+		int id = mDto.getId();
+		System.out.println(id);
+		map.put("id",id);
 		List<ItemDTO> list =  miniroomService.selectAllWishItems(map);
-		MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(memberId);
-		myRoomDTO.setMemberId(memberId);
+		MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(id);
+		myRoomDTO.setMemberId(id);
 		mav.addObject("wishItemList",list);
-		mav.addObject("memberId",memberId);
+		mav.addObject("memberId",id);
 		mav.addObject("myRoomDTO", myRoomDTO);
 
 		return mav;

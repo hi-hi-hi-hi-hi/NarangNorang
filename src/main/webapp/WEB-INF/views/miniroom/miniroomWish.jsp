@@ -14,12 +14,12 @@
 				<tr>
 				</tr>
 				<tr>
-					<th><a href="buy?category=floor">floor</a></th>
-					<th><a href="buy?category=wallpaper">wallpaper</a></th>
-					<th><a href="buy?category=bed">bed</a></th>
-					<th><a href="buy?category=closet">closet</a></th>
-					<th><a href="buy?category=desk">desk</a></th>
-					<th><a href="buy?category=walldeco">walldeco</a></th>
+					<th><a href="wish?category=floor">floor</a></th>
+					<th><a href="wish?category=wallpaper">wallpaper</a></th>
+					<th><a href="wish?category=bed">bed</a></th>
+					<th><a href="wish?category=closet">closet</a></th>
+					<th><a href="wish?category=desk">desk</a></th>
+					<th><a href="wish?category=walldeco">walldeco</a></th>
 				</tr>
 				<tr>
 					<td height="5"></td>
@@ -29,8 +29,6 @@
 				</tr>
 				<tr>
 					<td height="10"></td>
-					<!-- myItemDTO에 세션 스코프 로그인 아이디값 저장시켰음.-->
-
 				</tr>
 
 				<tr>
