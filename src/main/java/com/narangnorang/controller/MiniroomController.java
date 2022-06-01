@@ -29,6 +29,7 @@ public class MiniroomController {
 
 		List<ItemDTO> list =  miniroomService.selectAllItems(category);
 		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
+
 		ModelAndView mav = new ModelAndView("homeBuy");
 
 		int id = mDto.getId();
@@ -73,7 +74,6 @@ public class MiniroomController {
 		HashMap<String,Object> map = new HashMap<>();
 		map.put("category",category);
 
-
 		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
 		ModelAndView mav = new ModelAndView("homeWish");
 
@@ -92,8 +92,11 @@ public class MiniroomController {
 
 	//물건 구매
 	@PostMapping("/home/buy")
-	public ModelAndView buy(HttpSession session, MyItemDTO myItemDTO,int price,HttpServletResponse response,String category) throws Exception {
-		ModelAndView mav = new ModelAndView("miniroom/miniroomBuySuccess");
+	public ModelAndView buy(HttpSession session,
+							MyItemDTO myItemDTO,
+							int price,
+							String category) throws Exception {
+		ModelAndView mav = new ModelAndView();
 		mav.addObject("category", category);
 
 		//세션 받아오기.
@@ -134,7 +137,7 @@ public class MiniroomController {
 			} else {
 				mesg = "포인트가 부족합니다.";
 			}
-			mav.addObject("mesg", mesg);
+
 		}else{
 			if (check.getWish()==0){
 				mesg="이미 구매한 상품입니다.";
@@ -143,20 +146,24 @@ public class MiniroomController {
 				mesg="위시리스트 상품을 구매했습니다.";
 
 			}
+
+
 		}
+		mav.addObject("mesg", mesg);
+		mav.setViewName("miniroom/miniroomBuySuccess");
 		return mav;
 	}
 
 	// 위시리스트 추가
-	@ResponseBody
-	@PutMapping("/home/buy/{itemId}")
+	@PostMapping("/home/buy/{itemId}")
 	public ModelAndView wishupdate(@PathVariable("itemId") int itemId, MyItemDTO myItemDTO,HttpSession session,String category) throws Exception{
-		ModelAndView mav = new ModelAndView("miniroom/miniroomWishSuccess");
+
+		ModelAndView mav = new ModelAndView();
 		mav.addObject("category",category);
 		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
 		String mesg;
 		int memberId = mDto.getId();
-		int result;
+		int result=0;
 		myItemDTO.setMemberId(memberId);
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("itemId",itemId);
@@ -176,6 +183,7 @@ public class MiniroomController {
 		}
 
 		mav.addObject("mesg",mesg);
+		mav.setViewName("miniroom/miniroomWishSuccess");
 		return mav;
 	}
 

@@ -9,7 +9,6 @@
 		select id, category, name, price
 		from ITEM
 		where category=#{category}
-
 		]]>
 	</select>
 

@@ -1,11 +1,9 @@
-<%@page import="com.narangnorang.dto.PostDTO"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<table id="buy" width="100%" cellspacing="0" cellpadding="0">
+<table id="wishList" width="100%" cellspacing="0" cellpadding="0">
 	<tr>
 		<td>
 			<table align="center" width="710" cellspacing="0" cellpadding="0"
