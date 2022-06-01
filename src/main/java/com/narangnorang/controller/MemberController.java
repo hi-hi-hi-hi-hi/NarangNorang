@@ -196,7 +196,7 @@ public class MemberController {
 				file.delete();
 			}
 			String newName = mFile.getOriginalFilename();
-			newName = mDTO.getEmail();
+			newName = String.valueOf(mDTO.getId());
 			mFile.transferTo(new File(uploadPath + newName + ".png"));
 			memberService.photoUpdate(memberDTO);
 		} catch (Exception e) {

@@ -3,6 +3,7 @@ $(document).ready(function(){
 	var idDuplication = false;
 	var pwCompare = false;
 	var nicknameDuplication = false;
+	var checkSendmail = false;
 	var key = "";
 	
 	// 일반회원 form 입력 유효성 체크
@@ -77,6 +78,7 @@ $(document).ready(function(){
 				success : function(data) {
 					console.log(data);
 					key = data;
+					checkSendmail = true;
 				},
 				error: function(xhr, status, e){
 					console.log(xhr, status, e)
@@ -88,12 +90,17 @@ $(document).ready(function(){
 	
 	// 인증번호 확인
 	$("#compare").click(function() {
-		if ($("#com").val() == key) {
-			$("#compare-text").text("인증 성공!").css("color", "blue");
-			isCertification = true;
-		} else {
-			$("#compare-text").text("불일치!").css("color", "red");
-			isCertification = false;
+		if(checkSendmail == false){
+			alert("인증메일 보내기를 해주세요.");
+			event.preventDefault();
+		}else{
+			if ($("#com").val() == key) {
+				$("#compare-text").text("인증 성공!").css("color", "blue");
+				isCertification = true;
+			} else {
+				$("#compare-text").text("불일치!").css("color", "red");
+				isCertification = false;
+			}
 		}
 	});
 	
