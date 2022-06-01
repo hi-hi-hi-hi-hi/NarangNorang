@@ -172,24 +172,36 @@ public class MemberController {
 	// 일반회원 정보 수정
 	@PutMapping("/generalEdit")
 	public String generalEdit(HttpSession session, MemberDTO memberDTO) throws Exception {
+		MemberDTO mDTO = (MemberDTO) session.getAttribute("login");
+		memberDTO.setId(mDTO.getId());
+		memberDTO.setPassword(mDTO.getPassword());
+		memberDTO.setPrivilege(mDTO.getPrivilege());
+		memberDTO.setDatetime(mDTO.getDatetime());
+		memberDTO.setPhoto(mDTO.getPhoto());
+		memberDTO.setPoint(mDTO.getPoint());
 		memberService.generalEdit(memberDTO);
-		session.invalidate();
-		return "redirect:/login";
+		session.setAttribute("login", memberDTO);
+		return "redirect:/mypage/edit";
 	}
 	
 	// 상담사회원 정보 수정
 	@PutMapping("/counselorEdit")
 	public String counselorEdit(HttpSession session, MemberDTO memberDTO) throws Exception {
+		MemberDTO mDTO = (MemberDTO) session.getAttribute("login");
+		memberDTO.setId(mDTO.getId());
+		memberDTO.setPassword(mDTO.getPassword());
+		memberDTO.setPrivilege(mDTO.getPrivilege());
+		memberDTO.setDatetime(mDTO.getDatetime());
+		memberDTO.setPhoto(mDTO.getPhoto());
 		memberService.counselorEdit(memberDTO);
-		session.invalidate();
-		return "redirect:/login";
+		return "redirect:/mypage/edit";
 	}
 	
 	// 프로필 사진 수정
 	@PutMapping("/photoUpdate")
-	public String photoUpdate(MemberDTO memberDTO, @RequestParam("filename") MultipartFile mFile, @RequestParam("email") String email) throws Exception {
+	public String photoUpdate(HttpSession session, MemberDTO memberDTO, @RequestParam("filename") MultipartFile mFile) throws Exception {
 		String uploadPath = "C:/bootstudy/sts-bundle/sts-3.9.14.RELEASE/project/HighFive/NarangNorang/src/main/resources/static/images/member/";
-		MemberDTO mDTO = memberService.selectByEmail(email);
+		MemberDTO mDTO = (MemberDTO) session.getAttribute("login");
 		try {
 			if(mDTO.getPhoto() != null) {
 				File file = new File(uploadPath + mDTO.getPhoto());
@@ -198,7 +210,10 @@ public class MemberController {
 			String newName = mFile.getOriginalFilename();
 			newName = String.valueOf(mDTO.getId());
 			mFile.transferTo(new File(uploadPath + newName + ".png"));
+			
+			mDTO.setPhoto(newName);
 			memberService.photoUpdate(memberDTO);
+			session.setAttribute("login", mDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

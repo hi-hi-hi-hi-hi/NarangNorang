@@ -6,8 +6,6 @@
 
 <form action="/narangnorang/photoUpdate" id="photoUpdate" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="_method" value="put"/>
-	<input type="hidden" name="email" value="${login.email}">
-	<input type="hidden" name="id" value="${login.id}">
 	프로필 사진<br>
 	<div>
 		<c:choose>
@@ -19,7 +17,7 @@
 			</c:otherwise>
 		</c:choose>
 	</div>
-	<input type="file" id="photoUpdate" name="filename">
+	<input type="file" id="photoUpload" name="filename">
 	<input type="submit" value="수정하기">
 </form>
 <br>
