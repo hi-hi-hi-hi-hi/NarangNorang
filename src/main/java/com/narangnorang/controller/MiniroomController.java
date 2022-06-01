@@ -78,7 +78,6 @@ public class MiniroomController {
 		ModelAndView mav = new ModelAndView("homeWish");
 
 		int id = mDto.getId();
-		System.out.println(id);
 		map.put("id",id);
 		List<ItemDTO> list =  miniroomService.selectAllWishItems(map);
 		MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(id);
