@@ -33,16 +33,16 @@
     <!-- 일반회원가입 -->
     <insert id="generalSignUp" parameterType="MemberDTO">
    	<![CDATA[
-		INSERT	INTO member (id, email, password, phone, privilege, name, region, datetime)
-		VALUES (seq_member.nextval,#{email},#{password},#{phone},3,#{name},#{region},sysdate)
+		INSERT	INTO member (id, email, password, phone, privilege, name, region, datetime,point)
+		VALUES (seq_member.nextval,#{email},#{password},#{phone},3,#{name},#{region},sysdate,50)
 	]]>
 	</insert>
 	
 	<!-- 상담사회원가입 -->
     <insert id="counselorSignUp" parameterType="MemberDTO">
    	<![CDATA[
-		INSERT	INTO member (id, email, password, phone, privilege, name, zipcode, address1, address2, address3, job, introduction, datetime)
-		VALUES (seq_member.nextval,#{email},#{password},#{phone},2,#{name},#{zipcode},#{address1},#{address2},#{address3},#{job},#{introduction}, sysdate)
+		INSERT	INTO member (id, email, password, phone, privilege, name, zipcode, address1, address2, address3, job, introduction, datetime,point)
+		VALUES (seq_member.nextval,#{email},#{password},#{phone},2,#{name},#{zipcode},#{address1},#{address2},#{address3},#{job},#{introduction}, sysdate,50)
 	]]>
 	</insert>
 	

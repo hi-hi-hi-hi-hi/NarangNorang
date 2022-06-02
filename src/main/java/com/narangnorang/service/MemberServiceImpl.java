@@ -49,9 +49,11 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	// 상담사 회원가입
+	@Transactional
 	@Override
 	public int counselorSignUp(MemberDTO dto) throws Exception {
-		return memberDAO.counselorSignUp(dto);
+		String name = dto.getName();
+		return memberDAO.counselorSignUp(dto) & miniroomDAO.insertDefaultItems(name);
 	}
 
 	// email로 회원 찾기
