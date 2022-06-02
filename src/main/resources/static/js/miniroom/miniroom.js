@@ -9,21 +9,27 @@ $(document).ready(function(){
         var target = $(this).attr("data-xxx");
         var itemId=$(this).attr("data-item");
         if(target == 'wish'){
-            $.ajax({
-                type: 'PUT',
-                url: '/narangnorang/home/buy/'+itemId,
-
-                datatype: "json",
-                data:{
-                    itemId: itemId,
-                },
-                success: function(data){
-                    alert("위시리스트에 추가되었습니다.");
-                },
-                error: function(xhr, status, e){
-                    console.log(xhr,status, e)
-                },
+            // $.ajax({
+            //     type: 'POST',
+            //     url: '/narangnorang/home/buy/'+itemId,
+            //     datatype:'json',
+            //     data: {
+            //         mesg:`${mesg}`,
+            //     },
+            //
+            //     success: function(data){
+            //         alert(data);
+            //         location.href="/narangnorang/home/buy/"+itemId;
+            //     },
+            //     error: function(xhr, status, e){
+            //         console.log(xhr,status, e)
+            //     },
+            // });
+            $("form").attr({
+                "action": "/narangnorang/home/buy/"+itemId,
+                "method":"post"
             });
+            $("form").submit();
 
         }else if (target=='buy'){
             //주문

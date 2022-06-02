@@ -35,28 +35,28 @@
 				</tr>
 			</thead>
 			<tbody>
-			<form>
-				<c:forEach var="list" items="${lists}">
-  					<tr>
-  						<td><input type="checkbox" name="check" id="check" value="${list.id}"></td>
-						<td>${list.id}</td>
-						<td>${list.email}</td>
-						<td>${list.password}</td>
-						<td>${list.phone}</td>
-						<td>${list.privilege}</td>
-						<td>${list.name}</td>
-						<td>${list.region}</td>
-						<td>${list.datetime}</td>
-						<td>${list.point}</td>
-						<td>${list.zipcode}</td>
-						<td>${list.address1}</td>
-						<td>${list.address2}</td>
-						<td>${list.address3}</td>
-						<td>${list.job}</td>
-						<td>${list.introduction}</td>
-  					</tr>
-				</c:forEach>
-			</form>
+				<form>
+					<c:forEach var="list" items="${lists}">
+  						<tr>
+  							<td><input type="checkbox" name="check" id="check" value="${list.id}"></td>
+							<td>${list.id}</td>
+							<td>${list.email}</td>
+							<td>${list.password}</td>
+							<td>${list.phone}</td>
+							<td>${list.privilege}</td>
+							<td>${list.name}</td>
+							<td>${list.region}</td>
+							<td>${list.datetime}</td>
+							<td>${list.point}</td>
+							<td>${list.zipcode}</td>
+							<td>${list.address1}</td>
+							<td>${list.address2}</td>
+							<td>${list.address3}</td>
+							<td>${list.job}</td>
+							<td>${list.introduction}</td>
+  						</tr>
+					</c:forEach>
+				</form>
 			</tbody>
 		</table>
 	

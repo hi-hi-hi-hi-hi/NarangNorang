@@ -16,5 +16,4 @@ public class MyItemDTO {
 	private int memberId;
 	private int itemId;
 	private int wish;
-
 }

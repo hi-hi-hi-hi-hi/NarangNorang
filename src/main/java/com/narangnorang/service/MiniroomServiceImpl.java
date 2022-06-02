@@ -21,47 +21,57 @@ public class MiniroomServiceImpl implements MiniroomService {
 		this.miniroomDAO = dao;
 	}
 	@Override
-	public List<ItemDTO> selectAllItems(String category) throws Exception{
+	public List<ItemDTO> selectAllItems(String category){
 		List<ItemDTO> list = miniroomDAO.selectAllItems(category);
 		return list;
 	}
 	@Transactional
 	@Override
-	public int insertBuy(MyItemDTO myItemDTO,HashMap<String, Integer> pointMap) throws Exception {
+	public int insertBuy(MyItemDTO myItemDTO,HashMap<String, Integer> pointMap) {
 		miniroomDAO.updatePoint(pointMap);
 		return miniroomDAO.insertBuy(myItemDTO);
 	}
 
 	@Override
-	public int wishupdate(int itemId) throws Exception {
-		return miniroomDAO.wishupdate(itemId);
+	public int wishInsert(HashMap<String, Object> map) {
+		return miniroomDAO.wishInsert(map);
 	}
 
 	@Override
-	public int wishzero(int itemId) throws Exception {
-		return miniroomDAO.wishzero(itemId);
+	public int wishDelete(HashMap<String, Object> map) {
+		return miniroomDAO.wishDelete(map);
 	}
 
 	@Override
-	public int applyMiniroom(MyItemDTO myItemDTO) throws Exception {
+	public int applyMiniroom(MyItemDTO myItemDTO) {
 		return miniroomDAO.applyMiniroom(myItemDTO);
 	}
 
 	@Override
-	public MyItemDTO selectByMyItemId(HashMap<String, Object> map) throws Exception {
+	public MyItemDTO selectByMyItemId(HashMap<String, Object> map) {
 		MyItemDTO myItemDTO = miniroomDAO.selectByMyItemId(map);
 		return myItemDTO;
 	}
 	@Override
-	public List<MyItemDTO> selectAllMyItems(HashMap<String, Object> map) throws Exception {
+	public List<MyItemDTO> selectAllMyItems(HashMap<String, Object> map) {
 		List<MyItemDTO> list = miniroomDAO.selectAllMyItems(map);
 
 		return list;
 	}
 
 	@Override
-	public MyRoomDTO selectMyRoom(int id) throws Exception {
+	public MyRoomDTO selectMyRoom(int id) {
 		MyRoomDTO myRoomDTO = miniroomDAO.selectMyRoom(id) ;
 		return myRoomDTO;
+	}
+
+	@Override
+	public int wishZero(HashMap<String, Object> map) {
+		return miniroomDAO.wishZero(map);
+	}
+
+	@Override
+	public List<ItemDTO> selectAllWishItems(HashMap<String, Object> map) {
+		return miniroomDAO.selectAllWishItems(map);
 	}
 }

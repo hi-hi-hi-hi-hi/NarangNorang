@@ -20,8 +20,8 @@ public class MoodStateDAO {
 	}
 
 	// 기분 상태 조회
-	public List<MoodStateDTO> selectList(int memberId) throws Exception {
-		return sqlSession.selectList("com.config.MoodStateMapper.selectList", memberId);
+	public List<MoodStateDTO> selectList(MoodStateDTO moodStateDTO) throws Exception {
+		return sqlSession.selectList("com.config.MoodStateMapper.selectList", moodStateDTO);
 	}
 
 }

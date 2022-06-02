@@ -14,6 +14,7 @@
 
 </head>
 <body>
+<div id="contents">
 	<h1>심리상담</h1>
 	<jsp:include page="common/top.jsp" flush="true" /><br>
 	<jsp:include page="common/navBar.jsp" flush="true" /><br>
@@ -27,9 +28,11 @@
 		</c:when>
 		<c:otherwise>
 			<jsp:include page="counsel/counselorList.jsp" flush="true" />
-			<script type="text/javascript" src="/narangnorang/js/counsel/counselorList.js"></script>
+			
 		</c:otherwise>
 	</c:choose>
+	<script type="text/javascript" src="/narangnorang/js/counsel/counselorList.js"></script>
+	</div>
 </body>
 </html>
 

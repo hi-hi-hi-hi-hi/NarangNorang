@@ -1,5 +1,6 @@
 package com.narangnorang.controller;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.narangnorang.dto.MemberDTO;
@@ -155,32 +157,84 @@ public class MemberController {
 	
 	// mypage 폼
 	@GetMapping("/mypage")
-	public String mypage(HttpSession session) throws Exception {
-		session.getAttribute("login");
+	public String mypage() throws Exception {
 		return "mypage";
+	}
+	
+	// mypage 비번 재확인 및 privilege에 따른 폼 분리
+	@PostMapping("/mypage2")
+	@ResponseBody
+	public String mypagePwChek(HttpSession session, @RequestParam("password") String password) throws Exception {
+		MemberDTO mDTO = (MemberDTO) session.getAttribute("login");
+		String passwordCompare = mDTO.getPassword();
+		int privilege = mDTO.getPrivilege();
+		if(!passwordCompare.equals(password)) {
+			System.out.println("1");
+			return "/narangnorang/mypage";
+		}else if(privilege == 0) {
+			System.out.println(2);
+			return "/narangnorang/admin";
+		}else {
+			System.out.println(3);
+			return "/narangnorang/mypage/edit";
+		}
 	}
 	
 	// mypage 개인정보 수정 화면
 	@GetMapping("/mypage/edit")
-	public String edit(HttpSession session) throws Exception {
-		session.getAttribute("login");
+	public String edit() throws Exception {
 		return "mypageEdit";
 	}
 	
 	// 일반회원 정보 수정
 	@PutMapping("/generalEdit")
 	public String generalEdit(HttpSession session, MemberDTO memberDTO) throws Exception {
+		MemberDTO mDTO = (MemberDTO) session.getAttribute("login");
+		memberDTO.setId(mDTO.getId());
+		memberDTO.setPassword(mDTO.getPassword());
+		memberDTO.setPrivilege(mDTO.getPrivilege());
+		memberDTO.setDatetime(mDTO.getDatetime());
+		memberDTO.setPhoto(mDTO.getPhoto());
+		memberDTO.setPoint(mDTO.getPoint());
 		memberService.generalEdit(memberDTO);
-		session.invalidate();
-		return "redirect:/login";
+		session.setAttribute("login", memberDTO);
+		return "redirect:/mypage/edit";
 	}
 	
 	// 상담사회원 정보 수정
 	@PutMapping("/counselorEdit")
 	public String counselorEdit(HttpSession session, MemberDTO memberDTO) throws Exception {
+		MemberDTO mDTO = (MemberDTO) session.getAttribute("login");
+		memberDTO.setId(mDTO.getId());
+		memberDTO.setPassword(mDTO.getPassword());
+		memberDTO.setPrivilege(mDTO.getPrivilege());
+		memberDTO.setDatetime(mDTO.getDatetime());
+		memberDTO.setPhoto(mDTO.getPhoto());
 		memberService.counselorEdit(memberDTO);
-		session.invalidate();
-		return "redirect:/login";
+		return "redirect:/mypage/edit";
+	}
+	
+	// 프로필 사진 수정
+	@PutMapping("/photoUpdate")
+	public String photoUpdate(HttpSession session, MemberDTO memberDTO, @RequestParam("filename") MultipartFile mFile) throws Exception {
+		String uploadPath = "C:/bootstudy/sts-bundle/sts-3.9.14.RELEASE/project/HighFive/NarangNorang/src/main/resources/static/images/member/";
+		MemberDTO mDTO = (MemberDTO) session.getAttribute("login");
+		try {
+			if(mDTO.getPhoto() != null) {
+				File file = new File(uploadPath + mDTO.getPhoto());
+				file.delete();
+			}
+			String newName = mFile.getOriginalFilename();
+			newName = String.valueOf(mDTO.getId());
+			mFile.transferTo(new File(uploadPath + newName + ".png"));
+			
+			mDTO.setPhoto(newName);
+			memberService.photoUpdate(memberDTO);
+			session.setAttribute("login", mDTO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/mypage/edit";
 	}
 	
 	// 관리자 페이지 - 회원 관리

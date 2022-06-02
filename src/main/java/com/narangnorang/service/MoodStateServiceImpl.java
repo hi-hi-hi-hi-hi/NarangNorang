@@ -22,8 +22,8 @@ public class MoodStateServiceImpl implements MoodStateService {
 
 	// 기분 상태 조회
 	@Override
-	public List<MoodStateDTO> selectList(int memberId) throws Exception {
-		return moodStateDAO.selectList(memberId);
+	public List<MoodStateDTO> selectList(MoodStateDTO moodStateDTO) throws Exception {
+		return moodStateDAO.selectList(moodStateDTO);
 	}
 
 }

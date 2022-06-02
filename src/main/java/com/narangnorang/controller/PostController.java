@@ -167,7 +167,7 @@ public class PostController {
 		map.put("replyId", replyId);
 		
 		int result = postService.deleteReply(map);
-		return 0;
+		return result;
 	}
 	
 	// 댓글 수정
