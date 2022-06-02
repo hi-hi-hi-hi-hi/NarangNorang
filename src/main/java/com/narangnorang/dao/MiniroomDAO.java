@@ -48,8 +48,8 @@ public class MiniroomDAO {
 		return sqlSession.selectList("com.config.MiniroomMapper.selectAllMyItems",map);
 	}
 
-	public MyRoomDTO selectMyRoom(int memberId){
-		return sqlSession.selectOne("com.config.MiniroomMapper.selectMyRoom",memberId);
+	public MyRoomDTO selectMyRoom(int id){
+		return sqlSession.selectOne("com.config.MiniroomMapper.selectMyRoom",id);
 	}
 
 	public int updatePoint(HashMap<String, Integer> pointMap) {
@@ -64,7 +64,7 @@ public class MiniroomDAO {
 	}
 
 	public int wishZero(HashMap<String, Object> map) {
-		return sqlSession.update("com.config.MiniroomMapper.wishzero", map);
+		return sqlSession.update("com.config.MiniroomMapper.wishZero", map);
 	}
 	public List<ItemDTO> selectAllWishItems(HashMap<String, Object> map) {
 		return sqlSession.selectList("com.config.MiniroomMapper.selectAllWishItems",map);

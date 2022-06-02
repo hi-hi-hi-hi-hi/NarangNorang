@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<ul>
-		<li><a href="/narangnorang/counsel">상담사 찾기</a></li>
-		<li><a href="/narangnorang/counsel/center">주변 상담센터</a></li>
+		<li><button id="viewCounselorList">상담사 찾기</button></li>
+		<li><button id="viewCenterMap">주변 상담센터</button></li>
 	</ul>
+	

@@ -14,16 +14,28 @@ public class DailyLogServiceImpl implements DailyLogService {
 	@Autowired
 	DailyLogDAO dailyLogDAO;
 
+	// 일일 데이터 조회
+	@Override
+	public List<DailyLogDTO> selectList(DailyLogDTO dailyLogDTO) throws Exception {
+		return dailyLogDAO.selectList(dailyLogDTO);
+	}
+
 	// 일일 데이터 저장
 	@Override
 	public int insert(DailyLogDTO dailyLogDTO) throws Exception {
 		return dailyLogDAO.insert(dailyLogDTO);
 	}
 
-	// 일일 데이터 조회
+	// 일일 데이터 수정
 	@Override
-	public List<DailyLogDTO> selectList(DailyLogDTO dailyLogDTO) throws Exception {
-		return dailyLogDAO.selectList(dailyLogDTO);
+	public int update(DailyLogDTO dailyLogDTO) throws Exception {
+		return dailyLogDAO.update(dailyLogDTO);
+	}
+
+	// 일일 데이터 삭제
+	@Override
+	public int delete(DailyLogDTO dailyLogDTO) throws Exception {
+		return dailyLogDAO.delete(dailyLogDTO);
 	}
 
 }

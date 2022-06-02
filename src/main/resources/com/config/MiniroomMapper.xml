@@ -9,17 +9,16 @@
 		select id, category, name, price
 		from ITEM
 		where category=#{category}
-
 		]]>
 	</select>
 
 	<select id="selectAllWishItems" resultType="ItemDTO" parameterType="hashmap">
 	<![CDATA[
-		select id, category, name, price
+		select i.id, i.category, i.name, i.price
 		from ITEM i
 				 Inner Join MY_ITEM m
 							ON m.item_id = i.id
-		where i.category=#{category} and m.wish=1 and m.member_ID=#{memberId}
+		where i.category=#{category} and m.wish=1 and m.member_ID=#{id}
 
 		]]>
 	</select>
@@ -130,7 +129,7 @@
 	<![CDATA[
 		select member_id, floor, wallpaper, bed, closet,desk, walldeco
 		from MY_ROOM
-		where member_id=#{memberId}
+		where member_id=#{id}
 		]]>
 	</select>
 

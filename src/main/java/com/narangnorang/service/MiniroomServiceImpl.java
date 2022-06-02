@@ -62,8 +62,8 @@ public class MiniroomServiceImpl implements MiniroomService {
 	}
 
 	@Override
-	public MyRoomDTO selectMyRoom(int memberId) {
-		MyRoomDTO myRoomDTO = miniroomDAO.selectMyRoom(memberId) ;
+	public MyRoomDTO selectMyRoom(int id) {
+		MyRoomDTO myRoomDTO = miniroomDAO.selectMyRoom(id) ;
 		return myRoomDTO;
 	}
 

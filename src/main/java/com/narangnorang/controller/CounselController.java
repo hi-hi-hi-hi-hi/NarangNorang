@@ -21,12 +21,12 @@ public class CounselController {
 	
 	@GetMapping("/counsel")
 	@ModelAttribute("counselorList")
-	public List<MemberDTO> selectCounselorList() throws Exception{
+	public List<MemberDTO> selectCounselorList() throws Exception {
 		return counselService.selectCounselorList();
 	}
 	
 	@GetMapping("/counsel/center")
-	public ModelAndView getUserRegion(HttpSession session) throws Exception{
+	public ModelAndView getUserRegion(HttpSession session) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
 		if(memberDTO != null) {
@@ -37,5 +37,4 @@ public class CounselController {
 		}
 		return mav;
 	}
-	
 }
