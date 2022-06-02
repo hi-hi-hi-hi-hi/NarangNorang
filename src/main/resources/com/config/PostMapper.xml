@@ -11,6 +11,7 @@
 					member_id as memberId,
 					member_name as memberName,
 					title,
+					content,
 					datetime,
 					replies,
 					likes,
