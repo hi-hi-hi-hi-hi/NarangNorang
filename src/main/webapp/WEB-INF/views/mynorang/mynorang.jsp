@@ -27,25 +27,30 @@
 </div>
 <table>
 	<tr>
-		<td width="100">일</td>
-		<td width="100">월</td>
-		<td width="100">화</td>
-		<td width="100">수</td>
-		<td width="100">목</td>
-		<td width="100">금</td>
-		<td width="100">토</td>
+		<th width="100">일</th>
+		<th width="100">월</th>
+		<th width="100">화</th>
+		<th width="100">수</th>
+		<th width="100">목</th>
+		<th width="100">금</th>
+		<th width="100">토</th>
 	</tr>
+	<tr><td colspan="7"><hr></td></tr>
 	<tr>
 		<c:forEach var="dailyLogDTO" items="${dailyLogCalendar}" varStatus="status">
-			<td height="80" style="vertical-align: top;">
-				<c:if test="${status.count > (start - 1)}">
+			<c:set var="date" value="${status.count - (start - 1)}"/>
+			<td height="80" style=" vertical-align: top;" onclick="select('${year}', '${month}', '${date}', '${dailyLogDTO.sleep}', '${dailyLogDTO.medicine}')">
+				<c:if test="${date > 0}">
+					<div><b>${date}</b></div>
 					<div>
-						${status.count - (start - 1)}<br>
 						<c:if test="${not empty dailyLogDTO.sleep}">
-							수면 : ${dailyLogDTO.sleep}<br>
+							<img src="/narangnorang/images/mynorang/sleep.png" width="20">
+							<span style="color: orange;">${dailyLogDTO.sleep}</span>
 						</c:if>
+					</div>
+					<div>
 						<c:if test="${not empty dailyLogDTO.medicine}">
-							복용 : ${dailyLogDTO.medicine}<br>
+							<img src="/narangnorang/images/mynorang/medicine.png" width="20"">
 						</c:if>
 					</div>
 				</c:if>

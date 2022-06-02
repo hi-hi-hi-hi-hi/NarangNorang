@@ -13,10 +13,11 @@
 <title>나랑노랑</title>
 </head>
 <body>
-	<h1>테스트</h1>
+	<h1>나의노랑</h1>
 	<jsp:include page="common/top.jsp" flush="true" /><br>
 	<jsp:include page="common/navBar.jsp" flush="true" /><br>
 	<jsp:include page="common/norang.jsp" flush="true" /><br>
+	<script type="text/javascript" src="/narangnorang/js/mynorang/mynorang.js"></script>
 	<jsp:include page="mynorang/mynorang.jsp" flush="true" /><br>
 </body>
 </html>
