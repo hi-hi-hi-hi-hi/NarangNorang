@@ -6,7 +6,6 @@
 
 <form action="/narangnorang/photoUpdate" id="photoUpdate" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="_method" value="put"/>
-	<input type="hidden" name="email" value="${login.email}">
 	프로필 사진<br>
 	<div>
 		<c:choose>
@@ -14,11 +13,11 @@
 				<img style="width:100px; height:100px;" src="/narangnorang/images/member/noImage.jpg">
 			</c:when>
 			<c:otherwise>
-				<img style="width:100px; height:100px;" src="/narangnorang/images/member/${login.email}.png">
+				<img style="width:100px; height:100px;" src="/narangnorang/images/member/${login.id}.png">
 			</c:otherwise>
 		</c:choose>
 	</div>
-	<input type="file" id="photoUpdate" name="filename">
+	<input type="file" id="photoUpload" name="filename">
 	<input type="submit" value="수정하기">
 </form>
 <br>

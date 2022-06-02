@@ -33,7 +33,7 @@
     <!-- 일반회원가입 -->
     <insert id="generalSignUp" parameterType="MemberDTO">
    	<![CDATA[
-		INSERT	INTO member (id, email, password, phone, privilege, name, region, datetime,point)
+		INSERT	INTO member (id, email, password, phone, privilege, name, region, datetime, point)
 		VALUES (seq_member.nextval,#{email},#{password},#{phone},3,#{name},#{region},sysdate,50)
 	]]>
 	</insert>
@@ -41,8 +41,8 @@
 	<!-- 상담사회원가입 -->
     <insert id="counselorSignUp" parameterType="MemberDTO">
    	<![CDATA[
-		INSERT	INTO member (id, email, password, phone, privilege, name, zipcode, address1, address2, address3, job, introduction, datetime,point)
-		VALUES (seq_member.nextval,#{email},#{password},#{phone},2,#{name},#{zipcode},#{address1},#{address2},#{address3},#{job},#{introduction}, sysdate,50)
+		INSERT	INTO member (id, email, password, phone, privilege, name, zipcode, address1, address2, address3, job, introduction, datetime, point)
+		VALUES (seq_member.nextval,#{email},#{password},#{phone},2,#{name},#{zipcode},#{address1},#{address2},#{address3},#{job},#{introduction},sysdate,50)
 	]]>
 	</insert>
 	
@@ -127,8 +127,8 @@
 	<!-- 프로필 사진 업데이트 -->
 	<update id="photoUpdate" parameterType="MemberDTO">
 		UPDATE member
-		SET photo = #{email}
-		WHERE email = #{email}
+		SET photo = #{id}
+		WHERE id = #{id}
 	</update>
 	
 </mapper>
