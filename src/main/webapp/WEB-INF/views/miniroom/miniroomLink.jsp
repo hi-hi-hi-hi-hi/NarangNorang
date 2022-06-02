@@ -3,8 +3,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 		<div>
 
 			<div style="position: absolute;">
@@ -34,7 +32,7 @@
 				</div>
 			<img src="/narangnorang/images/default.jpg" width="500"></img>
 		</div>
-</table>
+
 <ul>
 	<li><a href="/narangnorang/home/buy">아이템 구매</a></li>
 	<li><a href="/narangnorang/home/style">미니룸 꾸미기</a></li>

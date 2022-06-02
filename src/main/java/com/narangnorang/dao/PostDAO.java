@@ -65,18 +65,6 @@ public class PostDAO {
 		return session.insert("com.config.PostMapper.insertReply", dto);
 	}
 	
-
-	public int updateReplies(int id) throws Exception {
-		return session.update("com.config.PostMapper.updateReplies", id);
-	}
-	
-	public int insertLiker(LikerDTO dto) throws Exception {
-		return session.insert("com.config.PostMapper.insertLiker", dto);
-	}
-	
-	public int updateLiker(int id) throws Exception {
-		return session.update("com.config.PostMapper.updateLike", id);
-
 	public int deleteReply(int id) {
 		return session.delete("com.config.PostMapper.deleteReply", id);
 	}
