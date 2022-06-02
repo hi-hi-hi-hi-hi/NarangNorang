@@ -1,18 +1,12 @@
 package com.narangnorang.controller;
 
 import com.narangnorang.dto.*;
-import com.narangnorang.service.MemberService;
 import com.narangnorang.service.MiniroomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.PrintWriter;
-import java.lang.reflect.Member;
 import java.util.HashMap;
 import java.util.List;
 
