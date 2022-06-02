@@ -94,8 +94,5 @@ $(document).ready(function(){
 			}
 		});
 	});
-	
-	$("#btn_updateReply").on("click", function(){
-		
-	});
+
 });
