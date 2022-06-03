@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.Member;
 import java.util.HashMap;
 import java.util.List;
 
@@ -61,12 +62,9 @@ public class MiniroomController {
 	}
 
 	@GetMapping("/home/wish")
-	public ModelAndView wish(HttpSession session,
-							@RequestParam(value="category",required=false,defaultValue="bed") String category
-	) throws Exception {
+	public ModelAndView wish(HttpSession session) throws Exception {
 
 		HashMap<String,Object> map = new HashMap<>();
-		map.put("category",category);
 
 		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
 		ModelAndView mav = new ModelAndView("homeWish");
@@ -84,32 +82,21 @@ public class MiniroomController {
 	}
 
 	//물건 구매
+	@ResponseBody
 	@PostMapping("/home/buy")
-	public ModelAndView buy(HttpSession session,
-							MyItemDTO myItemDTO,
-							int price,
-							String category) throws Exception {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("category", category);
+	public String buy(HttpSession session,int memberId, int price,int itemId) throws Exception {
 
-		//세션 받아오기.
-		MemberDTO mDto = (MemberDTO) session.getAttribute("login");
 
-		//member고유번호
-		int memberId = mDto.getId();
-
-		//파라미터 이용해서 구매 버튼 클릭한 해당 itemId 받아옴.
-		int itemId = myItemDTO.getItemId();
-
-		// myItem에 insert하는 부분에 사용(insertBuy)
-		myItemDTO.setMemberId(memberId);
+		MemberDTO mDTO = (MemberDTO)session.getAttribute("login");
+//		//파라미터 이용해서 구매 버튼 클릭한 해당 itemId 받아옴.
+//		int itemId = myItemDTO.getItemId();
 
 		// Check에 쓰임. click한 아이템 price찾기에 쓰임.
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("itemId", itemId);
 		map.put("memberId", memberId);
 
-		int point = mDto.getPoint();
+		int point = mDTO.getPoint();
 
 		//price랑 memberId 등록.
 		HashMap<String, Integer> pointMap = new HashMap<>();
@@ -120,12 +107,12 @@ public class MiniroomController {
 		MyItemDTO check = miniroomService.selectByMyItemId(map);
 		String mesg = null;
 
-		//구매할 아이템이 myItem테이블에 없고 포인트가 price 이상이면구매. point없으면 포인트 부족메세지.
+		//구매할 아이템이 myItem테이블에 없고 포인트가 price 이상이면 구매. point 없으면 포인트 부족메세지.
 		if (check == null) {
 			if (point >= price) {
 
 				//point 차감.
-				miniroomService.insertBuy(myItemDTO, pointMap);
+				miniroomService.insertBuy(map, pointMap);
 				mesg = "구매완료, 포인트가" + price + " 만큼 차감 되었습니다.";
 			} else {
 				mesg = "포인트가 부족합니다.";
@@ -139,25 +126,20 @@ public class MiniroomController {
 				mesg="위시리스트 상품을 구매했습니다.";
 
 			}
-
-
 		}
-		mav.addObject("mesg", mesg);
-		mav.setViewName("miniroom/miniroomBuySuccess");
-		return mav;
+
+		return mesg;
 	}
 
 	// 위시리스트 추가
+	@ResponseBody
 	@PostMapping("/home/buy/{itemId}")
-	public ModelAndView wishupdate(@PathVariable("itemId") int itemId, MyItemDTO myItemDTO,HttpSession session,String category) throws Exception{
+	public String wishupdate(@PathVariable("itemId") int itemId, int memberId) throws Exception{
 
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("category",category);
-		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
+
+
 		String mesg;
-		int memberId = mDto.getId();
 		int result=0;
-		myItemDTO.setMemberId(memberId);
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("itemId",itemId);
 		map.put("memberId",memberId);
@@ -175,16 +157,21 @@ public class MiniroomController {
 			}
 		}
 
-		mav.addObject("mesg",mesg);
-		mav.setViewName("miniroom/miniroomWishSuccess");
-		return mav;
+
+		return mesg;
 	}
 
 	//미니룸에 내아이템 적용
+	@ResponseBody
 	@PutMapping("/home/style")
-	public String applyMiniroom(MyItemDTO myItemDTO) throws Exception{
-		miniroomService.applyMiniroom(myItemDTO);
-		//@Responsebody했을때 검은색화면으로 넘어가는데 이유를 모르겠음.. js에 alert는 뜬다.
-		return "redirect:/home/style";
+	public int applyMiniroom(int itemId, int memberId, String category) throws Exception{
+		HashMap<String,Object> map = new HashMap<>();
+
+		map.put("itemId", itemId);
+		map.put("memberId", memberId);
+		map.put("category", category);
+
+		int result = miniroomService.applyMiniroom(map);
+		return result;
 	}
 }

@@ -7,18 +7,12 @@
 	<tr>
 		<td>
 			<table align="center" width="710" cellspacing="0" cellpadding="0"
-				   border="0" >
+				   border="1" >
 
 				<tr>
 				</tr>
 				<tr>
-					<th><a href="wish?category=floor">floor</a></th>
-					<th><a href="wish?category=wallpaper">wallpaper</a></th>
-					<th><a href="wish?category=bed">bed</a></th>
-					<th><a href="wish?category=closet">closet</a></th>
-					<th><a href="wish?category=desk">desk</a></th>
-					<th><a href="wish?category=walldeco">walldeco</a></th>
-				</tr>
+					</tr>
 				<tr>
 					<td height="5"></td>
 				</tr>
@@ -36,7 +30,7 @@
 						<table style='padding:15px'>
 							<tr>
 								<td>
-									<img src="/narangnorang/images/items/${dto.id}.png" border="0" align="center" width="100px" height="100">
+									<img src="/narangnorang/images/items/items/${dto.id}.png" border="0" align="center" width="100px" height="100">
 								</td>
 							</tr>
 							<tr>

@@ -16,12 +16,14 @@
 
 						<tr></tr>
 						<tr>
-							<th><a href="style?category=floor">floor</a></th>
-							<th><a href="style?category=wallpaper">wallpaper</a></th>
-							<th><a href="style?category=bed">bed</a></th>
-							<th><a href="style?category=closet">closet</a></th>
-							<th><a href="style?category=desk">desk</a></th>
-							<th><a href="style?category=walldeco">walldeco</a></th>
+							<th><button onclick=""><a href="style?category=floor">바닥</a></button></th>
+							<th><button onclick=""><a href="style?category=wallpaper">벽지</a></button></th>
+							<th><button onclick=""><a href="style?category=bed">침대</a></button></th>
+							<th><button onclick=""><a href="style?category=closet">옷장</a></button></th>
+							<th><button onclick=""><a href="style?category=desk">책상</a></button></th>
+							<th><button onclick=""><a href="style?category=chair">의자</a></button></th>
+							<th><button onclick=""><a href="style?category=walldecoRight">벽장식오른쪽</a></button></th>
+							<th><button onclick=""><a href="style?category=walldecoLeft">벽장식왼쪽</a></button></th>
 						</tr>
 
 						<tr>
@@ -36,18 +38,10 @@
 
 
 								<table style='padding:15px'>
-									<form action=# name="styleForm" method="post">
-										<input type="hidden" name="_method" value="put">
-									<tr>
-										<!-- myItemDTO에 세션 스코프 로그인 아이디값 저장시켰음.-->
-										<input type="hidden" name="memberId" value="${memberId}">
-										<input type="text" name="itemId" value="${dto.id}">
-										<!-- controller에서 mav.addObject("wish",wish) 저장하자.?-->
-										<input type="hidden" name="wish" value="0">
 
-
+								<tr>
 										<td>
-											<img src="/narangnorang/images/items/${dto.id}.png" border="0" align="center" width="100px" height="100">
+											<img src="/narangnorang/images/items/items/${dto.id}.png" border="0" align="center" width="100px" height="100">
 										</td>
 									</tr>
 									<tr>
@@ -68,13 +62,14 @@
 									</tr>
 									<tr>
 										<td height="10">
+
 									</tr>
 									<tr>
 										<td class= "inline-flex" align ="center">
-											<button class="req" data-xxx="apply" >적용하기</button>
+											<button type="button" data-xxx="apply" onclick="apply(${dto.id},${memberId},'${dto.category}')">적용하기</button>
 										</td>
 									</tr>
-									</form>
+
 								</table>
 							</td>
 							</c:forEach>

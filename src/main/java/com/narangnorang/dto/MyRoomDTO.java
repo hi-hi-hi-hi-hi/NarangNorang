@@ -20,7 +20,9 @@ public class MyRoomDTO {
 	private int bed;
 	private int closet;
 	private int desk;
-	private int walldeco;
+	private int walldecoRight;
+	private int walldecoLeft;
+	private int chair;
 	private String memberName;
 
 }
