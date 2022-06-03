@@ -17,7 +17,14 @@
 	<jsp:include page="common/top.jsp" flush="true" /><br>
 	<jsp:include page="common/navBar.jsp" flush="true" /><br>
 	<jsp:include page="common/norang.jsp" flush="true" /><br>
-	<script type="text/javascript" src="/narangnorang/js/mynorang/mynorang.js"></script>
-	<jsp:include page="mynorang/mynorang.jsp" flush="true" /><br>
+	<c:choose>
+		<c:when test="${not empty dailyLogCalendar}">
+			<script type="text/javascript" src="/narangnorang/js/mynorang/dailyLogCalendar.js"></script>
+			<jsp:include page="mynorang/dailyLogCalendar.jsp" flush="true" /><br>
+		</c:when>
+		<c:when test="${not empty moodStateList}">
+			
+		</c:when>
+	</c:choose>
 </body>
 </html>

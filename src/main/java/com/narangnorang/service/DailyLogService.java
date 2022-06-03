@@ -6,8 +6,11 @@ import com.narangnorang.dto.DailyLogDTO;
 
 public interface DailyLogService {
 
-	// 일일 데이터 조회
+	// 일일 데이터 조회(한달)
 	public List<DailyLogDTO> selectList(DailyLogDTO dailyLogDTO) throws Exception;
+
+	// 일일 데이터 조회(하루)
+	public DailyLogDTO selectOne(DailyLogDTO dailyLogDTO);
 
 	// 일일 데이터 저장
 	public int insert(DailyLogDTO dailyLogDTO) throws Exception;
