@@ -15,12 +15,12 @@ public class CounselDAO {
 	SqlSession sqlSession;
 	
 	// 상담사 List
-	public List<MemberDTO> selectCounselorList() {
+	public List<MemberDTO> selectCounselorList()  throws Exception {
 		return sqlSession.selectList("com.config.CounselMapper.selectCounselorList");
 	}
 	
 	// 센터 List
-	public String selectUserAddress(String id) {
+	public String selectUserAddress(String id)  throws Exception {
 		return sqlSession.selectOne("com.config.CounselMapper.selectUserAddress", id);
 	}
 

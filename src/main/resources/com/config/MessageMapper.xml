@@ -5,15 +5,16 @@
 <mapper namespace="com.config.MessageMapper">
 
 	<!-- 쪽지 List -->
-	<select id="selectMessageList" resultType="MessageDTO" parameterType="Integer">
+	<select id="selectMessageList" resultType="MessageDTO"
+		parameterType="Integer">
 		<![CDATA[
 			SELECT *
 			FROM message
-			WHERE (sender_id = ${id} OR reciever_id = ${id}) AND datetime in (select max(datetime) from message group by sender_id, reciever_id)
+			WHERE (sender_id = ${userId} OR reciever_id = ${userId}) AND datetime in (select max(datetime) from message group by sender_id, reciever_id)
 			ORDER BY datetime desc
 		]]>
 	</select>
-	
+
 	<!-- 쪽지 보내기 -->
 	<insert id="sendMessage" parameterType="hashmap">
 	<![CDATA[
@@ -22,9 +23,10 @@
 	
 	]]>
 	</insert>
-	
-	<!-- 쪽지 대화내역 가져오기-->
-	<select id="getChats" resultType="MessageDTO" parameterType="hashmap">
+
+	<!-- 특정 사용자와 대화내역 가져오기 -->
+	<select id="getChats" resultType="MessageDTO"
+		parameterType="hashmap">
 	<![CDATA[
 		SELECT *
 		FROM message
@@ -32,6 +34,23 @@
 		ORDER BY datetime
 	]]>
 	</select>
-	
+
+	<!-- 쪽지 확인 -->
+	<update id="readMessage" parameterType="hashmap">
+	<![CDATA[
+		UPDATE message
+		SET read = 1
+		WHERE sender_id = ${otherId} AND reciever_id = ${userId}
+	]]>
+	</update>
+
+	<!-- 확인하지 않은 쪽지 수 -->
+	<select id="countUnread" resultType="int" parameterType="int">
+	<![CDATA[
+		SELECT count(*)
+		FROM message
+		WHERE read = 0 AND reciever_id = ${userId}
+	]]>
+	</select>
 
 </mapper>
