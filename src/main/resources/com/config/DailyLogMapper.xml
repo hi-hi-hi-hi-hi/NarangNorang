@@ -18,22 +18,19 @@
 	<!-- 일일 데이터 저장 -->
 	<insert id="insert" parameterType="DailyLogDTO">
 		INSERT INTO daily_log (id, member_id, datetime, sleep, medicine)
-		VALUES (seq_daily_log.NEXTVAL, #{memberId}, TO_DATE(#{datetime},
-		'yyyy-MM-dd'), #{sleep}, #{medicine})
+		VALUES (seq_daily_log.NEXTVAL, #{memberId}, TO_DATE(#{datetime}, 'yyyy-MM-dd'), #{sleep}, #{medicine})
 	</insert>
 
 	<!-- 일일 데이터 수정 -->
 	<update id="update" parameterType="DailyLogDTO">
 		UPDATE daily_log
 		SET sleep = #{sleep}, medicine = #{medicine}
-		WHERE member_id = #{memberId} AND datetime = TO_DATE(#{datetime},
-		'yyyy-MM-dd')
+		WHERE member_id = #{memberId} AND datetime = TO_DATE(#{datetime}, 'yyyy-MM-dd')
 	</update>
 
 	<!-- 일일 데이터 삭제 -->
 	<delete id="delete" parameterType="DailyLogDTO">
-		DELETE FROM daily_log WHERE member_id = #{memberId} AND datetime =
-		TO_DATE(#{datetime}, 'yyyy-MM-dd')
+		DELETE FROM daily_log WHERE member_id = #{memberId} AND datetime = TO_DATE(#{datetime}, 'yyyy-MM-dd')
 	</delete>
 
 </mapper>
