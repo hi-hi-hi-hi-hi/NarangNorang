@@ -6,6 +6,7 @@ import java.util.List;
 import com.narangnorang.dto.*;
 
 public interface MiniroomService {
+
 	public List<ItemDTO> selectAllItems(String category);
 	public int insertBuy(HashMap<String, Object> map, HashMap<String, Integer> pointMap);
 	public int wishInsert(HashMap<String, Object> map);

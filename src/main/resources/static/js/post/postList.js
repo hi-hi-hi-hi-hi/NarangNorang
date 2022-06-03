@@ -21,6 +21,23 @@ function pagingOp(totalRows, limit, currentPage){
 
 };
 
+
+
+var bambooLike = function(id){
+	$.ajax({
+		type:'POST',
+		url: '/narangnorang/post/like/'+id,
+		success: function(result){
+			alert(result);
+			location.reload();
+		},
+		error: function(xhr, status, e){	
+			console.log(xhr, status, e)
+			fail(error);
+		}
+	});
+}
+
 $(document).ready(function(){
 	
 	let h = "";
@@ -116,5 +133,5 @@ $(document).ready(function(){
 	$("#overThirty").on("click", function(){
 		location.href = "/narangnorang/post?category=" + category + "&likes=30";
 	});
-
+	
 });

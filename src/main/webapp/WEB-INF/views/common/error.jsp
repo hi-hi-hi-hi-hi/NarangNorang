@@ -11,6 +11,6 @@
 	<%
 		out.print(exception);
 	%>
-	<a href="/narangnorang/home">홈</a>
+	<a href="/narangnorang/login">로그인</a>
 </body>
 </html>

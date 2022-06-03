@@ -4,7 +4,8 @@ $(document).ready(function(){
 		var name = $('#name').val();
 		var originName = $('#originName').val()
 		if(name == originName){
-			if(confirm("정보를 수정하시면 다시 로그인 해야 합니다. 진행하시겠습니까?")){
+			if(confirm("정보를 수정하시겠습니까?")){
+				alert("정보가 수정되었습니다.");
 			}else{
 				event.preventDefault();
 			}
@@ -12,7 +13,8 @@ $(document).ready(function(){
 			if(nicknameDuplication == false){
 				alert("닉네임 검사를 해주세요");
 				event.preventDefault();
-			}else if(confirm("정보를 수정하시면 다시 로그인 해야 합니다. 진행하시겠습니까?")){
+			}else if(confirm("정보를 수정하시겠습니까?")){
+				alert("정보가 수정되었습니다.");
 			}else{
 				event.preventDefault();
 			}
@@ -54,5 +56,22 @@ $(document).ready(function(){
 				alert("에러");
 			}
 		});
+	});
+	
+	// 프로필 사진 수정
+	$("#photoUpload").on("change", function(e){
+		var reader = new FileReader();
+		reader.onload = function(e){
+			var img = document.getElementById('photo');
+			img.setAttribute("src", e.target.result);
+		}
+	});
+	
+	$("#photoUpdate").on("submit", function(){
+		if(confirm("프로필 사진을 변경하시겠습니까?")){
+			alert("프로필 사진이 변경되었습니다.");
+		}else{
+			event.preventDefault();
+		}
 	});
 });

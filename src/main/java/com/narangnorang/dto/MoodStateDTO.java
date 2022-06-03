@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class MoodStateDTO {
 
 	private int id;
-	private String memberId;
+	private int memberId;
 	private String datetime;
 	private int state;
 

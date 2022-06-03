@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class DailyLogDTO {
 
 	private int id;
-	private String memberId;
+	private int memberId;
 	private String datetime;
 	private Integer sleep;
 	private Integer medicine;

@@ -11,12 +11,12 @@
 	</insert>
 
 	<!-- 기분 상태 조회 -->
-	<select id="selectList" parameterType="int" resultType="MoodStateDTO">
+	<select id="selectList" parameterType="MoodStateDTO" resultType="MoodStateDTO">
 		SELECT *
 		FROM mood_state
-		WHERE member_id = #{memberId}
+		WHERE member_id = #{memberId} and TO_CHAR(datetime, 'yyyy/MM') = #{datetime}
 		ORDER
-		BY id DESC
+		BY id ASC
 	</select>
 
 </mapper>
