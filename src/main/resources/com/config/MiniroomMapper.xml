@@ -18,7 +18,7 @@
 		from ITEM i
 				 Inner Join MY_ITEM m
 							ON m.item_id = i.id
-		where i.category=#{category} and m.wish=1 and m.member_ID=#{id}
+		where m.wish=1 and m.member_ID=#{id}
 
 		]]>
 	</select>
@@ -32,15 +32,15 @@
 		]]>
 	</select>
 
-	<insert id="insertBuy" parameterType="MyItemDTO">
+	<insert id="insertBuy" parameterType="hashmap">
 		Insert into MY_ITEM (id, member_ID, item_ID, wish)
 		values (seq_My_Item.nextval, #{memberId}, #{itemId},0)
 
 	</insert>
 
 	<insert id="insertDefaultItems" parameterType="String">
-		Insert into MY_ROOM (id, member_ID, floor, wallpaper,bed,closet,desk,walldeco, member_Name)
-		values (seq_My_Room.nextval, seq_Member.currval, 1,11,21,31,41,51, #{name})
+		Insert into MY_ROOM (id, member_ID, floor, wallpaper, member_Name)
+		values (seq_My_Room.nextval, seq_Member.currval, 1,11, #{name})
 	</insert>
 
 	<insert id="wishInsert" parameterType="hashmap">
@@ -66,52 +66,9 @@
 
 	<update id="applyMiniroom" parameterType="hashmap">
 		<![CDATA[
-		update MY_ROOM
-		set ${category}=#{itemId}
-		where member_Id=#{memberId}
-		]]>
-		</update>
-
-	<update id="applyMiniroomFloor" parameterType="MyItemDTO">
-		<![CDATA[
-		update MY_ROOM
-		set floor=#{itemId}
-		where member_Id=#{memberId}
-		]]>
-		</update>
-	<update id="applyMiniroomWallpaper" parameterType="MyItemDTO">
-		<![CDATA[
-		update MY_ROOM
-		set wallpaper=#{itemId}
-		where member_Id=#{memberId}
-		]]>
-		</update>
-	<update id="applyMiniroomBed" parameterType="MyItemDTO">
-		<![CDATA[
-		update MY_ROOM
-		set bed=#{itemId}
-		where member_Id=#{memberId}
-		]]>
-		</update>
-	<update id="applyMiniroomCloset" parameterType="MyItemDTO">
-		<![CDATA[
-		update MY_ROOM
-		set closet=#{itemId}
-		where member_Id=#{memberId}
-		]]>
-		</update>
-	<update id="applyMiniroomDesk" parameterType="MyItemDTO">
-		<![CDATA[
-		update MY_ROOM
-		set desk=#{itemId}
-		where member_Id=#{memberId}
-		]]>
-		</update>
-	<update id="applyMiniroomWalldeco" parameterType="MyItemDTO">
-		<![CDATA[
-		update MY_ROOM
-		set walldeco=#{itemId}
-		where member_Id=#{memberId}
+		UPDATE MY_ROOM
+		SET ${category} = #{itemId}
+		WHERE MEMBER_ID=#{memberId}
 		]]>
 		</update>
 
@@ -127,9 +84,9 @@
 	</select>
 	<select id="selectMyRoom" resultType="MyRoomDTO" parameterType="int">
 	<![CDATA[
-		select member_id, floor, wallpaper, bed, closet,desk, walldeco
-		from MY_ROOM
-		where member_id=#{id}
+		SELECT MEMBER_ID, FLOOR, WALLPAPER, BED, CLOSET, DESK, WALLDECORIGHT, WALLDECOLEFT, CHAIR
+		FROM MY_ROOM
+		WHERE MEMBER_ID=#{id}
 		]]>
 	</select>
 

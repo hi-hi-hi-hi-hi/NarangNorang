@@ -29,9 +29,9 @@ public class MiniroomServiceImpl implements MiniroomService {
 	}
 	@Transactional
 	@Override
-	public int insertBuy(MyItemDTO myItemDTO,HashMap<String, Integer> pointMap) {
+	public int insertBuy(HashMap<String, Object> map,HashMap<String, Integer> pointMap) {
 		miniroomDAO.updatePoint(pointMap);
-		return miniroomDAO.insertBuy(myItemDTO);
+		return miniroomDAO.insertBuy(map);
 	}
 
 	@Override
@@ -45,8 +45,8 @@ public class MiniroomServiceImpl implements MiniroomService {
 	}
 
 	@Override
-	public int applyMiniroom(MyItemDTO myItemDTO) {
-		return miniroomDAO.applyMiniroom(myItemDTO);
+	public int applyMiniroom(HashMap<String, Object> map) {
+		return miniroomDAO.applyMiniroom(map);
 	}
 
 	@Override
