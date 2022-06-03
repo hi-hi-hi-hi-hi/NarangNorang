@@ -4,7 +4,7 @@ function closeChats() {
 
 
 function sendMessage(userId, userName, userPrivilege) {
-	var data = {
+	let data = {
 		"content" : $("#content").val(),
 		"senderId" : userId,
 		"senderName" : userName,
@@ -35,6 +35,7 @@ function sendMessage(userId, userName, userPrivilege) {
 
 $(document).ready(function(){
 	$("#content").focus();
+	$("#chatsList", opener.document).load("/narangnorang/message #chatsList");
 	$("#content").keydown(function(keyNum){
 		if(keyNum.keyCode == 13){
 			$("#sendMessage").trigger("click");

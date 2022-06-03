@@ -37,10 +37,10 @@ public class MessageController {
 		ModelAndView mav = new ModelAndView();
 		
 		if (memberDTO != null) {
-			int id = memberDTO.getId();
+			int userId = memberDTO.getId();
 			mav.setViewName("message");
 
-			List<MessageDTO> messageList = messageService.selectMessageList(id);
+			List<MessageDTO> messageList = messageService.selectMessageList(userId);
 			Iterator<MessageDTO> iter = messageList.iterator();
 			List<Integer> otherUsers = new ArrayList<Integer>();
 			
@@ -51,16 +51,16 @@ public class MessageController {
 					iter.remove();
 				} else {
 					// sender/reciever가 본인이 아닌 경우 리스트 추가
-					if (id != messageDTO.getSenderId()) {
+					if (userId != messageDTO.getSenderId()) {
 						otherUsers.add(messageDTO.getSenderId());
 					}
-					if (id != messageDTO.getRecieverId()) {
+					if (userId != messageDTO.getRecieverId()) {
 						otherUsers.add(messageDTO.getRecieverId());
 					}
 				}
 			}
 			mav.addObject("messageList", messageList);
-			mav.addObject("id", id);
+			mav.addObject("userId", userId);
 		} else {
 			mav.setViewName("common/sessionInvalidate");
 		}
@@ -112,5 +112,13 @@ public class MessageController {
 			result.put("result", "ok");
 		}
 		return result;
+	}
+	
+	@GetMapping("/message/unread")
+	@ModelAttribute("unreadMessage")
+	public int countUnread(HttpSession session) throws Exception {
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
+		int userId = memberDTO.getId();
+		return messageService.countUnread(userId);
 	}
 }
