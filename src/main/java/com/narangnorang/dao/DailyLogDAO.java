@@ -14,9 +14,14 @@ public class DailyLogDAO {
 	@Autowired
 	SqlSession sqlSession;
 
-	// 일일 데이터 조회
+	// 일일 데이터 조회(한달)
 	public List<DailyLogDTO> selectList(DailyLogDTO dailyLogDTO) throws Exception {
 		return sqlSession.selectList("com.config.DailyLogMapper.selectList", dailyLogDTO);
+	}
+
+	// 일일 데이터 조회(하루)
+	public DailyLogDTO selectOne(DailyLogDTO dailyLogDTO) {
+		return sqlSession.selectOne("com.config.DailyLogMapper.selectOne", dailyLogDTO);
 	}
 
 	// 일일 데이터 저장

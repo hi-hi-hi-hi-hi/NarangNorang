@@ -14,16 +14,16 @@ public class MoodStateServiceImpl implements MoodStateService {
 	@Autowired
 	MoodStateDAO moodStateDAO;
 
-	// 기분 상태 저장
-	@Override
-	public int insert(MoodStateDTO moodStateDTO) throws Exception {
-		return moodStateDAO.insert(moodStateDTO);
-	}
-
 	// 기분 상태 조회
 	@Override
 	public List<MoodStateDTO> selectList(MoodStateDTO moodStateDTO) throws Exception {
 		return moodStateDAO.selectList(moodStateDTO);
+	}
+
+	// 기분 상태 저장
+	@Override
+	public int insert(MoodStateDTO moodStateDTO) throws Exception {
+		return moodStateDAO.insert(moodStateDTO);
 	}
 
 }

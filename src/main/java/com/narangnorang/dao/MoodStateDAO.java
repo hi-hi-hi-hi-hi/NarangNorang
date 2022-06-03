@@ -14,14 +14,14 @@ public class MoodStateDAO {
 	@Autowired
 	SqlSession sqlSession;
 
-	// 기분 상태 저장
-	public int insert(MoodStateDTO moodStateDTO) throws Exception {
-		return sqlSession.insert("com.config.MoodStateMapper.insert", moodStateDTO);
-	}
-
 	// 기분 상태 조회
 	public List<MoodStateDTO> selectList(MoodStateDTO moodStateDTO) throws Exception {
 		return sqlSession.selectList("com.config.MoodStateMapper.selectList", moodStateDTO);
+	}
+
+	// 기분 상태 저장
+	public int insert(MoodStateDTO moodStateDTO) throws Exception {
+		return sqlSession.insert("com.config.MoodStateMapper.insert", moodStateDTO);
 	}
 
 }

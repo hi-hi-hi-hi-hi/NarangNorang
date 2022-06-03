@@ -39,21 +39,24 @@
 	<tr>
 		<c:forEach var="dailyLogDTO" items="${dailyLogCalendar}" varStatus="status">
 			<c:set var="date" value="${status.count - (start - 1)}"/>
-			<td height="80" style=" vertical-align: top;" onclick="select('${year}', '${month}', '${date}', '${dailyLogDTO.sleep}', '${dailyLogDTO.medicine}')">
-				<c:if test="${date > 0}">
-					<div><b>${date}</b></div>
-					<div>
-						<c:if test="${not empty dailyLogDTO.sleep}">
-							<img src="/narangnorang/images/mynorang/sleep.png" width="20">
-							<span style="color: orange;">${dailyLogDTO.sleep}</span>
-						</c:if>
-					</div>
-					<div>
-						<c:if test="${not empty dailyLogDTO.medicine}">
-							<img src="/narangnorang/images/mynorang/medicine.png" width="20"">
-						</c:if>
-					</div>
-				</c:if>
+			<td height="80" style=" vertical-align: top;" <c:if test="${date > 0}">onclick="select('${year}', '${month}', '${date}')"</c:if>>
+				<div>
+					<c:if test="${date > 0}">
+						<b>${date}</b>
+					</c:if>
+				</div>
+				<div>
+					<c:if test="${not empty dailyLogDTO}">
+						<img src="/narangnorang/images/mynorang/sleep.png" width="20">
+						<span style="color: orange;">${dailyLogDTO.sleep}</span>
+					</c:if>
+				</div>
+				<div>
+					<c:if test="${dailyLogDTO.medicine == 0}">X</c:if>
+					<c:if test="${dailyLogDTO.medicine == 1}">
+						<img src="/narangnorang/images/mynorang/medicine.png" width="20">
+					</c:if>
+				</div>
 			</td>
 			<c:if test="${!status.last && status.count % 7 == 0}">
 				</tr><tr>

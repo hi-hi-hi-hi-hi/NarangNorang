@@ -15,7 +15,7 @@ public class DailyLogDTO {
 	private int id;
 	private int memberId;
 	private String datetime;
-	private Integer sleep;
+	private int sleep;
 	private Integer medicine;
 
 }

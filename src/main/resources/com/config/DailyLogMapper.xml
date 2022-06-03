@@ -4,13 +4,20 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.config.DailyLogMapper">
 
-	<!-- 일일 데이터 조회 -->
+	<!-- 일일 데이터 조회(한달) -->
 	<select id="selectList" parameterType="DailyLogDTO" resultType="DailyLogDTO">
 		SELECT *
 		FROM daily_log
 		WHERE member_id = #{memberId} and TO_CHAR(datetime, 'yyyy-MM') = #{datetime}
 		ORDER
 		BY id ASC
+	</select>
+
+	<!-- 일일 데이터 조회(하루) -->
+	<select id="selectOne" parameterType="DailyLogDTO" resultType="DailyLogDTO">
+		SELECT *
+		FROM daily_log
+		WHERE member_id = #{memberId} and TO_CHAR(datetime, 'yyyy-MM-dd') = #{datetime}
 	</select>
 
 	<!-- 일일 데이터 저장 -->
