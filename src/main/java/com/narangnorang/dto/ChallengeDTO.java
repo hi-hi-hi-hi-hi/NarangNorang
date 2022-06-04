@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class ChallengeDTO {
 
 	private int id;
-	private String content;
-	private String reward;
+	private int memberId;
+	private String datetime;
 
 }

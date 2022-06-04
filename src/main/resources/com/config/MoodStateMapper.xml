@@ -8,9 +8,9 @@
 	<select id="selectList" parameterType="MoodStateDTO" resultType="MoodStateDTO">
 		SELECT *
 		FROM mood_state
-		WHERE member_id = #{memberId} and TO_CHAR(datetime, 'yyyy-MM') = #{datetime}
+		WHERE member_id = #{memberId} and datetime >= TO_DATE(#{datetime}, 'yyyy-MM-dd') - 7
 		ORDER
-		BY id ASC
+		BY datetime ASC
 	</select>
 
 	<!-- 기분 상태 저장 -->

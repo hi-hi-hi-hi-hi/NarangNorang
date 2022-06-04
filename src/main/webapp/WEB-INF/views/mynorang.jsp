@@ -8,8 +8,10 @@
 <!-- Bootstrap -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- jQuery -->
 <title>나랑노랑</title>
 </head>
 <body>
@@ -22,9 +24,11 @@
 			<script type="text/javascript" src="/narangnorang/js/mynorang/dailyLogCalendar.js"></script>
 			<jsp:include page="mynorang/dailyLogCalendar.jsp" flush="true" /><br>
 		</c:when>
-		<c:when test="${not empty moodStateList}">
-			
-		</c:when>
+		<c:otherwise>
+			<script src="https://d3js.org/d3.v5.min.js"></script>
+			<script type="text/javascript" src="/narangnorang/js/mynorang/moodState.js"></script>
+			<svg style="width: 800px; height: 400px;"></svg>
+		</c:otherwise>
 	</c:choose>
 </body>
 </html>

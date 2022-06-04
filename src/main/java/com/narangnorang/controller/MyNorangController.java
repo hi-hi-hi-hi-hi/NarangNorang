@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.narangnorang.dto.DailyLogDTO;
 import com.narangnorang.dto.MemberDTO;
+import com.narangnorang.dto.MoodStateDTO;
 import com.narangnorang.service.DailyLogService;
 import com.narangnorang.service.MoodStateService;
 
@@ -28,8 +30,6 @@ public class MyNorangController {
 
 	@Autowired
 	DailyLogService dailyLogService;
-	@Autowired
-	MoodStateService moodStateService;
 
 	// 일일 데이터 조회(한달)
 	@GetMapping("/mynorang/dailylog")
@@ -126,6 +126,41 @@ public class MyNorangController {
 	@GetMapping("/mynorang/success")
 	public String success() {
 		return "/mynorang/success";
+	}
+
+	@Autowired
+	MoodStateService moodStateService;
+
+	// 기분 상태 조회
+	@GetMapping("/mynorang/moodstate")
+	public String moodstate() {
+		return "mynorang";
+	}
+
+	// 기분 상태 조회(주간)
+	@PostMapping("/mynorang/moodstate")
+	@ResponseBody
+	public List<MoodStateDTO> moodstate(HttpSession session, Integer year, Integer month, Integer date)
+			throws Exception {
+		Calendar calendar = Calendar.getInstance();
+		if (year == null) {
+			year = calendar.get(Calendar.YEAR);
+		}
+		if (month == null) {
+			month = calendar.get(Calendar.MONTH) + 1;
+		}
+		if (date == null) {
+			date = calendar.get(Calendar.DATE);
+		}
+		calendar.set(year, month - 1, date);
+
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String datetime = simpleDateFormat.format(calendar.getTime());
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
+		int memberId = memberDTO.getId();
+		MoodStateDTO moodStateDTO = new MoodStateDTO(0, memberId, datetime, 0);
+		List<MoodStateDTO> moodStateList = moodStateService.selectList(moodStateDTO);
+		return moodStateList;
 	}
 
 	// 에러 처리
