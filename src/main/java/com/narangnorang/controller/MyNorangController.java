@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -30,8 +31,9 @@ public class MyNorangController {
 	@Autowired
 	MoodStateService moodStateService;
 
-	@GetMapping("/mynorang")
-	public ModelAndView calendar(HttpSession session, Integer year, Integer month) throws Exception {
+	// 일일 데이터 조회(한달)
+	@GetMapping("/mynorang/dailylog")
+	public ModelAndView selectList(HttpSession session, Integer year, Integer month) throws Exception {
 		Calendar calendar = Calendar.getInstance();
 		if (year == null) {
 			year = calendar.get(Calendar.YEAR);
@@ -47,7 +49,7 @@ public class MyNorangController {
 		String datetime = simpleDateFormat.format(calendar.getTime());
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
 		int memberId = memberDTO.getId();
-		DailyLogDTO dailyLogDTO = new DailyLogDTO(0, memberId, datetime, null, null);
+		DailyLogDTO dailyLogDTO = new DailyLogDTO(0, memberId, datetime, 0, null);
 		List<DailyLogDTO> dailyLogList = dailyLogService.selectList(dailyLogDTO);
 
 		/* ----------코드 개선 필요함---------- */
@@ -75,13 +77,23 @@ public class MyNorangController {
 		return modelAndView;
 	}
 
-	@GetMapping("/mynorang/dailylog")
-	public String dailyLog(DailyLogDTO dailyLogDTO) throws Exception {
-		return "/mynorang/dailylog";
+	// 일일 데이터 조회(하루)
+	@GetMapping("/mynorang/dailylog/{datetime}")
+	public ModelAndView selectOne(HttpSession session, @PathVariable String datetime) throws Exception {
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
+		int memberId = memberDTO.getId();
+		DailyLogDTO dailyLogDTO = new DailyLogDTO(0, memberId, datetime, 0, null);
+		dailyLogDTO = dailyLogService.selectOne(dailyLogDTO);
+
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("datetime", datetime);
+		modelAndView.addObject("dailyLogDTO", dailyLogDTO);
+		modelAndView.setViewName("/mynorang/dailyLog");
+		return modelAndView;
 	}
 
 	// 일일 데이터 저장
-	@PostMapping("/mynorang/dailylog")
+	@PostMapping("/mynorang/dailylog/{datetime}")
 	public String insert(HttpSession session, DailyLogDTO dailyLogDTO) throws Exception {
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
 		int memberId = memberDTO.getId();
@@ -91,7 +103,7 @@ public class MyNorangController {
 	}
 
 	// 일일 데이터 수정
-	@PutMapping("/mynorang/dailylog")
+	@PutMapping("/mynorang/dailylog/{datetime}")
 	public String update(HttpSession session, DailyLogDTO dailyLogDTO) throws Exception {
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
 		int memberId = memberDTO.getId();
@@ -101,7 +113,7 @@ public class MyNorangController {
 	}
 
 	// 일일 데이터 삭제
-	@DeleteMapping("/mynorang/dailylog")
+	@DeleteMapping("/mynorang/dailylog/{datetime}")
 	public String delete(HttpSession session, DailyLogDTO dailyLogDTO) throws Exception {
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
 		int memberId = memberDTO.getId();
@@ -119,7 +131,7 @@ public class MyNorangController {
 	// 에러 처리
 	@ExceptionHandler({ Exception.class })
 	public String error() throws Exception {
-		return "common/error";
+		return "/common/error";
 	}
 
 }

@@ -9,17 +9,19 @@
 	<tr>
 		<td>
 			<table align="center" width="710" cellspacing="0" cellpadding="0"
-				   border="0" >
+				   border="1" >
 
 				<tr>
 				</tr>
 				<tr>
-					<th><a href="buy?category=floor">floor</a></th>
-					<th><a href="buy?category=wallpaper">wallpaper</a></th>
-					<th><a href="buy?category=bed">bed</a></th>
-					<th><a href="buy?category=closet">closet</a></th>
-					<th><a href="buy?category=desk">desk</a></th>
-					<th><a href="buy?category=walldeco">walldeco</a></th>
+					<th><button onclick=""><a href="buy?category=floor">바닥</a></button></th>
+					<th><button onclick=""><a href="buy?category=wallpaper">벽지</a></button></th>
+					<th><button onclick=""><a href="buy?category=bed">침대</a></button></th>
+					<th><button onclick=""><a href="buy?category=closet">옷장</a></button></th>
+					<th><button onclick=""><a href="buy?category=desk">책상</a></button></th>
+					<th><button onclick=""><a href="buy?category=chair">의자</a></button></th>
+					<th><button onclick=""><a href="buy?category=walldecoRight">벽장식오른쪽</a></button></th>
+					<th><button onclick=""><a href="buy?category=walldecoLeft">벽장식왼쪽</a></button></th>
 				</tr>
 				<tr>
 					<td height="5"></td>
@@ -40,7 +42,7 @@
 						<table style='padding:15px'>
 							<tr>
 								<td>
-									<img src="/narangnorang/images/items/${dto.id}.png" border="0" align="center" width="100px" height="100">
+									<img src="/narangnorang/images/items/items/${dto.id}.png" border="0" align="center" width="200px" height="100">
 								</td>
 							</tr>
 							<tr>
@@ -64,7 +66,7 @@
 									상품명${dto.name}</strong>
 								</td>
 							</tr>
-							<form name="buyForm">
+<%--							<form name="buyForm">--%>
 							<tr>
 								<td height="10">
 									<input type="hidden" name="itemId" value="${dto.id}">
@@ -73,12 +75,12 @@
 							</tr>
 							<tr>
 								<td class= "inline-flex" align ="center">
-									<button class="req" data-xxx="buy" data-item="${dto.id}">구매</button>&nbsp;&nbsp;
+									<button onclick="buy(${dto.id},${memberId},${dto.price})">구매</button>&nbsp;&nbsp;
 									<button class="req" data-xxx="wish" data-item="${dto.id}">위시리스트</button>
 								</td>
 							</tr>
 
-							</form>
+<%--							</form>--%>
 						</table>
 					</td>
 	<c:if test="${status.count%4==0}">

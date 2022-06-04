@@ -6,4 +6,5 @@
 <a href="/narangnorang/post?category=대나무숲">대나무숲</a>
 <a href="/narangnorang/test">테스트</a>
 <a href="/narangnorang/counsel">상담하기</a>
-<a href="/narangnorang/mynorang">나의노랑</a>
+<a href="/narangnorang/mynorang/dailylog">일일데이터</a>
+<a href="/narangnorang/mynorang/moodstate">기분상태데이터</a>
