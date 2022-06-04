@@ -18,7 +18,6 @@
 	<h1>나의노랑</h1>
 	<jsp:include page="common/top.jsp" flush="true" /><br>
 	<jsp:include page="common/navBar.jsp" flush="true" /><br>
-	<jsp:include page="common/norang.jsp" flush="true" /><br>
 	<c:choose>
 		<c:when test="${not empty dailyLogCalendar}">
 			<script type="text/javascript" src="/narangnorang/js/mynorang/dailyLogCalendar.js"></script>
