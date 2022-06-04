@@ -11,10 +11,25 @@
 	
 </head>
 <body>
+<c:choose>
+	<c:when test="${privilege eq 3}">
 	<h1>홈</h1>
 	<jsp:include page="common/top.jsp" flush="true" /><br>
 	<jsp:include page="common/navBar.jsp" flush="true" /><br>
 	<jsp:include page="miniroom/miniroomLink.jsp" flush="true" /><br>
-	
+	</c:when>
+	<c:when test="${privilege eq 0}">
+		<h1>관리자 HOME.</h1>
+		<jsp:include page="common/top.jsp" flush="true" /><br>
+		<jsp:include page="common/navBar.jsp" flush="true" /><br>
+		<img src="/narangnorang/images/Norang.png" width="500px">
+	</c:when>
+	<c:otherwise>
+		<h1>상담사 HOME.</h1>
+		<jsp:include page="common/top.jsp" flush="true" /><br>
+		<jsp:include page="common/navBar.jsp" flush="true" /><br>
+		<img src="/narangnorang/images/Norang.png" width="500px">
+	</c:otherwise>
+</c:choose>
 </body>
 </html>

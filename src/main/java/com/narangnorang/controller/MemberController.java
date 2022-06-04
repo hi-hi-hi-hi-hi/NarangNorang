@@ -51,11 +51,17 @@ public class MemberController {
 
 		int id = mDTO.getId();
 
-		MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(id);
-		myRoomDTO.setMemberId(id);
 
+		int privilege = mDTO.getPrivilege();
+		System.out.println(privilege);
 		ModelAndView mav = new ModelAndView("home");
-		mav.addObject("myRoomDTO", myRoomDTO);
+		mav.addObject("privilege",privilege);
+		if(privilege == 3){
+			MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(id);
+			myRoomDTO.setMemberId(id);
+			mav.addObject("myRoomDTO", myRoomDTO);
+		}
+
 		return mav;
 	}
 
