@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.config.PostMapper">
 
-	<select id="selectAllByCategory" parameterType="hashmap" resultType="PostDTO">
+	<!-- <select id="selectAllByCategory" parameterType="hashmap" resultType="PostDTO">
 		<![CDATA[
 			select rownum,
 					id,
@@ -21,6 +21,26 @@
 			order by id desc
 			OFFSET (#{pageDto.currentPage}-1)*#{pageDto.limit} ROWS FETCH FIRST #{pageDto.limit} ROWS ONLY
 		]]>
+	</select>
+	-->
+	
+	<select id="selectAllByCategory" parameterType="hashmap" resultType="PostDTO">
+	<![CDATA[
+		select rownum,
+				id,
+				member_id as memberId,
+				member_name as memberName,
+				title,
+				content,
+				datetime,
+				replies,
+				likes,
+				views
+		from post
+		where category=#{category} AND likes >= #{likes}
+		order by id desc
+		OFFSET (#{pageDto.currentPage}-1)*#{pageDto.limit} ROWS FETCH FIRST #{pageDto.limit} ROWS ONLY
+	]]>
 	</select>
 	
 	<select id="totalRecord" parameterType="hashmap" resultType="PageDTO">

@@ -1,6 +1,119 @@
+let postListOp = function(category, p, likes){
+	$.ajax({
+		type:'GET',
+		url:'/narangnorang/post/list',
+		datatype:'json',
+		data:{
+			category: category,
+			p: p,
+			likes: likes
+		},
+		success:function(result){
+			if (category == '대나무숲'){
+				$("#postTable").empty();
+				str = "";
+				str += `<button id="btn_allList" onclick="postListOp('` + category + `', 1)">전체글</button>
+						<button id="btn_overTen" onclick="postListOp('` + category + `', 1, 10)">추천 10개 이상</button>
+						<button id="btn_overThirty" onclick="postListOp('` + category + `', 1, 30)">추천 30개 이상</button>`;
+				str += "<table>";
+				result.postDto.forEach(function(item){
+					str += "<tr>";
+					str += "<td><b>익명</b>&nbsp;&nbsp;" + item.datetime + "<button>추천</button>" + item.likes ;
+					str += "<br>" + item.content + "<hr></td>";
+				});
+				str += "</table>";
+				$("#postTable").append(str);
+				str += "<a href='/narangnorang/post/write?category=" + category + "'>글쓰기</a>";
+				history.pushState('', '', "/narangnorang/post?category=" + category + "&p=" + result.pageDto.currentPage);
+				
+				
+				h = "";
+				
+				[totalPage, first, last, prev, next] = pagingOp(result.pageDto.totalRows, result.pageDto.limit, result.pageDto.currentPage);
+					
+				if (prev > 0){
+					h += `<button onclick="postListOp('` + category + `', ` + prev + `)"> 이전 </button>`;
+				}
+				for (var i = first; i <= last; i++){
+					if (result.pageDto.currentPage == i) {
+						h += i;
+					}else{
+						h += `<a onclick="postListOp('` + category + `', ` + i + `)">` + i + `</a>`;
+					}
+				}
+				
+				if (last < totalPage){
+					h += `<button onclick="postListOp('` + category + `', ` + next + `)"> 다음 </button>`;
+				}
+				
+				$("#paging").html(h);
+
+			}else{
+				$("#postTable").empty();
+				str = "";
+				str += `<button id="btn_allList" onclick="postListOp('` + category + `', 1)">전체글</button>
+						<button id="btn_overTen" onclick="postListOp('` + category + `', 1, 10)">추천 10개 이상</button>
+						<button id="btn_overThirty" onclick="postListOp('` + category + `', 1, 30)">추천 30개 이상</button><br>
+						<select id="searchCol">
+							<option value="title">제목</option>
+							<option value="member_id">작성자</option>
+						</select>
+						<input type="text" id="keyword">
+						<table border="1">
+							<tr>
+								<th>번호</th>
+								<th>제목</th>
+								<th>글쓴이</th>
+								<th>작성일</th>
+								<th>조회</th>
+								<th>추천</th>
+							</tr>`;
+				result.postDto.forEach(function(item){
+					str += "<tr>"
+       				str += "<td>"+item.id+"</td>";
+       				str += "<td><a href = '/narangnorang/post/" + item.id + "'>" + item.title + "</a></td>";
+       				str += "<td>"+item.memberName+"</td>";
+       				str += "<td>"+item.datetime+"</td>";
+       				str += "<td>"+item.views+"</td>";
+       				str += "<td>"+item.likes+"</td>";
+       				str += "</tr>";
+				})
+				str += "</table>";
+				str += "<a href='/narangnorang/post/write?category=" + category + "'>글쓰기</a>";
+				$("#postTable").append(str);
+				history.pushState('', '', "/narangnorang/post?category=" + category + "&p=" + result.pageDto.currentPage);
+				
+				h = "";
+				
+				[totalPage, first, last, prev, next] = pagingOp(result.pageDto.totalRows, result.pageDto.limit, result.pageDto.currentPage);
+					
+				if (prev > 0){
+					h += `<button onclick="postListOp('` + category + `', ` + prev + `)"> 이전 </button>`;
+				}
+				for (var i = first; i <= last; i++){
+					if (result.pageDto.currentPage == i) {
+						h += i;
+					}else{
+						h += `<a onclick="postListOp('` + category + `', ` + i + `)">` + i + `</a>`;
+					}
+				}
+				
+				if (last < totalPage){
+					h += `<button onclick="postListOp('` + category + `', ` + next + `)"> 다음 </button>`;
+				}
+				
+				$("#paging").html(h);
+			}
+		},
+		error:function(xhr, status, e){
+			console.log(xhr, status, e)
+		}
+	});
+}
+
 function pagingOp(totalRows, limit, currentPage){
-	var totalPage = Math.ceil(totalRows / limit); // 총 페이지 수
-	var pageCount = 5 // 한 그룹에 포함되는 페이지 수
+	let totalPage = Math.ceil(totalRows / limit); // 총 페이지 수
+	let pageCount = 5 // 한 그룹에 포함되는 페이지 수
 	
 	if (totalPage < pageCount){
 		pageCount = totalPage;
@@ -22,53 +135,20 @@ function pagingOp(totalRows, limit, currentPage){
 };
 
 
-
-var bambooLike = function(id){
-	$.ajax({
-		type:'POST',
-		url: '/narangnorang/post/like/'+id,
-		success: function(result){
-			alert(result);
-			location.reload();
-		},
-		error: function(xhr, status, e){	
-			console.log(xhr, status, e)
-			fail(error);
-		}
-	});
-}
-
 $(document).ready(function(){
+	postListOp('자유게시판');
 	
-	let h = "";
+	$("#btn_freeBoard").on('click', function(){postListOp('자유게시판')});
+	$("#btn_infoBoard").on('click', function(){postListOp('정보게시판')});
+	$("#btn_goodWordBoard").on('click', function(){postListOp('예쁜말게시판')});
+	$("#btn_bambooBoard").on('click', function(){postListOp('대나무숲')});
 	
-	let [totalPage, first, last, prev, next] = pagingOp(totalRows, limit, currentPage);
-		
-	if (prev > 0){
-		h += "<a id='prev' href='/narangnorang/post?category=" + category + "&p=" + prev + "'>" + "이전" + "</a>";
-	}
-	for (var i = first; i <= last; i++){
-		if (currentPage == i) {
-			h += i
-		}else{
-			h += "<a href='/narangnorang/post?category=" + category + "&p=" + i + "'>" + i + "</a>";
-		}
-	}
-	
-	if (last < totalPage){
-		h += "<a id='next' href='/narangnorang/post?category=" + category + "&p=" + next + "'>" + "다음" + "</a>";
-	}
-	
-	$("#page").html(h);
-	
-
 	$("#keyword").on("keyup", function(){
-		
 		var searchCol = $("#searchCol").val();
 		var keyword = $("#keyword").val();
 		
 		$.ajax({
-               type: 'GET',
+              type: 'GET',
                url: '/narangnorang/post/search',
                datatype: "json",
                data: {
@@ -91,47 +171,11 @@ $(document).ready(function(){
        					str += "</tr>";
        					$('#postTable').append(str);
                		});
-               		
-               		let searchH = "";
-    				
-    				let [sTotalPage, sFirst, sLast, sPrev, sNext] = pagingOp(result.PageDTO.totalRows, result.PageDTO.limit, result.PageDTO.currentPage);
-    				
-    				
-    				
-    				if (sPrev > 0){
-    					searchH += "<a id='searchPrevPage' href='/narangnorang/post/search?category=" + category + "&p=" + sPrev + "&searchCol=" + searchCol + "&keyword="+ keyword +"'>" + "이전" + "</a>";
-    				}
-    				for (var i = sFirst; i <= sLast; i++){
-    					if (result.PageDTO.currentPage == i) {
-    						searchH += i
-    					}else{
-    						searchH += "<a id='searchPage' href='/narangnorang/post/search?category=" + category + "&p=" + i + "&searchCol=" + searchCol + "&keyword="+ keyword + "'>" + i + "</a>";
-    					}
-    				}
-    				
-    				if (sLast < sTotalPage){
-    					searchH += "<a id='searchNextPage' href='/narangnorang/post/search?category=" + category + "&p=" + sNext + "&searchCol=" + searchCol + "&keyword="+ keyword +"'>" + "다음" + "</a>";
-    				}
-    				
-    				$("#page").html(searchH);
                	}
                },
-			error: function(xhr, status, e){
-				console.log(xhr, status, e)
-			}
-          });
+               error:function(xhr, status, e){
+            	   console.log(xhr, status, e);
+               }
+		});
 	});
-	
-	$("#allList").on("click", function(){
-		location.href = "/narangnorang/post?category=" + category;
-	});
-	
-	$("#overTen").on("click", function(){
-		location.href = "/narangnorang/post?category=" + category + "&likes=10";
-	});
-	
-	$("#overThirty").on("click", function(){
-		location.href = "/narangnorang/post?category=" + category + "&likes=30";
-	});
-	
 });

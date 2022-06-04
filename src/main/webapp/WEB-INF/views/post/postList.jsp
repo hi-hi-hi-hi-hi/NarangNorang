@@ -8,64 +8,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:choose>
-	<c:when test = "${category eq '대나무숲'}">
-		<table id="bambooList">
-			<c:forEach var="dto" items="${postList}" varStatus="status">
-				<tr>
-					<td>
-					<b>익명</b> ${dto.datetime} <button id="btn_like" onclick="bambooLike(${dto.id})">추천</button>
-					<span id="bambooLikeCount${dto.id}">${dto.likes}</span>
-					<br>
-					${dto.content}
-					<hr>
-					</td>
-				</tr>
-			</c:forEach>
-		</table>
-		<a href="/narangnorang/post/write?category=${category}">글쓰기</a>
-	</c:when>
-	<c:otherwise>
-		<button id="allList">전체글</button>
-		<button id="overTen">추천 10개 이상</button>
-		<button id="overThirty">추천 30개 이상</button><br>
-		<select id="searchCol">
-			<option value="title">제목</option>
-			<option value="member_id">작성자</option>
-		</select>
-		<input type="text" id="keyword">
-		<button id="btn_search">검색</button>
-		<table id ="postTable" border="1">
-			<thead>
-				<tr>
-					<th>번호</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>등록일</th>
-					<th>조회</th>
-					<th>추천</th>
-				</tr>
-			</thead>
-			<tbody>
-			<c:forEach var="dto" items="${postList}" varStatus="status">
-				<tr>
-					<td>${dto.id}</td>
-					<td>
-						<a href="/narangnorang/post/${dto.id}">${dto.title}</a>
-						<a id="comment">[${dto.replies}]</a>
-					</td>
-					<td>${dto.memberName}</td>
-					<td>${dto.datetime}</td>
-					<td>${dto.views}</td>
-					<td>${dto.likes}</td>
-				</tr>
-			</c:forEach>
-			</tbody>
-		</table>
-		<div id="page"></div>
-		<br>
-		<a href="/narangnorang/post/write?category=${category}">글쓰기</a>
-	</c:otherwise>
-	</c:choose>
+<ul>
+	<li><button id="btn_freeBoard">자유게시판</button></li>
+	<li><button id="btn_infoBoard">정보게시판</button></li>
+	<li><button id="btn_goodWordBoard">예쁜말게시판</button></li>
+	<li><button id="btn_bambooBoard">대나무숲</button></li>
+</ul>
+<div id="postTable"></div>
+<div id="paging"></div>
 </body>
 </html>
