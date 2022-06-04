@@ -15,7 +15,7 @@
 		SELECT *
 		FROM test_result
 		WHERE member_id = #{memberId}
-		ORDER BY id DESC
+		ORDER BY datetime DESC
 	</select>
 
 </mapper>

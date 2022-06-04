@@ -24,6 +24,9 @@
 			<script type="text/javascript" src="/narangnorang/js/mynorang/dailyLogCalendar.js"></script>
 			<jsp:include page="mynorang/dailyLogCalendar.jsp" flush="true" /><br>
 		</c:when>
+		<c:when test="${not empty challengeList}">
+			<jsp:include page="mynorang/challenge.jsp" flush="true" /><br>
+		</c:when>
 		<c:otherwise>
 			<script src="https://d3js.org/d3.v5.min.js"></script>
 			<script type="text/javascript" src="/narangnorang/js/mynorang/moodState.js"></script>

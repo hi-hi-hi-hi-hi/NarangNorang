@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +20,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.narangnorang.dto.ChallengeDTO;
 import com.narangnorang.dto.DailyLogDTO;
 import com.narangnorang.dto.MemberDTO;
 import com.narangnorang.dto.MoodStateDTO;
+import com.narangnorang.service.ChallengeService;
 import com.narangnorang.service.DailyLogService;
 import com.narangnorang.service.MoodStateService;
 
@@ -161,6 +164,19 @@ public class MyNorangController {
 		MoodStateDTO moodStateDTO = new MoodStateDTO(0, memberId, datetime, 0);
 		List<MoodStateDTO> moodStateList = moodStateService.selectList(moodStateDTO);
 		return moodStateList;
+	}
+
+	@Autowired
+	ChallengeService challengeService;
+
+	// 챌린지 조회
+	@GetMapping("/mynorang/challenge")
+	public String challenge(HttpSession session, Model model) throws Exception {
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
+		int memberId = memberDTO.getId();
+		List<ChallengeDTO> challengeList = challengeService.selectList(memberId);
+		model.addAttribute("challengeList", challengeList);
+		return "mynorang";
 	}
 
 	// 에러 처리

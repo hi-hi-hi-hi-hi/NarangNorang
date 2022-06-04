@@ -15,5 +15,6 @@ public class ChallengeDTO {
 	private int id;
 	private int memberId;
 	private String datetime;
+	private String title;
 
 }
