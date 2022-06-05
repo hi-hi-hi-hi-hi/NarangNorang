@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>커뮤니티</title>
 </head>
 <body>
 <ul>
