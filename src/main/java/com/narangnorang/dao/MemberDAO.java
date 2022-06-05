@@ -84,5 +84,10 @@ public class MemberDAO {
 	public int photoUpdate(MemberDTO dto) throws Exception {
 		return sqlSession.update("com.config.MemberMapper.photoUpdate", dto);
 	}
+	
+	// 일일 챌린지 완료 보상 포인트
+	public int pointUpdate(int id) throws Exception {
+		return sqlSession.update("com.config.MemberMapper.pointUpdate", id);
+	}
 
 }
