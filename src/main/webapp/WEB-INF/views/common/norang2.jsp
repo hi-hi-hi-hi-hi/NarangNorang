@@ -17,15 +17,16 @@
 		</div>
 		<div id="medicine">
 			<div>약은 먹었어?</div>
-			<input type="radio" name="medicine" value="0">
+			<input type="radio" name="medicine" value="0">X
 			<input type="radio" name="medicine" value="1">
+			<img src="/narangnorang/images/mynorang/medicine.png" width="20">
 		</div>
 		<button type="button" onclick="submitDailyLog()">전송</button>
 	</form>
 	<form id="moodState" style="display: none;">
 		<div id="state">
 			<div>지금 기분은 몇 점이야?</div>
-			<input type="number" name="state" min="0" max="24" required="required">
+			<input type="number" name="state" min="0" max="100" required="required">
 		</div>
 		<button type="button" onclick="submitMoodState()">전송</button>
 	</form>
