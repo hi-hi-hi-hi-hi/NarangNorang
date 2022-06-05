@@ -19,7 +19,7 @@ let postListOp = function(category, p, likes){
 				str += "<table>";
 				result.postDto.forEach(function(item){
 					str += "<tr>";
-					str += "<td><b>익명</b>&nbsp;&nbsp;" + item.datetime + "<button>추천</button>" + item.likes ;
+					str += "<td><b>익명</b>&nbsp;&nbsp;" + item.datetime + "<button onclick='bambooLike(" + item.id + ")'>추천</button><span id='bbLikeCount"+item.id+"'>" + item.likes + "</span>";
 					str += "<br>" + item.content + "<hr></td>";
 				});
 				str += "</table>";
@@ -174,6 +174,18 @@ var postSearch = function(category, p){
 	}); // end ajax
 }
 
+var bambooLike = function(id){
+	$.ajax({
+		type:'POST',
+		url: '/narangnorang/post/like/'+id,
+		success: function(result){
+			alert(result);
+		},
+		error: function(xhr, status, e){	
+			console.log(xhr, status, e)
+		}
+	});
+}
 
 function pagingOp(totalRows, limit, currentPage){
 	let totalPage = Math.ceil(totalRows / limit); // 총 페이지 수

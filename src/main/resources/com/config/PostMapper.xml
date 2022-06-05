@@ -60,6 +60,7 @@
 					likes
 			from reply
 			where post_id = #{postId}
+			order by id asc
 		]]>
 	</select>
 	

@@ -49,7 +49,7 @@ public class PostController {
 		// 페이징
 		PageDTO<PostDTO> pageDto = new PageDTO<PostDTO>();
 		pageDto.setCurrentPage(p);
-		pageDto.setLimit(5);
+		pageDto.setLimit(10);
 		pageDto.setTotalRows(postService.totalRecord(map).getTotalRows());
 		map.put("pageDto", pageDto);
 		
@@ -73,7 +73,7 @@ public class PostController {
 		
 		PageDTO<PostDTO> pageDto = new PageDTO<PostDTO>();
 		pageDto.setCurrentPage(p);
-		pageDto.setLimit(5);
+		pageDto.setLimit(10);
 		pageDto.setTotalRows(postService.searchRecord(map).getTotalRows());
 		map.put("pageDto", pageDto);
 		
