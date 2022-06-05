@@ -17,18 +17,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.narangnorang.dto.ChallengeDTO;
 import com.narangnorang.dto.MemberDTO;
-import com.narangnorang.service.DailyLogService;
 import com.narangnorang.service.MemberService;
-import com.narangnorang.service.MoodStateService;
 import com.narangnorang.service.NorangService;
 
 @Controller
 public class NorangController {
 
-	@Autowired
-	DailyLogService dailyLogService;
-	@Autowired
-	MoodStateService moodStateService;
 	@Autowired
 	NorangService norangService;
 	@Autowired

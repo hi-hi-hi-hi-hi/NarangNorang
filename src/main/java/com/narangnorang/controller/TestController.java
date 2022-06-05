@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.narangnorang.dto.MemberDTO;
 import com.narangnorang.dto.TestResultDTO;
-import com.narangnorang.service.TestResultService;
+import com.narangnorang.service.TestService;
 
 @Controller
 public class TestController {
 
 	@Autowired
-	TestResultService testResultService;
+	TestService testService;
 
 	// @GetMapping({ "테스트 목록 보기", "테스트 보기", "테스트 결과 보기" })
 	@GetMapping({ "/test", "/test/{type}", "/test/{type}/{result}" })
@@ -38,7 +38,7 @@ public class TestController {
 		MemberDTO login = (MemberDTO) session.getAttribute("login");
 		int memberId = login.getId();
 		TestResultDTO testResultDTO = new TestResultDTO(0, memberId, null, type, result);
-		testResultService.insert(testResultDTO);
+		testService.insert(testResultDTO);
 		return "redirect:/test/" + type + "/" + result;
 	}
 
@@ -47,7 +47,7 @@ public class TestController {
 	public String selectList(HttpSession session, Model model) throws Exception {
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
 		int memberId = memberDTO.getId();
-		List<TestResultDTO> testResultList = testResultService.selectList(memberId);
+		List<TestResultDTO> testResultList = testService.selectList(memberId);
 		model.addAttribute("testResultList", testResultList);
 		return "test";
 	}
