@@ -1,6 +1,5 @@
 package com.narangnorang.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -108,6 +107,12 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int photoUpdate(MemberDTO dto) throws Exception {
 		return memberDAO.photoUpdate(dto);
+	}
+
+	// 일일 챌린지 완료 보상 포인트
+	@Override
+	public int pointUpdate(int id) throws Exception {
+		return memberDAO.pointUpdate(id);
 	}
 	
 }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.config.Norang2Mapper">
+
+	<!-- 일일 데이터 조회(하루) -->
+	<select id="selectDailyLog" parameterType="DailyLogDTO" resultType="DailyLogDTO">
+		SELECT *
+		FROM daily_log
+		WHERE member_id = #{memberId} and TO_CHAR(datetime, 'yyyy-MM-dd') = #{datetime}
+	</select>
+
+	<!-- 일일 데이터 저장 -->
+	<insert id="insertDailyLog" parameterType="DailyLogDTO">
+		INSERT INTO daily_log (id, member_id, datetime, sleep, medicine)
+		VALUES (seq_daily_log.NEXTVAL, #{memberId}, TO_DATE(#{datetime}, 'yyyy-MM-dd'), #{sleep}, #{medicine})
+	</insert>
+
+	<!-- 기분 상태 저장 -->
+	<insert id="insertMoodState" parameterType="MoodStateDTO">
+		INSERT INTO mood_state (id, member_id, datetime, state)
+		VALUES (seq_mood_state.NEXTVAL, #{memberId}, CURRENT_DATE, #{state})
+	</insert>
+
+</mapper>

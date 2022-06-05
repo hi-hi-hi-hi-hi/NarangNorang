@@ -17,9 +17,7 @@
 ${retrieve.category}<br>
 <input type="text" value="${retrieve.title}"><br>
 ${retrieve.memberName} 조회${retrieve.views} 추천${retrieve.likes} ${retrieve.datetime}
-<c:if test="${sessionScope.login.id != retrieve.memberId}">
-	<button id="btn_like">추천</button>
-</c:if>
+<button id="btn_like">추천</button>
 <br>
 <textarea>${retrieve.content}</textarea><br>
 <hr>

@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.narangnorang.dto.TestResultDTO;
 
-public interface TestResultService {
+public interface TestService {
 
 	// 테스트 결과 저장
 	public int insert(TestResultDTO testResultDTO) throws Exception;

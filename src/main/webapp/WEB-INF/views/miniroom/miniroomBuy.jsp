@@ -76,7 +76,7 @@
 							<tr>
 								<td class= "inline-flex" align ="center">
 									<button onclick="buy(${dto.id},${memberId},${dto.price})">구매</button>&nbsp;&nbsp;
-									<button class="req" data-xxx="wish" data-item="${dto.id}">위시리스트</button>
+									<button onclick="wish(${dto.id},${memberId})">위시리스트</button>
 								</td>
 							</tr>
 

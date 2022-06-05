@@ -30,31 +30,36 @@ public class PostController {
 	@Autowired
 	PostService postService;
 	
-	// 게시판 목록 보기
 	@GetMapping("/post")
-	public ModelAndView postList(String category,
+	public String post() throws Exception{
+		return "postList";
+	}
+	
+	// 게시판 목록 보기
+	@ResponseBody
+	@GetMapping("/post/list")
+	public HashMap<String, Object> postList(@RequestParam(defaultValue="자유게시판") String category,
 								@RequestParam(defaultValue="1") int p,
 								@RequestParam(defaultValue="0") int likes) throws Exception{
-		ModelAndView mav = new ModelAndView("postList");
 		
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("category", category);
 		map.put("likes", likes);
 		
-		//페이징
+		// 페이징
 		PageDTO<PostDTO> pageDto = new PageDTO<PostDTO>();
 		pageDto.setCurrentPage(p);
-		pageDto.setLimit(5);
+		pageDto.setLimit(10);
 		pageDto.setTotalRows(postService.totalRecord(map).getTotalRows());
-
 		map.put("pageDto", pageDto);
-		List<PostDTO> list = postService.selectAllByCategory(map);
-
-		mav.addObject("pageDto", pageDto);
-		mav.addObject("postList", list);
-		mav.addObject("category", category);
-		return mav;
+		
+		HashMap<String, Object> result = new HashMap<>();
+		result.put("postDto", postService.selectAllByCategory(map));
+		result.put("pageDto", pageDto);
+		
+		return result;
 	}
+
 	
 	// 글 검색
 	@ResponseBody
@@ -68,7 +73,7 @@ public class PostController {
 		
 		PageDTO<PostDTO> pageDto = new PageDTO<PostDTO>();
 		pageDto.setCurrentPage(p);
-		pageDto.setLimit(5);
+		pageDto.setLimit(10);
 		pageDto.setTotalRows(postService.searchRecord(map).getTotalRows());
 		map.put("pageDto", pageDto);
 		

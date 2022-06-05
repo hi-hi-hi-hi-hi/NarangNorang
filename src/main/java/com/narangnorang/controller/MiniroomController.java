@@ -136,8 +136,6 @@ public class MiniroomController {
 	@PostMapping("/home/buy/{itemId}")
 	public String wishupdate(@PathVariable("itemId") int itemId, int memberId) throws Exception{
 
-
-
 		String mesg;
 		int result=0;
 		HashMap<String, Object> map = new HashMap<>();

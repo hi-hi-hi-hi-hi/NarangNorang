@@ -2,11 +2,11 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.config.DailyLogMapper">
+<mapper namespace="com.config.MyNorangMapper">
 
 
 	<!-- 일일 데이터 조회(한달) -->
-	<select id="selectList" parameterType="DailyLogDTO" resultType="DailyLogDTO">
+	<select id="selectDailyLogList" parameterType="DailyLogDTO" resultType="DailyLogDTO">
 		SELECT *
 		FROM daily_log
 		WHERE member_id = #{memberId} and
@@ -16,28 +16,46 @@
 	</select>
 
 	<!-- 일일 데이터 조회(하루) -->
-	<select id="selectOne" parameterType="DailyLogDTO" resultType="DailyLogDTO">
+	<select id="selectDailyLog" parameterType="DailyLogDTO" resultType="DailyLogDTO">
 		SELECT *
 		FROM daily_log
 		WHERE member_id = #{memberId} and TO_CHAR(datetime, 'yyyy-MM-dd') = #{datetime}
 	</select>
 
 	<!-- 일일 데이터 저장 -->
-	<insert id="insert" parameterType="DailyLogDTO">
+	<insert id="insertDailyLog" parameterType="DailyLogDTO">
 		INSERT INTO daily_log (id, member_id, datetime, sleep, medicine)
 		VALUES (seq_daily_log.NEXTVAL, #{memberId}, TO_DATE(#{datetime}, 'yyyy-MM-dd'), #{sleep}, #{medicine})
 	</insert>
 
 	<!-- 일일 데이터 수정 -->
-	<update id="update" parameterType="DailyLogDTO">
+	<update id="updateDailyLog" parameterType="DailyLogDTO">
 		UPDATE daily_log
 		SET sleep = #{sleep}, medicine = #{medicine}
 		WHERE member_id = #{memberId} AND datetime = TO_DATE(#{datetime}, 'yyyy-MM-dd')
 	</update>
 
 	<!-- 일일 데이터 삭제 -->
-	<delete id="delete" parameterType="DailyLogDTO">
+	<delete id="deleteDailyLog" parameterType="DailyLogDTO">
 		DELETE FROM daily_log WHERE member_id = #{memberId} AND datetime = TO_DATE(#{datetime}, 'yyyy-MM-dd')
 	</delete>
+
+	<!-- 기분 상태 조회(주간) -->
+	<select id="selectMoodStateList" parameterType="MoodStateDTO" resultType="MoodStateDTO">
+		SELECT *
+		FROM mood_state
+		WHERE member_id = #{memberId} and datetime >= TO_DATE(#{datetime}, 'yyyy-MM-dd') - 7
+		ORDER
+		BY datetime ASC
+	</select>
+
+	<!-- 챌린지 조회(전체) -->
+	<select id="selectChallengeList" parameterType="int" resultType="ChallengeDTO">
+		SELECT *
+		FROM challenge
+		WHERE member_id = #{memberId}
+		ORDER
+		BY datetime ASC
+	</select>
 
 </mapper>

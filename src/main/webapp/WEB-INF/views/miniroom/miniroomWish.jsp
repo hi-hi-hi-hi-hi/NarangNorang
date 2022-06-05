@@ -2,7 +2,7 @@
 		 pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<div id="WISH">
 <table id="wishList" width="100%" cellspacing="0" cellpadding="0">
 	<tr>
 		<td>
@@ -27,6 +27,7 @@
 <c:forEach var="dto" items="${wishItemList}" varStatus="status">
 
 					<td>
+
 						<table style='padding:15px'>
 							<tr>
 								<td>
@@ -54,22 +55,23 @@
 									상품명${dto.name}</strong>
 								</td>
 							</tr>
-							<form name="buyForm">
+<%--							<form name="buyForm">--%>
 							<tr>
 								<td height="10">
-									<input type="hidden" name="itemId" value="${dto.id}">
-									<input type="hidden" name="category" value="${dto.category}">
-									<input type="hidden" name="price" value="${dto.price}">
+<%--									<input type="hidden" name="itemId" value="${dto.id}">--%>
+<%--									<input type="hidden" name="category" value="${dto.category}">--%>
+<%--									<input type="hidden" name="price" value="${dto.price}">--%>
 							</tr>
 							<tr>
 								<td class= "inline-flex" align ="center">
-									<button class="req" data-xxx="buy" data-item="${dto.id}">구매</button>&nbsp;&nbsp;
-									<button class="req" data-xxx="wish" data-item="${dto.id}">위시리스트</button>
+									<button onclick="buy(${dto.id},${memberId},${dto.price})">구매</button>&nbsp;&nbsp;
+									<button onclick="wish(${dto.id},${memberId})">위시리스트</button>
 								</td>
 							</tr>
 
-							</form>
+<%--							</form>--%>
 						</table>
+
 					</td>
 	<c:if test="${status.count%4==0}">
 				<tr>
@@ -88,3 +90,4 @@
 		<td height="10">
 	</tr>
 </table>
+</div>
