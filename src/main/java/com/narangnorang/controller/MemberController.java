@@ -37,8 +37,6 @@ public class MemberController {
 	@Autowired
 	MiniroomService miniroomService;
 	@Autowired
-	MessageService messageService;
-	@Autowired
 	JavaMailSender javaMailSender;
 
 	// 메인 (로그인 X)
@@ -59,7 +57,6 @@ public class MemberController {
 		System.out.println(privilege);
 		ModelAndView mav = new ModelAndView("home");
 		mav.addObject("privilege",privilege);
-		mav.addObject("unreadCounts", messageService.countUnread(id));
 		if(privilege == 3){
 			MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(id);
 			myRoomDTO.setMemberId(id);
