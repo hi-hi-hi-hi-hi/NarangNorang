@@ -20,8 +20,10 @@ public class MemberServiceImpl implements MemberService {
 	MiniroomDAO miniroomDAO;
 
 	// 로그인
+	@Transactional
 	@Override
 	public MemberDTO selectMember(Map<String, String> map) throws Exception {
+		memberDAO.updateDatetime(map);
 		return memberDAO.selectMember(map);
 	}
 
@@ -30,13 +32,13 @@ public class MemberServiceImpl implements MemberService {
 	public int checkId(String email) throws Exception {
 		return memberDAO.checkId(email);
 	}
-	
+
 	// 닉네임 중복 체크
 	@Override
 	public int checkNickname(String nickname) throws Exception {
 		return memberDAO.checkNickname(nickname);
 	}
-	
+
 	// 일반회원가입
 	@Transactional
 	@Override
@@ -46,7 +48,7 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.generalSignUp(dto) & miniroomDAO.insertDefaultItems(name);
 
 	}
-	
+
 	// 상담사 회원가입
 	@Transactional
 	@Override
@@ -60,7 +62,7 @@ public class MemberServiceImpl implements MemberService {
 	public MemberDTO selectByEmail(String email) throws Exception {
 		return memberDAO.selectByEmail(email);
 	}
-	
+
 	// 새 비밀번호 설정
 	@Override
 	public int newPw(MemberDTO dto) throws Exception {
@@ -114,5 +116,5 @@ public class MemberServiceImpl implements MemberService {
 	public int pointUpdate(int id) throws Exception {
 		return memberDAO.pointUpdate(id);
 	}
-	
+
 }

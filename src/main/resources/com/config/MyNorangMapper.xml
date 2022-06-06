@@ -49,7 +49,7 @@
 
 	<!-- 챌린지 조회(전체) -->
 	<select id="selectChallengeList" parameterType="int" resultType="ChallengeDTO">
-		SELECT *
+		SELECT id, member_id, TO_CHAR(datetime, 'yyyy-MM-dd') as "datetime", title
 		FROM challenge
 		WHERE member_id = #{memberId}
 		ORDER

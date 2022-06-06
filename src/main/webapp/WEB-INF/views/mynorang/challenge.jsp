@@ -6,7 +6,7 @@
 		<c:forEach var="challengeDTO" items="${challengeList}" varStatus="status">
 			<div class="col-auto m-2">
 				<div class="card" style="width: 18rem;">
-					<img src="/narangnorang/images/challenge/${challengeDTO.id}.png" class="card-img-top" height="200px;">
+					<img src="/narangnorang/resources/images/challenge/${challengeDTO.memberId}_${challengeDTO.datetime}.png" class="card-img-top" height="200px;">
 					<div class="card-body">
 						<h5 class="card-title">${challengeDTO.title}</h5>
 						<p class="card-text">${challengeDTO.datetime}</p>
