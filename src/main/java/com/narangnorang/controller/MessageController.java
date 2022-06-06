@@ -115,10 +115,12 @@ public class MessageController {
 	}
 	
 	@GetMapping("/message/unread")
-	@ModelAttribute("unreadMessage")
-	public int countUnread(HttpSession session) throws Exception {
+	@ResponseBody
+	public Map<String, Object> countUnread(HttpSession session) throws Exception {
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
 		int userId = memberDTO.getId();
-		return messageService.countUnread(userId);
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("unreadCounts", messageService.countUnread(userId));
+		return result;
 	}
 }

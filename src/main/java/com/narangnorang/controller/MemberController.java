@@ -27,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.narangnorang.dto.MemberDTO;
 import com.narangnorang.service.MemberService;
+import com.narangnorang.service.MessageService;
 
 @Controller
 public class MemberController {
@@ -35,6 +36,8 @@ public class MemberController {
 	MemberService memberService;
 	@Autowired
 	MiniroomService miniroomService;
+	@Autowired
+	MessageService messageService;
 	@Autowired
 	JavaMailSender javaMailSender;
 
@@ -56,6 +59,7 @@ public class MemberController {
 		System.out.println(privilege);
 		ModelAndView mav = new ModelAndView("home");
 		mav.addObject("privilege",privilege);
+		mav.addObject("unreadCounts", messageService.countUnread(id));
 		if(privilege == 3){
 			MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(id);
 			myRoomDTO.setMemberId(id);
