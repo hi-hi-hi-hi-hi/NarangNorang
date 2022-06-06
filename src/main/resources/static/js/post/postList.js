@@ -22,11 +22,12 @@ let postListOp = function(category, p, likes){
 					str += "<td><b>익명</b>&nbsp;&nbsp;" + item.datetime + "<button onclick='bambooLike(" + item.id + ")'>추천</button><span id='bbLikeCount"+item.id+"'>" + item.likes + "</span>";
 					str += "<br>" + item.content + "<hr></td>";
 				});
+				str += "댓글"
 				str += "</table>";
 				$("#postTable").append(str);
 				str += "<a href='/narangnorang/post/write?category=" + category + "'>글쓰기</a>";
 				
-				history.pushState('', '', "/narangnorang/post?category=" + category + "&p=" + result.pageDto.currentPage);
+				//history.pushState('', '', "/narangnorang/post?category=" + category + "&p=" + result.pageDto.currentPage);
 				
 				
 				h = "";
@@ -85,7 +86,7 @@ let postListOp = function(category, p, likes){
 				str += "</table>";
 				str += "<a href='/narangnorang/post/write?category=" + category + "'>글쓰기</a>";
 				$("#postTable").append(str);
-				history.pushState('', '', "/narangnorang/post?category=" + category + "&p=" + result.pageDto.currentPage);
+				//history.pushState('', '', "/narangnorang/post?category=" + category + "&p=" + result.pageDto.currentPage);
 				
 				h = "";
 				
@@ -175,11 +176,17 @@ var postSearch = function(category, p){
 }
 
 var bambooLike = function(id){
+	currentLike = $("#bbLikeCount"+id).text();
 	$.ajax({
 		type:'POST',
 		url: '/narangnorang/post/like/'+id,
 		success: function(result){
-			alert(result);
+			if (result == 1){
+				alert("게시글을 추천하였습니다.");
+			}else if (result == -1){
+				alert("추천을 취소하였습니다.");
+			}
+			$("#bbLikeCount"+id).text(parseInt(currentLike) + result);
 		},
 		error: function(xhr, status, e){	
 			console.log(xhr, status, e)

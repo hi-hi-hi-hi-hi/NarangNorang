@@ -185,26 +185,26 @@ public class PostController {
 	// 게시글 추천
 	@ResponseBody
 	@PostMapping("/post/like/{id}")
-	public String insertLiker(HttpSession session, @PathVariable int id)throws Exception{	
+	public int insertLiker(HttpSession session, @PathVariable int id)throws Exception{	
 		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
 		PostLikerDTO postLikerDto = new PostLikerDTO();
 		postLikerDto.setPostId(id);
 		postLikerDto.setMemberId(mDto.getId());
 		
 		int result = 0;
-		String mesg = "";
 		
 		List<PostLikerDTO> list = postService.selectPostLiker(postLikerDto);
 		if(list.size() >= 1) {
 			postLikerDto.setId(list.get(0).getId());
-			result = postService.deletePostLiker(postLikerDto);
-			mesg = "추천을 취소했습니다.";
+			postService.deletePostLiker(postLikerDto);
+			result = -1;
+			//mesg = "추천을 취소했습니다.";
 		}else {
-			result = postService.insertPostLiker(postLikerDto);
-			mesg = "게시글을 추천하였습니다.";
+			postService.insertPostLiker(postLikerDto);
+			result = 1;
 		}
 		
-		return mesg;
+		return result;
 	}
 	
 	// 에러 처리
