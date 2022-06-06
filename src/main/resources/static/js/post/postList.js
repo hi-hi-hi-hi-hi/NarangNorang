@@ -25,7 +25,7 @@ let postListOp = function(category, p, likes){
 						str += `<a onclick='updatePost(`+item.id+`)'>수정</a>
 								<a onclick='deletePost(`+item.id+`)'>삭제</a>`;
 					}
-					str += "<div class='contentArea' id='contentArea"+item.id+"'>" + item.content + "</div>";
+					str += "<div class='contentArea'>" + item.content + "</div>";
 					str += "<br><button class='btn_bambooReplyPop' id='bambooReplyPop"+item.id+"' onclick='bambooReplyPop("+item.id+");'>댓글</button>";
 					str += "<div class='replyBoxArea' id='replyBox"+item.id+"'></div></div><hr></td></tr>";
 				});
@@ -210,20 +210,24 @@ function getBambooReply(id){
 		success: function(result){
 			h = "<hr>";
 			result.forEach(function(item){
+				h += "<div class='bbReplySection' id='bbReplySection" + item.id + "'>"
 				h += "<b>익명</b>  " + item.datetime;
 				if ($("#userId").val() == item.memberId){
-					h += "  <a>수정</a> <a>삭제</a>";
+					h += ` <a onclick='bbUpdateReply(`+item.id+`,`+item.postId+`)'>수정</a>
+							<a onclick='bbDeleteReply(`+item.id+`,`+item.postId+`)'>삭제</a>`;
 				}
-				h += "<br>";
-				h += item.content;
-				h += "<br><br>";
+				h += `
+					<div class='bbReplyContent'>`+item.content+`</div>
+					</div><br>`;
+				
 			})
-			h += `<textarea id="reply"></textarea>
+			h += `<textarea class="reply"></textarea>
 				<button id="btn_insertReply" onclick="bbInsertReply(`+id+`)">등록</button>`;
 			$("#replyBox"+id).html(h);
 		}
 	});
 }
+
 // 댓글창 여닫기
 function bambooReplyPop(id){
 	if ($("#bambooReplyPop"+id).text() == '댓글'){
@@ -256,6 +260,43 @@ function bbInsertReply(id){
 			}
 		});
 	};
+}
+
+// 댓글 수정
+function bbUpdateReply(replyId, postId){
+	content = $("#bbReplySection"+replyId +" .bbReplyContent").text();
+	t = `<textarea class='bbEditReplyContent'>`+content+`</textarea>
+		<button onclick='bbUpdateReplyPro(`+replyId+`,`+postId+`)'>등록</button>`;
+	
+	$("#bbReplySection"+replyId +" .bbReplyContent").html(t);
+}
+function bbUpdateReplyPro(replyId, postId){
+	content = $("#bbReplySection"+replyId +" .bbEditReplyContent").val();
+	$.ajax({
+        type: 'PUT',
+        url: '/narangnorang/post/reply?id=' + replyId + "&content=" + content,
+        success: function(result) {
+            alert("댓글을 수정하였습니다.");
+            getBambooReply(postId);
+        },
+		error: function(xhr, status, e){
+			console.log(xhr, status, e)
+		}
+    });
+}
+
+// 댓글 삭제
+function bbDeleteReply(replyId){
+	$.ajax({
+        type: 'DELETE',
+        url: '/narangnorang/post/reply?id=' + replyId,
+        success: function(result) {
+            alert("댓글을 삭제하였습니다.");
+        },
+		error: function(xhr, status, e){
+			console.log(xhr, status, e)
+		}
+    });
 }
 
 
@@ -304,10 +345,10 @@ function deletePost(id){
 
 // 게시글 수정
 function updatePost(id){
-	content = $("#contentArea"+id).text();
+	content = $("#postSection"+id+" .contentArea").text();
 	t = "<textarea class='bbEditPost'>" + content + "</textarea>"
 	t += "<button onclick='updatePostPro("+id+")'>수정</button>"
-	$("#postSection" + id).html(t);
+	$("#postSection" + id +" .contentArea").html(t);
 }
 function updatePostPro(id){
 	content = $("#postSection"+id +" .bbEditPost").val();
@@ -328,6 +369,7 @@ function updatePostPro(id){
 		}
     });
 }
+
 
 
 $(document).ready(function(){
