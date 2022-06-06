@@ -18,7 +18,7 @@
 </head>
 
 <body>
-	<div id="chatsHistory">
+	
 		<h2>
 			<c:choose>
 				<c:when test="${chats[0].senderId == login.id}">
@@ -44,7 +44,7 @@
 			</c:if>
 			님과의 채팅
 		</h2>
-
+<div id="chatsHistory">
 		<table style="width: 80%" border="1">
 			<c:forEach items="${chats}" var="message">
 				<tr>
@@ -58,9 +58,9 @@
 						</c:if></td>
 				</tr>
 			</c:forEach>
-
-			<tr>
-				<td colspan="2" align="center"><input type="text" id="content">
+		</table>
+		</div>
+			<input type="text" id="content">
 					<c:choose>
 						<c:when
 							test="${empty chats[0].senderName || empty chats[0].recieverName}">
@@ -70,12 +70,10 @@
 							<button id="sendMessage"
 								onclick="sendMessage(${login.id}, '${login.name}', ${login.privilege})">전송</button>
 						</c:otherwise>
-					</c:choose></td>
-			</tr>
-		</table>
+					</c:choose>
 
 
 		<br>
 		<button onclick="closeChats();">닫기</button>
-	</div>
+	
 </html>

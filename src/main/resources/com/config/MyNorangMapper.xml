@@ -4,11 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.config.MyNorangMapper">
 
+
 	<!-- 일일 데이터 조회(한달) -->
 	<select id="selectDailyLogList" parameterType="DailyLogDTO" resultType="DailyLogDTO">
 		SELECT *
 		FROM daily_log
-		WHERE member_id = #{memberId} and TO_CHAR(datetime, 'yyyy-MM') = #{datetime}
+		WHERE member_id = #{memberId} and
+		TO_CHAR(datetime, 'yyyy-MM') = #{datetime}
 		ORDER
 		BY id ASC
 	</select>
@@ -25,7 +27,7 @@
 		INSERT INTO daily_log (id, member_id, datetime, sleep, medicine)
 		VALUES (seq_daily_log.NEXTVAL, #{memberId}, TO_DATE(#{datetime}, 'yyyy-MM-dd'), #{sleep}, #{medicine})
 	</insert>
-	
+
 	<!-- 일일 데이터 수정 -->
 	<update id="updateDailyLog" parameterType="DailyLogDTO">
 		UPDATE daily_log

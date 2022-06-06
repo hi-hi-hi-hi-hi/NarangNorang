@@ -27,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.narangnorang.dto.MemberDTO;
 import com.narangnorang.service.MemberService;
+import com.narangnorang.service.MessageService;
 
 @Controller
 public class MemberController {

@@ -2,6 +2,10 @@ function closeChats() {
 	window.close();
 };
 
+function getHistory(){
+	$("#chatsHistory").load(location.href+' #chatsHistory');
+	$("#chatsList", opener.document).load("/narangnorang/message #chatsList");
+};
 
 function sendMessage(userId, userName, userPrivilege) {
 	let data = {
@@ -22,9 +26,8 @@ function sendMessage(userId, userName, userPrivilege) {
 		contentType : "application/json;charset=UTF-8",
 		success : function(data) {
 			if (data.result == "ok") {
-				$("#chatsHistory").load("#chatsHistory");
-				$("#chatsList", opener.document).load("/narangnorang/message #chatsList");
-				$("#content").focus();
+				getHistory();
+				$("#content").val('');
 			};
 		},
 		error : function(xhr, status, e) {
@@ -42,3 +45,5 @@ $(document).ready(function(){
 		}
 	});
 });
+
+setInterval('getHistory()',2000);
