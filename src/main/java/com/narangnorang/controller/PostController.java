@@ -83,6 +83,14 @@ public class PostController {
 
 		return result;
 	}
+	
+	// 댓글 목록
+	@ResponseBody
+	@GetMapping("/post/reply/{id}")
+	public List<ReplyDTO> replyList(@PathVariable int id) throws Exception{
+		List<ReplyDTO> replyList = postService.selectAllReply(id);
+		return replyList;
+	}
 
 	// 자세히 보기
 	@GetMapping("/post/{id}")
@@ -114,7 +122,6 @@ public class PostController {
 		pDto.setMemberName(mDto.getName());
 
 		mav.addObject("category", pDto.getCategory());
-		System.out.println(pDto);
 		int result = postService.insert(pDto);
 		return mav;
 	}
