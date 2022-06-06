@@ -17,6 +17,24 @@ public class MiniroomController {
 	@Autowired
 	MiniroomService miniroomService;
 
+	// 홈 (로그인 O)
+	@GetMapping("/home")
+	public ModelAndView home(HttpSession session) throws Exception {
+		MemberDTO mDTO = (MemberDTO) session.getAttribute("login");
+
+		int id = mDTO.getId();
+		int privilege = mDTO.getPrivilege();
+		ModelAndView mav = new ModelAndView("home");
+		mav.addObject("privilege",privilege);
+		if(privilege == 3){
+			MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(id);
+			myRoomDTO.setMemberId(id);
+			mav.addObject("myRoomDTO", myRoomDTO);
+		}
+
+		return mav;
+	}
+
 	@GetMapping("/home/buy")
 	public ModelAndView buy(HttpSession session,
 							@RequestParam(value="category",required=false,defaultValue="bed") String category
@@ -110,7 +128,6 @@ public class MiniroomController {
 		//구매할 아이템이 myItem테이블에 없고 포인트가 price 이상이면 구매. point 없으면 포인트 부족메세지.
 		if (check == null) {
 			if (point >= price) {
-
 				//point 차감.
 				miniroomService.insertBuy(map, pointMap);
 				mesg = "구매완료, 포인트가" + price + " 만큼 차감 되었습니다.";

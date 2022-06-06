@@ -34,35 +34,12 @@ public class MemberController {
 	@Autowired
 	MemberService memberService;
 	@Autowired
-	MiniroomService miniroomService;
-	@Autowired
 	JavaMailSender javaMailSender;
 
 	// 메인 (로그인 X)
 	@GetMapping("/main")
 	public String main() throws Exception {
 		return "main";
-	}
-
-	// 홈 (로그인 O)
-	@GetMapping("/home")
-	public ModelAndView home(HttpSession session) throws Exception {
-		MemberDTO mDTO = (MemberDTO) session.getAttribute("login");
-
-		int id = mDTO.getId();
-
-
-		int privilege = mDTO.getPrivilege();
-		System.out.println(privilege);
-		ModelAndView mav = new ModelAndView("home");
-		mav.addObject("privilege",privilege);
-		if(privilege == 3){
-			MyRoomDTO myRoomDTO = miniroomService.selectMyRoom(id);
-			myRoomDTO.setMemberId(id);
-			mav.addObject("myRoomDTO", myRoomDTO);
-		}
-
-		return mav;
 	}
 
 	// 로그인 폼

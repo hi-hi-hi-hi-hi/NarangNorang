@@ -42,7 +42,7 @@
 						<table style='padding:15px'>
 							<tr>
 								<td>
-									<img src="/narangnorang/images/items/items/${dto.id}.png" border="0" align="center" width="200px" height="100">
+									<img src="/narangnorang/images/items/items/${dto.id}.png" border="0" align="center" width="100px" height="100">
 								</td>
 							</tr>
 							<tr>
