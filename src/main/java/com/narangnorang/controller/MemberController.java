@@ -53,7 +53,6 @@ public class MemberController {
 
 
 		int privilege = mDTO.getPrivilege();
-		System.out.println(privilege);
 		ModelAndView mav = new ModelAndView("home");
 		mav.addObject("privilege",privilege);
 		if(privilege == 3){

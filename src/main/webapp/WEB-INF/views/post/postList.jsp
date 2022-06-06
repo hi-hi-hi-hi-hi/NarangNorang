@@ -16,5 +16,6 @@
 </ul>
 <div id="postTable"></div>
 <div id="paging"></div>
+<input type="hidden" id="userId" value="${sessionScope.login.id}">
 </body>
 </html>
