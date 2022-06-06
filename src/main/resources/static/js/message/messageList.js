@@ -9,3 +9,7 @@ function popChats(otherId){
 			"width="+popupWidth+", height="+popupHeight+", left="+popupX+", top="+popupY);
 }
 
+function getMessageList(){
+	$("#chatsList").load(location.href+" #chatsList");
+}
+setInterval('getMessageList()',2000);
