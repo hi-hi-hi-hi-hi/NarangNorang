@@ -30,31 +30,36 @@ public class PostController {
 	@Autowired
 	PostService postService;
 	
-	// 게시판 목록 보기
 	@GetMapping("/post")
-	public ModelAndView postList(String category,
+	public String post() throws Exception{
+		return "postList";
+	}
+	
+	// 게시판 목록 보기
+	@ResponseBody
+	@GetMapping("/post/list")
+	public HashMap<String, Object> postList(@RequestParam(defaultValue="자유게시판") String category,
 								@RequestParam(defaultValue="1") int p,
 								@RequestParam(defaultValue="0") int likes) throws Exception{
-		ModelAndView mav = new ModelAndView("postList");
 		
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("category", category);
 		map.put("likes", likes);
 		
-		//페이징
+		// 페이징
 		PageDTO<PostDTO> pageDto = new PageDTO<PostDTO>();
 		pageDto.setCurrentPage(p);
-		pageDto.setLimit(5);
+		pageDto.setLimit(10);
 		pageDto.setTotalRows(postService.totalRecord(map).getTotalRows());
-
 		map.put("pageDto", pageDto);
-		List<PostDTO> list = postService.selectAllByCategory(map);
-
-		mav.addObject("pageDto", pageDto);
-		mav.addObject("postList", list);
-		mav.addObject("category", category);
-		return mav;
+		
+		HashMap<String, Object> result = new HashMap<>();
+		result.put("postDto", postService.selectAllByCategory(map));
+		result.put("pageDto", pageDto);
+		
+		return result;
 	}
+
 	
 	// 글 검색
 	@ResponseBody
@@ -68,7 +73,7 @@ public class PostController {
 		
 		PageDTO<PostDTO> pageDto = new PageDTO<PostDTO>();
 		pageDto.setCurrentPage(p);
-		pageDto.setLimit(5);
+		pageDto.setLimit(10);
 		pageDto.setTotalRows(postService.searchRecord(map).getTotalRows());
 		map.put("pageDto", pageDto);
 		
@@ -77,6 +82,14 @@ public class PostController {
 		result.put("PostDTO", postService.search(map));
 
 		return result;
+	}
+	
+	// 댓글 목록
+	@ResponseBody
+	@GetMapping("/post/reply/{id}")
+	public List<ReplyDTO> replyList(@PathVariable int id) throws Exception{
+		List<ReplyDTO> replyList = postService.selectAllReply(id);
+		return replyList;
 	}
 
 	// 자세히 보기
@@ -109,7 +122,6 @@ public class PostController {
 		pDto.setMemberName(mDto.getName());
 
 		mav.addObject("category", pDto.getCategory());
-		System.out.println(pDto);
 		int result = postService.insert(pDto);
 		return mav;
 	}
@@ -180,26 +192,26 @@ public class PostController {
 	// 게시글 추천
 	@ResponseBody
 	@PostMapping("/post/like/{id}")
-	public String insertLiker(HttpSession session, @PathVariable int id)throws Exception{	
+	public int insertLiker(HttpSession session, @PathVariable int id)throws Exception{	
 		MemberDTO mDto = (MemberDTO)session.getAttribute("login");
 		PostLikerDTO postLikerDto = new PostLikerDTO();
 		postLikerDto.setPostId(id);
 		postLikerDto.setMemberId(mDto.getId());
 		
 		int result = 0;
-		String mesg = "";
 		
 		List<PostLikerDTO> list = postService.selectPostLiker(postLikerDto);
 		if(list.size() >= 1) {
 			postLikerDto.setId(list.get(0).getId());
-			result = postService.deletePostLiker(postLikerDto);
-			mesg = "추천을 취소했습니다.";
+			postService.deletePostLiker(postLikerDto);
+			result = -1;
+			//mesg = "추천을 취소했습니다.";
 		}else {
-			result = postService.insertPostLiker(postLikerDto);
-			mesg = "게시글을 추천하였습니다.";
+			postService.insertPostLiker(postLikerDto);
+			result = 1;
 		}
 		
-		return mesg;
+		return result;
 	}
 	
 	// 에러 처리

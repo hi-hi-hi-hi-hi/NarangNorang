@@ -14,6 +14,7 @@ var deleteReply = function(replyId, postId){
 	};
 }
 
+// 댓글 수정
 var updateReply = function(replyId){
 	var content = $("#reply" + replyId).text();
 	var h = "";
@@ -21,7 +22,6 @@ var updateReply = function(replyId){
 	h += "<button id='btn_updateReplyPro' onclick='updateReplyPro(" + replyId + ")'>등록</button>"
 	$("#reply" + replyId).replaceWith(h);
 }
-
 var updateReplyPro = function(replyId){
 	var content = $("#editReply" + replyId).val();
 	$.ajax({

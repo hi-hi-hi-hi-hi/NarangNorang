@@ -1,6 +1,5 @@
 package com.narangnorang.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,8 +20,10 @@ public class MemberServiceImpl implements MemberService {
 	MiniroomDAO miniroomDAO;
 
 	// 로그인
+	@Transactional
 	@Override
 	public MemberDTO selectMember(Map<String, String> map) throws Exception {
+		memberDAO.updateDatetime(map);
 		return memberDAO.selectMember(map);
 	}
 
@@ -31,13 +32,13 @@ public class MemberServiceImpl implements MemberService {
 	public int checkId(String email) throws Exception {
 		return memberDAO.checkId(email);
 	}
-	
+
 	// 닉네임 중복 체크
 	@Override
 	public int checkNickname(String nickname) throws Exception {
 		return memberDAO.checkNickname(nickname);
 	}
-	
+
 	// 일반회원가입
 	@Transactional
 	@Override
@@ -47,7 +48,7 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.generalSignUp(dto) & miniroomDAO.insertDefaultItems(name);
 
 	}
-	
+
 	// 상담사 회원가입
 	@Transactional
 	@Override
@@ -61,7 +62,7 @@ public class MemberServiceImpl implements MemberService {
 	public MemberDTO selectByEmail(String email) throws Exception {
 		return memberDAO.selectByEmail(email);
 	}
-	
+
 	// 새 비밀번호 설정
 	@Override
 	public int newPw(MemberDTO dto) throws Exception {
@@ -109,5 +110,11 @@ public class MemberServiceImpl implements MemberService {
 	public int photoUpdate(MemberDTO dto) throws Exception {
 		return memberDAO.photoUpdate(dto);
 	}
-	
+
+	// 일일 챌린지 완료 보상 포인트
+	@Override
+	public int pointUpdate(int id) throws Exception {
+		return memberDAO.pointUpdate(id);
+	}
+
 }
