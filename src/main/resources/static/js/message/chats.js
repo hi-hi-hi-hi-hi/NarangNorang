@@ -27,6 +27,7 @@ function sendMessage(userId, userName, userPrivilege) {
 		success : function(data) {
 			if (data.result == "ok") {
 				getHistory();
+				$("#content").val('');
 			};
 		},
 		error : function(xhr, status, e) {
