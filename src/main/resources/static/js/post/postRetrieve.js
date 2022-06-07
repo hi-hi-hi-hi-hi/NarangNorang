@@ -1,6 +1,5 @@
 var deleteReply = function(replyId, postId){
-	if(confirm("댓글을 삭제하시겠습니까?") == true){
-				
+	if(confirm("댓글을 삭제하시겠습니까?") == true){	
 		$.ajax({
 			type:'DELETE',
 			url: '/narangnorang/post/reply?postId=' + postId + "&replyId=" + replyId,

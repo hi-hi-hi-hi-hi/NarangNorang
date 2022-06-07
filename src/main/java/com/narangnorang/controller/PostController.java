@@ -120,6 +120,7 @@ public class PostController {
 
 		pDto.setMemberId(mDto.getId());
 		pDto.setMemberName(mDto.getName());
+		pDto.setMemberPrivilege(mDto.getPrivilege());
 
 		mav.addObject("category", pDto.getCategory());
 		int result = postService.insert(pDto);
