@@ -13,25 +13,27 @@ function getChallenge() {
 		url : '/narangnorang/norang2/challenge',
 		method : 'GET',
 		dataType : 'json',
-		success : function(challenge) {
-			let withNorang = document.querySelector('#withNorang');
-			let fromNorang = `<div class="fromNorang" style="background-color: yellow;">오늘의 챌린지 완료!</div>`;
-			withNorang.innerHTML = fromNorang;
-			divUpload.innerHTML = "";
+		success : function(response) {
+			if (response.flag == true) {
+				let withNorang = document.querySelector('#withNorang');
+				let fromNorang = `<div class="fromNorang" style="background-color: yellow;">오늘의 챌린지 완료!</div>`;
+				withNorang.innerHTML = fromNorang;
+				divUpload.innerHTML = "";
+			} else {
+				let withNorang = document.querySelector('#withNorang');
+				let fromNorang = `<div class="fromNorang" style="background-color: yellow;">오늘의 챌린지 ${response.challenge}찍기!</div>`;
+				withNorang.innerHTML = fromNorang;
+				let divUpload = document.querySelector('#divUpload');
+				let form = `<form>
+								<input type="file" name="multipartFile">
+								<input type="text" name="_title">
+								<button type="button" onclick="postChallenge(multipartFile.files[0], _title.value)">업로드</button>
+							</form>`;
+				divUpload.innerHTML = form;
+			}
 			getDailyLog();
 		},
 		error : function() {
-			let withNorang = document.querySelector('#withNorang');
-			let fromNorang = `<div class="fromNorang" style="background-color: yellow;">오늘의 챌린지 셀카찍기!</div>`;
-			withNorang.innerHTML = fromNorang;
-			let divUpload = document.querySelector('#divUpload');
-			let form = `<form>
-							<input type="file" name="multipartFile">
-							<input type="text" name="_title">
-							<button type="button" onclick="postChallenge(multipartFile.files[0], _title.value)">업로드</button>
-						</form>`;
-			divUpload.innerHTML = form;
-			getDailyLog();
 		}
 	});
 }
@@ -41,22 +43,25 @@ function getDailyLog() {
 		url : '/narangnorang/norang2/dailylog',
 		method : 'GET',
 		dataType : 'json',
-		success : function(dailyLog) {
-			getMoodState();
+		success : function(response) {
+			if (response.flag == true) {
+				getMoodState();
+			} else {
+				let withNorang = document.querySelector('#withNorang');
+				let fromNorang = `<div class="fromNorang" style="background-color: yellow;">수면시간이랑 약먹었는지 알려줘!</div>`;
+				withNorang.innerHTML += fromNorang;
+				let divSend = document.querySelector('#divSend');
+				let form = `<form>
+								<input type="number" name="sleep" min="0" max="24" required="required">
+								<input type="radio" name="medicine" value="0">X
+								<input type="radio" name="medicine" value="1">
+								<img src="/narangnorang/images/mynorang/medicine.png" width="20">
+								<button type="button" onclick="postDailyLog(sleep.value, medicine.value)">전송</button>
+							</form>`;
+				divSend.innerHTML = form;
+			}
 		},
 		error : function() {
-			let withNorang = document.querySelector('#withNorang');
-			let fromNorang = `<div class="fromNorang" style="background-color: yellow;">수면시간이랑 약먹었는지 알려줘!</div>`;
-			withNorang.innerHTML += fromNorang;
-			let divSend = document.querySelector('#divSend');
-			let form = `<form>
-							<input type="number" name="sleep" min="0" max="24" required="required">
-							<input type="radio" name="medicine" value="0">X
-							<input type="radio" name="medicine" value="1">
-							<img src="/narangnorang/images/mynorang/medicine.png" width="20">
-							<button type="button" onclick="postDailyLog(sleep.value, medicine.value)">전송</button>
-						</form>`;
-			divSend.innerHTML = form;
 		}
 	});
 }
@@ -66,27 +71,30 @@ function getMoodState() {
 		url : '/narangnorang/norang2/moodstate',
 		method : 'GET',
 		dataType : 'json',
-		success : function(moodState) {
-			let withNorang = document.querySelector('#withNorang');
-			let fromNorang = `<div class="fromNorang" style="background-color: yellow;">나랑노랑!</div>`;
-			withNorang.innerHTML += fromNorang;
-			let divSend = document.querySelector('#divSend');
-			let form = `<form>
-							<input type="text">
-							<button type="button">전송</button>
-						</form>`;
-			divSend.innerHTML = form;
+		success : function(response) {
+			if (response.flag == true) {
+				let withNorang = document.querySelector('#withNorang');
+				let fromNorang = `<div class="fromNorang" style="background-color: yellow;">나랑노랑!</div>`;
+				withNorang.innerHTML += fromNorang;
+				let divSend = document.querySelector('#divSend');
+				let form = `<form>
+								<input type="text">
+								<button type="button">전송</button>
+							</form>`;
+				divSend.innerHTML = form;
+			} else {
+				let withNorang = document.querySelector('#withNorang');
+				let fromNorang = `<div class="fromNorang" style="background-color: yellow;">기분은 어때?</div>`;
+				withNorang.innerHTML += fromNorang;
+				let divSend = document.querySelector('#divSend');
+				let form = `<form>
+								<input type="number" name="state" min="0" max="100" required="required">
+								<button type="button" onclick="postMoodState(state.value)">전송</button>
+							</form>`;
+				divSend.innerHTML = form;
+			}
 		},
 		error : function() {
-			let withNorang = document.querySelector('#withNorang');
-			let fromNorang = `<div class="fromNorang" style="background-color: yellow;">기분은 어때?</div>`;
-			withNorang.innerHTML += fromNorang;
-			let divSend = document.querySelector('#divSend');
-			let form = `<form>
-							<input type="number" name="state" min="0" max="100" required="required">
-							<button type="button" onclick="postMoodState(state.value)">전송</button>
-						</form>`;
-			divSend.innerHTML = form;
 		}
 	});
 }
@@ -98,9 +106,9 @@ function postChallenge(multipartFile, title) {
 	$.ajax({
 		url : '/narangnorang/norang2/challenge',
 		method : 'POST',
+		enctype: 'multipart/form-data',
 		processData: false,
 	    contentType: false,
-		enctype: 'multipart/form-data',
 		data : formData,
 		dataType : 'json',
 		success : function(response) {
@@ -109,7 +117,6 @@ function postChallenge(multipartFile, title) {
 			}
 		},
 		error : function() {
-			console.log("실패");
 		}
 	});
 }
