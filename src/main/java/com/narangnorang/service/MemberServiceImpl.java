@@ -111,10 +111,4 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.photoUpdate(dto);
 	}
 
-	// 일일 챌린지 완료 보상 포인트
-	@Override
-	public int pointUpdate(int id) throws Exception {
-		return memberDAO.pointUpdate(id);
-	}
-
 }

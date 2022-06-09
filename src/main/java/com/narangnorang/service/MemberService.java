@@ -49,7 +49,5 @@ public interface MemberService {
 	// 프로필 사진 업데이트
 	public int photoUpdate(MemberDTO dto) throws Exception;
 
-	// 일일 챌린지 완료 보상 포인트
-	public int pointUpdate(int id) throws Exception;
 
 }
