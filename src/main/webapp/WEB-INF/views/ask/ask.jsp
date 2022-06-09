@@ -8,10 +8,12 @@
 <title>커뮤니티</title>
 </head>
 <body>
-<ul>
-	<li><button id="btn_FAQ">자주 묻는 질문</button></li>
-	<li><button id="btn_QNA">Q&A 게시판</button></li>
-</ul>
-<div id="askContentArea"></div>
+<div class="qnaArea" id="qna1" style="background-color:lightgray">
+	Q. 노랑이는 좋아하는 음식이 뭔가요?
+	<a id='answerContentPop'>▼</a>
+	<div id='answerContentArea'></div>
+</div>
+<br>
+추가 문의사항은 aaa@xxx.com
 </body>
 </html>
