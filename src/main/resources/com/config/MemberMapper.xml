@@ -132,13 +132,6 @@
 		WHERE id = #{id}
 	</update>
 
-	<!-- 일일 챌린지 완료 보상 포인트 -->
-	<update id="pointUpdate" parameterType="int">
-		UPDATE member
-		SET point = point + 5
-		WHERE id = #{id}
-	</update>
-
 	<!-- 접속일시 업데이트 -->
 	<update id="updateDatetime" parameterType="hashmap">
 		UPDATE member
