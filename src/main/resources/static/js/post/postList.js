@@ -1,4 +1,4 @@
-let postListOp = function(category, p, likes){
+function postListOp(category, p, likes){
 	$.ajax({
 		type:'GET',
 		url:'/narangnorang/post/list',
@@ -81,7 +81,11 @@ let postListOp = function(category, p, likes){
 				result.postDto.forEach(function(item){
 					str += "<tr>"
        				str += "<td>"+item.id+"</td>";
-       				str += "<td><a href = '/narangnorang/post/" + item.id + "'>" + item.title + "</a></td>";
+					if(category === '정보게시판' && item.memberPrivilege === 1){
+						str += "<td><div class='councelorTitle'><b><a href = '/narangnorang/post/" + item.id + "'>" + item.title + "</a></b></div></td>";
+					}else{
+						str += "<td><div class='nomalTitle'><a href = '/narangnorang/post/" + item.id + "'>" + item.title + "</a></div></td>";
+					}
        				str += "<td>"+item.memberName+"</td>";
        				str += "<td>"+item.datetime+"</td>";
        				str += "<td>"+item.views+"</td>";
@@ -221,7 +225,7 @@ function getBambooReply(id){
 					</div><br>`;
 				
 			})
-			h += `<textarea class="reply"></textarea>
+			h += `<textarea class="bbReplyWriteBox"></textarea>
 				<button id="btn_insertReply" onclick="bbInsertReply(`+id+`)">등록</button>`;
 			$("#replyBox"+id).html(h);
 		}
@@ -241,19 +245,19 @@ function bambooReplyPop(id){
 }
 
 // 댓글 등록 함수
-function bbInsertReply(id){
+function bbInsertReply(postId){
 	if(confirm("댓글을 등록하시겠습니까?") == true){
-		var content = $("#reply").val();
+		var content = $("#replyBox"+postId+" .bbReplyWriteBox").val();
 		$.ajax({
 			type:'POST',
 			url: '/narangnorang/post/reply',
 			datatype: 'json',
 			data: {
 				content: content,
-				postId: id
+				postId: postId
 			},
 			success: function(result){
-				getBambooReply(id);
+				getBambooReply(postId);
 			},
 			error: function(xhr, status, e){
 				console.log(xhr, status, e)
@@ -289,7 +293,7 @@ function bbUpdateReplyPro(replyId, postId){
 function bbDeleteReply(replyId){
 	$.ajax({
         type: 'DELETE',
-        url: '/narangnorang/post/reply?id=' + replyId,
+        url: '/narangnorang/post/reply?replyId=' + replyId,
         success: function(result) {
             alert("댓글을 삭제하였습니다.");
         },

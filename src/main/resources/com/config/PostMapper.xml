@@ -10,6 +10,7 @@
 				id,
 				member_id as memberId,
 				member_name as memberName,
+				member_privilege as memberPrivilege,
 				title,
 				content,
 				datetime,
@@ -114,8 +115,8 @@
 	
 	<insert id="insert" parameterType="PostDTO">
 		<![CDATA[
-			insert into post ( id, member_id, member_name, category, title, content )
-			values ( seq_post.nextval, #{memberId}, #{memberName}, #{category}, #{title}, #{content} )
+			insert into post ( id, member_id, member_name, member_privilege, category, title, content )
+			values ( seq_post.nextval, #{memberId}, #{memberName}, #{memberPrivilege}, #{category}, #{title}, #{content} )
 		]]>
 	</insert>
 	
